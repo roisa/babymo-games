@@ -27,14 +27,12 @@ body{
   color:var(--cream);
   position:relative;
 }
-/* ambient */
 body::before{
   content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
   background:
     radial-gradient(ellipse 60% 40% at 20% 20%,rgba(44,90,62,.2),transparent),
     radial-gradient(ellipse 50% 35% at 80% 80%,rgba(200,144,64,.07),transparent);
 }
-/* stars */
 .stars{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
 .stars i{position:absolute;font-style:normal;color:var(--gold);animation:tw var(--d,3s) var(--dl,0s) ease-in-out infinite;opacity:.06;}
 @keyframes tw{0%,100%{opacity:.03}50%{opacity:.15}}
@@ -55,12 +53,28 @@ body::before{
   padding:24px 18px 28px;
   text-align:center;
 }
+
+/* CHANGE 1 — replaced .w-mascot SVG with real logo + gentle float */
+.w-mascot-wrap{position:relative;width:130px;height:130px;margin:0 auto 14px;}
 .w-mascot{
-  width:130px;height:130px;margin:0 auto 12px;
-  animation:float 3s ease-in-out infinite;
-  filter:drop-shadow(0 6px 20px rgba(44,90,62,.35));
+  width:130px;height:130px;object-fit:contain;display:block;
+  filter:drop-shadow(0 6px 18px rgba(0,0,0,.38));
+  animation:gentleFloat 3.6s ease-in-out infinite;
 }
-@keyframes float{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-10px) rotate(3deg)}}
+@keyframes gentleFloat{
+  0%,100%{transform:translateY(0)    rotate(-1.5deg);}
+  50%     {transform:translateY(-6px) rotate(1.5deg);}
+}
+.w-mascot-shadow{
+  width:70px;height:8px;border-radius:50%;
+  background:rgba(44,90,62,.28);margin:-4px auto 0;
+  filter:blur(3px);
+  animation:shadowBreathe 3.6s ease-in-out infinite;
+}
+@keyframes shadowBreathe{
+  0%,100%{transform:scaleX(1);  opacity:.55;}
+  50%     {transform:scaleX(.8); opacity:.3;}
+}
 
 .w-game-badge{
   display:inline-flex;align-items:center;gap:6px;
@@ -132,7 +146,6 @@ body::before{
   padding:14px 16px 20px;
   justify-content:flex-start;
 }
-/* Top bar */
 .g-topbar{
   width:100%;max-width:420px;
   display:flex;align-items:center;justify-content:space-between;
@@ -202,16 +215,31 @@ body::before{
 .wc-roman{font-size:18px;font-weight:900;color:var(--cream);margin-bottom:2px;}
 .wc-mean{font-size:12px;color:var(--cream-dim);}
 
-/* Baby Mo small react character */
+/* CHANGE 2 — replaced .mo-react SVG with real logo + gentle sway */
 .mo-react{
   width:64px;height:64px;
   position:absolute;right:14px;bottom:-5px;
-  transition:transform .3s cubic-bezier(.34,1.56,.64,1);
+  object-fit:contain;
+  filter:drop-shadow(0 3px 8px rgba(0,0,0,.3));
+  animation:moSway 4s ease-in-out infinite;
+  transition:filter .25s;
 }
-.mo-react.celebrate{animation:celMo .5s cubic-bezier(.34,1.56,.64,1);}
-@keyframes celMo{0%{transform:scale(1) rotate(0)}50%{transform:scale(1.2) rotate(-15deg)}100%{transform:scale(1) rotate(0)}}
-.mo-react.wrong{animation:wrongMo .4s ease;}
-@keyframes wrongMo{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px) rotate(-5deg)}75%{transform:translateX(5px) rotate(5deg)}}
+@keyframes moSway{
+  0%,100%{transform:rotate(-3deg) scale(1);}
+  50%     {transform:rotate(3deg)  scale(1.04);}
+}
+.mo-react.celebrate{animation:moCelebrate .5s cubic-bezier(.34,1.56,.64,1);}
+@keyframes moCelebrate{
+  0%  {transform:scale(1)    rotate(0);}
+  50% {transform:scale(1.18) rotate(-12deg);}
+  100%{transform:scale(1)    rotate(0);}
+}
+.mo-react.wrong{animation:moWrong .4s ease;}
+@keyframes moWrong{
+  0%,100%{transform:rotate(-3deg);}
+  25%    {transform:translateX(-4px) rotate(-6deg);}
+  75%    {transform:translateX(4px)  rotate(-1deg);}
+}
 
 /* Hint strip */
 .g-hint{
@@ -239,7 +267,7 @@ body::before{
 }
 .slots-row{
   display:flex;
-  flex-direction:row-reverse; /* RTL: first letter on right */
+  flex-direction:row-reverse;
   justify-content:center;
   gap:8px;
   min-height:72px;
@@ -258,13 +286,11 @@ body::before{
   background:rgba(93,170,120,.1);
   transform:scale(1.06);
 }
-/* Slot with correct letter */
 .answer-slot.correct{
   border-color:var(--correct);
   background:var(--correct-bg);
   border-style:solid;
 }
-/* Slot with wrong letter */
 .answer-slot.wrong-slot{
   border-color:var(--wrong);
   background:var(--wrong-bg);
@@ -276,13 +302,11 @@ body::before{
   25%{transform:translateX(-5px)}
   75%{transform:translateX(5px)}
 }
-/* Slot number hint */
 .slot-num{
   position:absolute;bottom:4px;
   font-size:9px;font-weight:700;
   color:rgba(255,255,255,.15);
 }
-/* Slot content — the letter placed here */
 .slot-letter{
   font-family:'Scheherazade New',serif;
   font-size:32px;font-weight:700;
@@ -293,7 +317,6 @@ body::before{
 }
 .answer-slot.correct .slot-letter{color:var(--green-glow);}
 .answer-slot.wrong-slot .slot-letter{color:var(--wrong);}
-/* Tick icon for correct */
 .slot-tick{
   position:absolute;top:3px;right:5px;
   font-size:10px;color:var(--green-glow);
@@ -350,13 +373,12 @@ body::before{
   user-select:none;
   direction:rtl;
 }
-/* Shimmer on tiles */
 .letter-tile::before{
   content:'';position:absolute;inset:0;border-radius:13px;
   background:linear-gradient(135deg,rgba(200,144,64,.1),transparent 60%);
 }
 
-/* ── GHOST (drag clone) ── */
+/* ── GHOST ── */
 #dragGhost{
   position:fixed;
   pointer-events:none;
@@ -366,7 +388,6 @@ body::before{
   border-radius:14px;
   background:linear-gradient(150deg,#2A3830,#222E28);
   border:2px solid var(--gold);
-  display:none;
   align-items:center;justify-content:center;
   box-shadow:0 10px 32px rgba(0,0,0,.5),0 0 20px rgba(200,144,64,.25);
   transform:scale(1.08) rotate(3deg);
@@ -431,6 +452,19 @@ body::before{
   justify-content:flex-start;
   text-align:center;
 }
+
+/* CHANGE 3 — replaced .c-mascot SVG with real logo + gentle sway */
+.c-mascot-wrap{position:relative;width:100px;height:100px;margin:0 auto 10px;}
+.c-mascot{
+  width:100px;height:100px;object-fit:contain;display:block;
+  filter:drop-shadow(0 5px 14px rgba(0,0,0,.35));
+  animation:completeSway 2.8s ease-in-out infinite alternate;
+}
+@keyframes completeSway{
+  from{transform:rotate(-8deg) scale(1);}
+  to  {transform:rotate(8deg)  scale(1.05);}
+}
+
 .c-card{
   background:var(--card);
   border:1px solid rgba(200,144,64,.2);
@@ -444,8 +478,6 @@ body::before{
   content:'';position:absolute;top:0;left:0;right:0;height:2px;
   background:linear-gradient(90deg,transparent,var(--gold),transparent);
 }
-.c-mascot{width:100px;height:100px;margin:0 auto 10px;animation:celFinal 1s ease-in-out infinite alternate;}
-@keyframes celFinal{from{transform:rotate(-12deg) scale(1)}to{transform:rotate(12deg) scale(1.06)}}
 .c-title{font-size:26px;font-weight:900;color:var(--gold-lt);margin-bottom:4px;}
 .c-sub{font-size:13px;color:var(--cream-dim);margin-bottom:14px;}
 .c-stars{font-size:44px;margin-bottom:14px;display:block;letter-spacing:4px;}
@@ -453,13 +485,11 @@ body::before{
 .c-star.lit{opacity:1;animation:starPop .45s cubic-bezier(.34,1.56,.64,1) both;}
 @keyframes starPop{0%{transform:scale(0) rotate(-30deg)}80%{transform:scale(1.15) rotate(5deg)}100%{transform:scale(1) rotate(0)}}
 
-/* Stats row */
 .c-stats{display:flex;justify-content:center;gap:20px;margin-bottom:14px;}
 .c-stat{text-align:center;}
 .c-stat-n{font-size:28px;font-weight:900;color:var(--cream);}
 .c-stat-l{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--cream-dim);margin-top:2px;}
 
-/* Word recap */
 .c-recap{
   background:rgba(44,90,62,.12);
   border:1px solid rgba(93,170,120,.15);
@@ -488,7 +518,6 @@ body::before{
 .cr-roman{font-size:13px;font-weight:800;color:var(--cream);}
 .cr-mean{font-size:11px;color:var(--cream-dim);}
 
-/* Buttons */
 .c-btns{display:flex;gap:10px;width:100%;max-width:380px;}
 .c-btn-sec{
   flex:1;padding:14px;
@@ -549,19 +578,14 @@ body::before{
 </head>
 <body>
 
-<!-- Stars bg -->
 <div class="stars" id="starsBg"></div>
-
-<!-- Ghost drag element -->
 <div id="dragGhost"><span id="ghostChar"></span></div>
 
-<!-- Toast -->
 <div class="toast" id="toast">
   <div class="toast-e" id="toastE">⭐</div>
   <div class="toast-t" id="toastT">Betul!</div>
 </div>
 
-<!-- Word success overlay -->
 <div id="wordSuccess">
   <div class="ws-card">
     <div class="ws-emoji" id="wsEmoji">✨</div>
@@ -576,53 +600,17 @@ body::before{
 <!-- ════ WELCOME SCREEN ════ -->
 <div class="screen active" id="welcomeScreen">
 
-  <!-- Baby Mo SVG -->
-  <svg class="w-mascot" viewBox="0 0 160 168" xmlns="http://www.w3.org/2000/svg">
-    <defs>
-      <radialGradient id="wface" cx="45%" cy="40%" r="55%">
-        <stop offset="0%" stop-color="#D8A07A"/>
-        <stop offset="100%" stop-color="#C08060"/>
-      </radialGradient>
-    </defs>
-    <ellipse cx="80" cy="155" rx="40" ry="24" fill="#2C5A3E"/>
-    <ellipse cx="80" cy="138" rx="22" ry="12" fill="#3D7A52"/>
-    <ellipse cx="42" cy="150" rx="14" ry="10" fill="#C8906A" transform="rotate(-20,42,150)"/>
-    <ellipse cx="118" cy="150" rx="14" ry="10" fill="#C8906A" transform="rotate(20,118,150)"/>
-    <ellipse cx="80" cy="52" rx="50" ry="34" fill="#1E3A28"/>
-    <ellipse cx="80" cy="47" rx="46" ry="30" fill="#3D7A52"/>
-    <path d="M 38 52 Q 80 66 122 52" stroke="rgba(93,170,120,.4)" stroke-width="1.5" fill="none"/>
-    <text x="72" y="46" font-size="14" fill="#C89040" opacity=".9">✦</text>
-    <circle cx="32" cy="72" r="22" fill="#C08060"/>
-    <circle cx="32" cy="72" r="14" fill="#E0A080"/>
-    <circle cx="128" cy="72" r="22" fill="#C08060"/>
-    <circle cx="128" cy="72" r="14" fill="#E0A080"/>
-    <circle cx="80" cy="98" r="52" fill="url(#wface)"/>
-    <circle cx="62" cy="90" r="12" fill="white"/>
-    <circle cx="98" cy="90" r="12" fill="white"/>
-    <circle cx="64" cy="92" r="8" fill="#1A1A1A"/>
-    <circle cx="100" cy="92" r="8" fill="#1A1A1A"/>
-    <circle cx="66" cy="89" r="3.5" fill="white"/>
-    <circle cx="102" cy="89" r="3.5" fill="white"/>
-    <path d="M 54 82 Q 62 77 70 82" stroke="#6A3820" stroke-width="2" fill="none" stroke-linecap="round"/>
-    <path d="M 90 82 Q 98 77 106 82" stroke="#6A3820" stroke-width="2" fill="none" stroke-linecap="round"/>
-    <ellipse cx="80" cy="106" rx="9" ry="6.5" fill="#8B4A2A"/>
-    <path d="M 65 116 Q 80 130 95 116" stroke="#6A3820" stroke-width="3" fill="none" stroke-linecap="round"/>
-    <circle cx="50" cy="108" r="13" fill="#E07070" opacity=".22"/>
-    <circle cx="110" cy="108" r="13" fill="#E07070" opacity=".22"/>
-    <!-- Book held by Baby Mo -->
-    <rect x="56" y="130" width="48" height="30" rx="4" fill="#C89040" opacity=".8"/>
-    <rect x="79" y="130" width="2" height="30" fill="#8A6028" opacity=".6"/>
-    <line x1="62" y1="138" x2="77" y2="138" stroke="#8A6028" stroke-width="1" opacity=".5"/>
-    <line x1="62" y1="144" x2="77" y2="144" stroke="#8A6028" stroke-width="1" opacity=".5"/>
-    <text x="96" y="150" font-size="12" fill="#1E3A28" direction="rtl" text-anchor="middle" font-family="serif">ب</text>
-  </svg>
+  <!-- CHANGE 1 — real logo replaces SVG -->
+  <div class="w-mascot-wrap">
+    <img class="w-mascot" src="Logo_Baby_Mo_Transparant.png" alt="Baby Mo"/>
+  </div>
+  <div class="w-mascot-shadow"></div>
 
   <div class="w-game-badge">🔤 Game · BabyMo.id</div>
   <div class="w-title">Kata Islam 🌟</div>
   <div class="w-arabic-title">تَعَلَّمِ الْكَلِمَاتِ</div>
   <div class="w-sub">Seret huruf Arab — susun jadi kata! 🐻<br>Drag Arabic letters to spell the words!</div>
 
-  <!-- Word previews -->
   <div class="word-preview">
     <div class="wp-card">
       <div class="wp-emoji">❤️</div>
@@ -658,68 +646,37 @@ body::before{
 <!-- ════ GAME SCREEN ════ -->
 <div class="screen" id="gameScreen">
 
-  <!-- Top bar -->
   <div class="g-topbar">
     <button class="g-back-btn" onclick="goHome()">← Hub</button>
     <div class="g-word-count" id="gWordCount">Kata 1 / 4</div>
     <div class="g-mistakes" id="gMistakes">❤️ 3</div>
   </div>
 
-  <!-- Progress dots -->
   <div class="g-progress" id="gProgress"></div>
 
-  <!-- Word card -->
   <div class="word-card" id="wordCard">
     <span class="wc-emoji" id="wcEmoji">❤️</span>
     <div class="wc-arabic" id="wcArabic">أمي</div>
     <div class="wc-roman" id="wcRoman">Ummi</div>
     <div class="wc-mean" id="wcMean">Ibu · Mother</div>
 
-    <!-- Baby Mo mini character (reacts) -->
-    <svg class="mo-react" id="moReact" viewBox="0 0 100 110" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <radialGradient id="mrf" cx="45%" cy="40%" r="55%">
-          <stop offset="0%" stop-color="#D8A07A"/>
-          <stop offset="100%" stop-color="#C08060"/>
-        </radialGradient>
-      </defs>
-      <ellipse cx="50" cy="100" rx="28" ry="16" fill="#2C5A3E"/>
-      <ellipse cx="50" cy="90" rx="15" ry="9" fill="#3D7A52"/>
-      <ellipse cx="50" cy="33" rx="34" ry="23" fill="#1E3A28"/>
-      <ellipse cx="50" cy="30" rx="30" ry="20" fill="#3D7A52"/>
-      <text x="44" y="30" font-size="10" fill="#C89040" opacity=".9">✦</text>
-      <circle cx="20" cy="48" r="15" fill="#C08060"/>
-      <circle cx="20" cy="48" r="9" fill="#E0A080"/>
-      <circle cx="80" cy="48" r="15" fill="#C08060"/>
-      <circle cx="80" cy="48" r="9" fill="#E0A080"/>
-      <circle cx="50" cy="62" r="34" fill="url(#mrf)"/>
-      <circle cx="38" cy="57" r="8" fill="white"/>
-      <circle cx="62" cy="57" r="8" fill="white"/>
-      <circle cx="39" cy="59" r="5" fill="#1A1A1A" id="moEyeL"/>
-      <circle cx="63" cy="59" r="5" fill="#1A1A1A" id="moEyeR"/>
-      <circle cx="40" cy="57" r="2.5" fill="white"/>
-      <circle cx="64" cy="57" r="2.5" fill="white"/>
-      <ellipse cx="50" cy="70" rx="6" ry="4.5" fill="#8B4A2A"/>
-      <path d="M 41 78 Q 50 87 59 78" stroke="#6A3820" stroke-width="2.5" fill="none" stroke-linecap="round" id="moMouth"/>
-      <circle cx="33" cy="72" r="9" fill="#E07070" opacity=".22"/>
-      <circle cx="67" cy="72" r="9" fill="#E07070" opacity=".22"/>
-    </svg>
+    <!-- CHANGE 2 — real logo replaces SVG -->
+    <img class="mo-react" id="moReact"
+      src="Logo_Baby_Mo_Transparant.png"
+      alt="Baby Mo"/>
   </div>
 
-  <!-- Hint -->
   <div class="g-hint">
     <div class="hint-pill">👆 Seret · Drag</div>
     <span>huruf ke kotak yang benar</span>
     <div class="hint-pill">🟢 Hijau = Betul</div>
   </div>
 
-  <!-- Answer slots -->
   <div class="slots-wrap">
     <div class="slots-label">Susun huruf di sini ↓ Arrange letters here</div>
     <div class="slots-row" id="slotsRow"></div>
   </div>
 
-  <!-- Letter bank -->
   <div class="bank-wrap">
     <div class="bank-label">Huruf tersedia · Available letters</div>
     <div class="letter-bank" id="letterBank"></div>
@@ -731,42 +688,10 @@ body::before{
 <!-- ════ COMPLETE SCREEN ════ -->
 <div class="screen" id="completeScreen">
 
-  <!-- Celebrating Baby Mo -->
-  <svg class="c-mascot" viewBox="0 0 160 168" xmlns="http://www.w3.org/2000/svg">
-    <defs>
-      <radialGradient id="cface" cx="45%" cy="40%" r="55%">
-        <stop offset="0%" stop-color="#D8A07A"/>
-        <stop offset="100%" stop-color="#C08060"/>
-      </radialGradient>
-    </defs>
-    <ellipse cx="80" cy="155" rx="40" ry="24" fill="#2C5A3E"/>
-    <ellipse cx="80" cy="138" rx="22" ry="12" fill="#3D7A52"/>
-    <ellipse cx="42" cy="150" rx="14" ry="10" fill="#C8906A" transform="rotate(-20,42,150)"/>
-    <ellipse cx="118" cy="150" rx="14" ry="10" fill="#C8906A" transform="rotate(20,118,150)"/>
-    <ellipse cx="80" cy="52" rx="50" ry="34" fill="#1E3A28"/>
-    <ellipse cx="80" cy="47" rx="46" ry="30" fill="#3D7A52"/>
-    <text x="72" y="46" font-size="14" fill="#C89040" opacity=".9">✦</text>
-    <circle cx="32" cy="72" r="22" fill="#C08060"/>
-    <circle cx="32" cy="72" r="14" fill="#E0A080"/>
-    <circle cx="128" cy="72" r="22" fill="#C08060"/>
-    <circle cx="128" cy="72" r="14" fill="#E0A080"/>
-    <circle cx="80" cy="98" r="52" fill="url(#cface)"/>
-    <circle cx="62" cy="90" r="12" fill="white"/>
-    <circle cx="98" cy="90" r="12" fill="white"/>
-    <circle cx="64" cy="92" r="8" fill="#1A1A1A"/>
-    <circle cx="100" cy="92" r="8" fill="#1A1A1A"/>
-    <circle cx="66" cy="89" r="3.5" fill="white"/>
-    <circle cx="102" cy="89" r="3.5" fill="white"/>
-    <ellipse cx="80" cy="106" rx="9" ry="6.5" fill="#8B4A2A"/>
-    <!-- Big happy smile -->
-    <path d="M 60 113 Q 80 134 100 113" stroke="#6A3820" stroke-width="3.5" fill="none" stroke-linecap="round"/>
-    <circle cx="50" cy="108" r="13" fill="#E07070" opacity=".3"/>
-    <circle cx="110" cy="108" r="13" fill="#E07070" opacity=".3"/>
-    <text x="15" y="50" font-size="18" fill="#C89040" opacity=".9">⭐</text>
-    <text x="128" y="46" font-size="14" fill="#C89040" opacity=".8">⭐</text>
-    <text x="10" y="105" font-size="12" fill="#C89040" opacity=".6">✦</text>
-    <text x="132" y="108" font-size="12" fill="#C89040" opacity=".6">✦</text>
-  </svg>
+  <!-- CHANGE 3 — real logo replaces SVG -->
+  <div class="c-mascot-wrap">
+    <img class="c-mascot" src="Logo_Baby_Mo_Transparant.png" alt="Baby Mo"/>
+  </div>
 
   <div class="c-card">
     <div class="c-title" id="cTitle">Masya Allah! 🌟</div>
@@ -784,7 +709,6 @@ body::before{
       <div class="c-stat"><div class="c-stat-n" id="cStar">⭐⭐⭐</div><div class="c-stat-l">Bintang</div></div>
     </div>
 
-    <!-- Word recap -->
     <div class="c-recap">
       <div class="cr-title">✅ Kata yang kamu pelajari hari ini</div>
       <div id="cRecap"></div>
@@ -798,7 +722,6 @@ body::before{
   <button class="c-share-btn" onclick="shareResult()">📤 Bagikan Hasilmu!</button>
 
 </div>
-<!-- end completeScreen -->
 
 
 <script>
@@ -842,17 +765,14 @@ let wordMistakes  = 0;
 let lives     = 3;
 let winMsgIdx = 0;
 
-// Drag state
-let dragTile  = null;   // DOM element being dragged
-let dragFrom  = null;   // 'bank' | 'slot-N'
-let dragLetter= '';     // letter character
-let dragTileId= -1;     // unique tile id
-let ghost     = null;   // ghost element
+let dragTile  = null;
+let dragFrom  = null;
+let dragLetter= '';
+let dragTileId= -1;
+let ghost     = null;
 let ghostOffX = 0, ghostOffY = 0;
 
-// Slots: array of {letter:null|char, tileId:null|int}
 let slots = [];
-// Tiles in bank: array of {id, letter, el, placed:bool}
 let bankTiles = [];
 let nextTileId = 0;
 
@@ -860,7 +780,6 @@ let nextTileId = 0;
 // INIT
 // ═══════════════════════════════════════════
 function init(){
-  // Starfield
   const bg = document.getElementById('starsBg');
   const chars = ['✦','·','✧','*'];
   for(let i = 0; i < 30; i++){
@@ -927,12 +846,10 @@ function loadWord(idx){
   bankTiles    = [];
   slots        = [];
 
-  // Update UI header
   document.getElementById('gWordCount').textContent = `Kata ${idx+1} / ${WORDS.length}`;
   document.getElementById('gMistakes').textContent  = `❤️ ${lives}`;
   updateProgressDots();
 
-  // Word card
   document.getElementById('wcEmoji').textContent  = w.emoji;
   document.getElementById('wcArabic').textContent  = w.arabic;
   document.getElementById('wcRoman').textContent   = w.romanized;
@@ -942,10 +859,8 @@ function loadWord(idx){
     document.getElementById('wcArabic').style.animation = 'wordIn .4s cubic-bezier(.34,1.56,.64,1)';
   });
 
-  // Reset Baby Mo face
   setMoExpression('normal');
 
-  // Build slots (RTL — first letter goes to rightmost slot)
   const slotsRow = document.getElementById('slotsRow');
   slotsRow.innerHTML = '';
   for(let i = 0; i < w.letters.length; i++){
@@ -954,14 +869,12 @@ function loadWord(idx){
     slot.className = 'answer-slot';
     slot.dataset.idx = i;
     slot.innerHTML = `<span class="slot-letter" id="slotLetter${i}"></span><span class="slot-tick">✓</span><span class="slot-num">${i+1}</span>`;
-    // Drop events
     slot.addEventListener('dragover',  e => { e.preventDefault(); slot.classList.add('drag-over'); });
     slot.addEventListener('dragleave', () => slot.classList.remove('drag-over'));
     slot.addEventListener('drop',      e => { e.preventDefault(); slot.classList.remove('drag-over'); handleDropOnSlot(slot, i); });
     slotsRow.appendChild(slot);
   }
 
-  // Build letter bank — shuffled
   const bank = document.getElementById('letterBank');
   bank.innerHTML = '';
   bank.addEventListener('dragover',  e => { e.preventDefault(); bank.classList.add('drag-over'); });
@@ -988,7 +901,6 @@ function createTile(letter, id){
   tile.draggable = true;
   tile.innerHTML = `<span class="tile-char">${letter}</span>`;
 
-  // ── Desktop drag events ──
   tile.addEventListener('dragstart', e => {
     e.dataTransfer.effectAllowed = 'move';
     dragTile   = tile;
@@ -1004,7 +916,6 @@ function createTile(letter, id){
     dragTile = null;
   });
 
-  // ── Mobile touch events ──
   tile.addEventListener('touchstart', onTileTouch, { passive: false });
 
   return tile;
@@ -1028,7 +939,6 @@ function onTileTouch(e){
   dragLetter = tile.dataset.letter;
   dragTileId = parseInt(tile.dataset.tileId);
 
-  // Determine where tile came from
   if(tile.parentElement && tile.parentElement.dataset.idx !== undefined){
     dragFrom = 'slot-' + tile.parentElement.dataset.idx;
   } else {
@@ -1038,7 +948,6 @@ function onTileTouch(e){
   ghostOffX = x - rect.left;
   ghostOffY = y - rect.top;
 
-  // Show ghost
   ghost.querySelector('#ghostChar').textContent = dragLetter;
   ghost.classList.add('active');
   ghost.style.left = (x - ghostOffX) + 'px';
@@ -1058,7 +967,6 @@ function onTouchMove(e){
   ghost.style.left = (x - ghostOffX) + 'px';
   ghost.style.top  = (y - ghostOffY) + 'px';
 
-  // Highlight slots / bank on hover
   clearDropHighlights();
   ghost.style.display = 'none';
   const el = document.elementFromPoint(x, y);
@@ -1078,17 +986,14 @@ function onTouchEnd(e){
 
   const { x, y } = getTouch(e);
 
-  // Hide ghost
   ghost.style.display = 'none';
   ghost.classList.remove('active');
   clearDropHighlights();
 
   if(!dragTile){ return; }
 
-  // Find drop target
   ghost.style.display = 'none';
   const el = document.elementFromPoint(x, y);
-  ghost.style.display = 'none';
 
   const slotEl = el ? el.closest('.answer-slot') : null;
   const bankEl = el ? el.closest('.letter-bank')  : null;
@@ -1098,7 +1003,6 @@ function onTouchEnd(e){
   } else if(bankEl){
     handleDropOnBank();
   } else {
-    // Return tile
     dragTile.classList.remove('picked');
   }
 
@@ -1117,13 +1021,10 @@ function handleDropOnSlot(slotEl, slotIdx){
   if(!dragTile) return;
 
   const existingTileId = slots[slotIdx].tileId;
-
-  // If slot already has a tile, return it to bank first
   if(existingTileId !== null){
     returnTileToBank(existingTileId);
   }
 
-  // If dragging from another slot, clear that slot
   if(dragFrom && dragFrom.startsWith('slot-')){
     const fromIdx = parseInt(dragFrom.split('-')[1]);
     slots[fromIdx].letter = null;
@@ -1135,22 +1036,16 @@ function handleDropOnSlot(slotEl, slotIdx){
     }
   }
 
-  // Place tile in slot
   slots[slotIdx].letter = dragLetter;
   slots[slotIdx].tileId = dragTileId;
 
-  // Mark tile as placed (hide from bank)
   const tileData = bankTiles.find(t => t.id === dragTileId);
   if(tileData){
     tileData.placed = true;
-    tileData.el.classList.add('picked');
-    // Move tile DOM into slot
     tileData.el.classList.remove('picked');
     slotEl.appendChild(dragTile);
-    dragTile.style.position = '';
   }
 
-  // Check correctness
   const w = WORDS[wordIdx];
   const isCorrect = dragLetter === w.letters[slotIdx];
 
@@ -1167,7 +1062,6 @@ function handleDropOnSlot(slotEl, slotIdx){
   dragTile.classList.remove('picked');
   dragTile = null;
 
-  // Check if ALL slots filled and ALL correct
   checkAllSlots();
 }
 
@@ -1177,7 +1071,6 @@ function handleDropOnSlot(slotEl, slotIdx){
 function handleDropOnBank(){
   if(!dragTile) return;
 
-  // If coming from a slot, clear that slot
   if(dragFrom && dragFrom.startsWith('slot-')){
     const fromIdx = parseInt(dragFrom.split('-')[1]);
     slots[fromIdx].letter = null;
@@ -1189,20 +1082,18 @@ function handleDropOnBank(){
     }
   }
 
-  // Move tile back to bank
   const bank = document.getElementById('letterBank');
   bank.appendChild(dragTile);
   dragTile.classList.remove('picked');
   dragTile = null;
 
-  // Update bankTiles
   bankTiles.forEach(t => {
     if(t.id === dragTileId){ t.placed = false; }
   });
 }
 
 // ═══════════════════════════════════════════
-// RETURN TILE TO BANK (when slot gets replaced)
+// RETURN TILE TO BANK
 // ═══════════════════════════════════════════
 function returnTileToBank(tileId){
   const tileData = bankTiles.find(t => t.id === tileId);
@@ -1224,11 +1115,9 @@ function checkAllSlots(){
   const allCorrect = slots.every((s, i) => s.letter === w.letters[i]);
 
   if(allCorrect){
-    // Small delay then celebrate word
     setMoExpression('happy');
     setTimeout(celebrateWord, 500);
   } else {
-    // Some wrong — shake wrong slots, but allow fixing
     setMoExpression('worried');
     showToast('🔄', 'Ada yang salah! Coba lagi!');
   }
@@ -1273,7 +1162,6 @@ function nextWord(){
 // COMPLETE
 // ═══════════════════════════════════════════
 function showComplete(){
-  // Star rating based on total mistakes
   let stars = 3;
   if(totalMistakes > 2)  stars = 2;
   if(totalMistakes > 5)  stars = 1;
@@ -1287,7 +1175,6 @@ function showComplete(){
   document.getElementById('cMist').textContent  = totalMistakes;
   document.getElementById('cStar').textContent  = '⭐'.repeat(stars);
 
-  // Build recap
   const recap = document.getElementById('cRecap');
   recap.innerHTML = '';
   WORDS.forEach(w => {
@@ -1303,7 +1190,6 @@ function showComplete(){
   });
 
   showScreen('completeScreen');
-  // Animate stars
   ['cs1','cs2','cs3'].forEach(id => document.getElementById(id).classList.remove('lit'));
   for(let i = 1; i <= stars; i++){
     setTimeout(() => document.getElementById('cs'+i).classList.add('lit'), 300 + (i-1)*350);
@@ -1312,30 +1198,22 @@ function showComplete(){
 }
 
 // ═══════════════════════════════════════════
-// BABY MO EXPRESSION
+// CHANGE 5 — setMoExpression: CSS classes only, no SVG path manipulation
 // ═══════════════════════════════════════════
 function setMoExpression(expr){
-  const mouth = document.getElementById('moMouth');
-  const eyeL  = document.getElementById('moEyeL');
-  const eyeR  = document.getElementById('moEyeR');
-  const mo    = document.getElementById('moReact');
-  if(!mouth) return;
-
+  const mo = document.getElementById('moReact');
+  if(!mo) return;
   mo.classList.remove('celebrate','wrong');
-  if(expr === 'happy' || expr === 'celebrate'){
-    mouth.setAttribute('d','M 41 76 Q 50 87 59 76');
-    eyeL.setAttribute('r','4');
-    eyeR.setAttribute('r','4');
-    if(expr === 'celebrate') mo.classList.add('celebrate');
+  if(expr === 'celebrate' || expr === 'happy'){
+    if(expr === 'celebrate'){
+      mo.classList.add('celebrate');
+      setTimeout(() => mo.classList.remove('celebrate'), 500);
+    }
   } else if(expr === 'worried'){
-    mouth.setAttribute('d','M 43 82 Q 50 78 57 82');
     mo.classList.add('wrong');
     setTimeout(() => setMoExpression('normal'), 1200);
-  } else {
-    mouth.setAttribute('d','M 41 78 Q 50 87 59 78');
-    eyeL.setAttribute('r','5');
-    eyeR.setAttribute('r','5');
   }
+  // 'normal' and 'happy' — default moSway animation runs via CSS
 }
 
 // ═══════════════════════════════════════════
