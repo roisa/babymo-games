@@ -19,20 +19,67 @@
 html{scroll-behavior:smooth;}
 body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--cream);min-height:100vh;overflow-x:hidden;}
 body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
-  background:radial-gradient(ellipse 70% 50% at 10% 10%,rgba(44,90,62,.2),transparent),
-             radial-gradient(ellipse 55% 35% at 90% 90%,rgba(200,144,64,.06),transparent);}
+  background:radial-gradient(ellipse 70% 50% at 10% 10%,rgba(44,90,62,.22),transparent),
+             radial-gradient(ellipse 55% 35% at 90% 90%,rgba(200,144,64,.07),transparent);}
+
+/* Stars */
 .stars{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
 .stars i{position:absolute;font-style:normal;color:var(--gold);animation:tw var(--d,3s) var(--dl,0s) ease-in-out infinite;opacity:.06;}
-@keyframes tw{0%,100%{opacity:.03;transform:scale(1)}50%{opacity:.18;transform:scale(1.5)}}
+@keyframes tw{0%,100%{opacity:.03;transform:scale(1)}50%{opacity:.20;transform:scale(1.6)}}
 
 /* HEADER */
-.hub-header{position:relative;z-index:1;text-align:center;padding:28px 20px 0;}
-.hub-mo{width:108px;height:108px;margin:0 auto 12px;animation:mof 3s ease-in-out infinite;filter:drop-shadow(0 8px 24px rgba(44,90,62,.4));}
-@keyframes mof{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-10px) rotate(3deg)}}
-.hub-title{font-size:clamp(22px,6vw,30px);font-weight:900;color:var(--gold-lt);text-shadow:0 2px 16px rgba(200,144,64,.3);margin-bottom:2px;}
+.hub-header{position:relative;z-index:1;text-align:center;padding:32px 20px 0;}
+
+/* Character wrapper */
+.mo-wrap{position:relative;width:160px;height:160px;margin:0 auto 14px;display:flex;align-items:center;justify-content:center;}
+
+/* Pulsing glow disc */
+.mo-glow{
+  position:absolute;inset:-20px;border-radius:50%;
+  background:radial-gradient(circle,rgba(109,184,130,.55) 0%,rgba(44,90,62,.22) 52%,transparent 72%);
+  animation:gp 2.4s ease-in-out infinite;z-index:0;
+}
+@keyframes gp{0%,100%{transform:scale(1);opacity:.75}50%{transform:scale(1.17);opacity:1}}
+
+/* Outer sparkle ring */
+.mo-ring{position:absolute;inset:-30px;border-radius:50%;animation:rs 8s linear infinite;z-index:0;}
+.mo-ring span{position:absolute;font-size:14px;line-height:1;}
+.mo-ring span:nth-child(1){top:0;left:50%;transform:translateX(-50%)}
+.mo-ring span:nth-child(2){bottom:0;left:50%;transform:translateX(-50%)}
+.mo-ring span:nth-child(3){left:0;top:50%;transform:translateY(-50%)}
+.mo-ring span:nth-child(4){right:0;top:50%;transform:translateY(-50%)}
+@keyframes rs{to{transform:rotate(360deg)}}
+
+/* Inner ring (reverse) */
+.mo-ring2{position:absolute;inset:-14px;border-radius:50%;animation:rs 6s linear infinite reverse;z-index:0;}
+.mo-ring2 span{position:absolute;font-size:11px;line-height:1;}
+.mo-ring2 span:nth-child(1){top:0;left:50%;transform:translateX(-50%)}
+.mo-ring2 span:nth-child(2){bottom:0;left:50%;transform:translateX(-50%)}
+.mo-ring2 span:nth-child(3){left:0;top:50%;transform:translateY(-50%)}
+.mo-ring2 span:nth-child(4){right:0;top:50%;transform:translateY(-50%)}
+
+/* The real logo */
+.hub-mo{
+  position:relative;z-index:1;width:148px;height:148px;object-fit:contain;
+  filter:drop-shadow(0 0 22px rgba(109,184,130,.65)) drop-shadow(0 6px 18px rgba(0,0,0,.45));
+  animation:dance 2s ease-in-out infinite;
+  cursor:pointer;user-select:none;-webkit-user-select:none;transition:filter .2s;
+}
+@keyframes dance{
+  0%,100%{transform:translateY(0) rotate(-2.5deg) scale(1)}
+  25%{transform:translateY(-13px) rotate(0deg) scale(1.046)}
+  50%{transform:translateY(-4px) rotate(2.5deg) scale(1)}
+  75%{transform:translateY(-9px) rotate(0deg) scale(1.03)}
+}
+
+/* Floor shadow */
+.mo-shadow{width:88px;height:10px;border-radius:50%;background:rgba(44,90,62,.35);margin:-3px auto 0;animation:sd 2s ease-in-out infinite;filter:blur(3px);}
+@keyframes sd{0%,100%{transform:scaleX(1);opacity:.58}25%{transform:scaleX(.7);opacity:.28}50%{transform:scaleX(.87);opacity:.46}75%{transform:scaleX(.77);opacity:.33}}
+
+.hub-title{font-size:clamp(22px,6vw,30px);font-weight:900;color:var(--gold-lt);text-shadow:0 2px 18px rgba(200,144,64,.35);margin-bottom:2px;}
 .hub-sub{font-size:13px;color:var(--cream-dim);margin-bottom:5px;}
 .hub-arabic{font-family:'Scheherazade New',serif;font-size:19px;color:var(--gold);direction:rtl;margin-bottom:18px;opacity:.8;}
-.stats-bar{display:flex;align-items:center;justify-content:center;gap:9px;margin:0 auto 20px;max-width:360px;flex-wrap:wrap;}
+.stats-bar{display:flex;align-items:center;justify-content:center;gap:9px;margin:0 auto 22px;max-width:360px;flex-wrap:wrap;}
 .stat-chip{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:5px 13px;display:flex;align-items:center;gap:6px;font-size:11px;font-weight:700;color:var(--cream-dim);}
 .sdot{width:7px;height:7px;border-radius:50%;}
 .dg{background:var(--green-glow);box-shadow:0 0 6px var(--green-glow);}
@@ -41,7 +88,7 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 
 /* BANNER */
 .feature-banner{max-width:500px;margin:0 auto 14px;padding:0 14px;position:relative;z-index:1;}
-.fbanner{background:linear-gradient(135deg,rgba(44,90,62,.2),rgba(44,90,62,.08));border:1px solid rgba(93,170,120,.18);border-radius:16px;padding:14px 16px;display:flex;align-items:center;gap:12px;}
+.fbanner{background:linear-gradient(135deg,rgba(44,90,62,.22),rgba(44,90,62,.08));border:1px solid rgba(93,170,120,.2);border-radius:16px;padding:14px 16px;display:flex;align-items:center;gap:12px;}
 .fbanner-icon{font-size:34px;flex-shrink:0;}
 .fbanner-title{font-size:13px;font-weight:800;color:var(--cream);margin-bottom:2px;}
 .fbanner-sub{font-size:11px;color:var(--cream-dim);line-height:1.4;}
@@ -56,22 +103,20 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 .games-grid{max-width:500px;margin:0 auto;padding:0 12px 24px;display:grid;grid-template-columns:1fr 1fr;gap:10px;position:relative;z-index:1;}
 .wide{grid-column:1/-1;}
 
-/* CARD BASE */
+/* CARD */
 .game-card{background:var(--card);border:1.5px solid var(--border);border-radius:18px;overflow:hidden;display:flex;flex-direction:column;position:relative;text-decoration:none;transition:transform .18s ease,box-shadow .18s ease;}
+.game-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;}
 .game-card.playable{border-color:rgba(93,170,120,.25);}
-.game-card.playable:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(44,90,62,.3);}
+.game-card.playable::before{background:linear-gradient(90deg,transparent,var(--green-glow),transparent);}
+.game-card.playable:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(44,90,62,.32);}
 .game-card.playable:active{transform:scale(.97);}
 .game-card.ext{border-color:rgba(72,120,200,.25);}
+.game-card.ext::before{background:linear-gradient(90deg,transparent,#7AB8D8,transparent);}
 .game-card.ext:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(72,120,200,.2);}
 .game-card.ext:active{transform:scale(.97);}
 .game-card.upload{border-color:rgba(200,144,64,.25);opacity:.88;}
-.game-card.coming{opacity:.6;cursor:default;}
-/* Glow strips */
-.game-card.playable::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--green-glow),transparent);}
-.game-card.ext::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,#7AB8D8,transparent);}
-.game-card.upload::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);}
-
-/* Icon area */
+.game-card.upload::before{background:linear-gradient(90deg,transparent,var(--gold),transparent);}
+.game-card.coming{opacity:.58;cursor:default;}
 .ciw{display:flex;align-items:center;justify-content:center;padding:16px 12px 8px;font-size:38px;position:relative;}
 .wide .ciw .ci{font-size:44px;}
 .cbadge{position:absolute;top:9px;right:10px;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;border-radius:20px;}
@@ -80,8 +125,6 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 .blive{background:rgba(72,120,200,.2);color:#90C8F0;border:1px solid rgba(72,120,200,.3);}
 .bupload{background:rgba(200,144,64,.2);color:var(--gold-lt);border:1px solid rgba(200,144,64,.3);}
 .bsoon{background:rgba(255,255,255,.06);color:var(--cream-dim);}
-
-/* Card body */
 .cbody{padding:0 12px 14px;flex:1;display:flex;flex-direction:column;}
 .wide .cbody{padding:0 14px 16px;}
 .ctitle{font-size:14px;font-weight:900;color:var(--cream);line-height:1.2;margin-bottom:3px;}
@@ -94,18 +137,21 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 .cage{font-size:10px;color:var(--green-glow);font-weight:700;}
 .cstars{font-size:10px;}
 
-/* Buttons */
+/* BUTTONS */
 .pbtn{display:block;width:100%;padding:10px;background:linear-gradient(135deg,var(--green),#3A7050);border:none;border-radius:10px;font-family:'Nunito',sans-serif;font-size:12px;font-weight:900;color:#fff;cursor:pointer;text-align:center;text-decoration:none;box-shadow:0 3px 12px rgba(44,90,62,.4);transition:.15s;animation:sh 3s ease-in-out infinite;}
 .wide .pbtn{font-size:14px;padding:12px;}
-@keyframes sh{0%,100%{box-shadow:0 3px 12px rgba(44,90,62,.4)}50%{box-shadow:0 3px 20px rgba(44,90,62,.65)}}
+@keyframes sh{0%,100%{box-shadow:0 3px 12px rgba(44,90,62,.4)}50%{box-shadow:0 3px 22px rgba(44,90,62,.7)}}
 .pbtn:active{transform:scale(.97);}
 .ebtn{display:block;width:100%;padding:10px;background:rgba(72,120,200,.12);border:1px solid rgba(72,120,200,.25);border-radius:10px;font-family:'Nunito',sans-serif;font-size:12px;font-weight:900;color:#90C8F0;cursor:pointer;text-align:center;text-decoration:none;transition:.15s;}
 .ebtn:active{transform:scale(.97);}
-.ubtn{display:block;width:100%;padding:10px;background:rgba(200,144,64,.1);border:1px solid rgba(200,144,64,.22);border-radius:10px;font-family:'Nunito',sans-serif;font-size:10px;font-weight:800;color:var(--gold-lt);text-align:center;}
+.ubtn{display:block;width:100%;padding:10px;background:rgba(200,144,64,.10);border:1px solid rgba(200,144,64,.22);border-radius:10px;font-family:'Nunito',sans-serif;font-size:10px;font-weight:800;color:var(--gold-lt);text-align:center;}
 .sbtn{display:block;width:100%;padding:10px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:10px;font-family:'Nunito',sans-serif;font-size:11px;font-weight:700;color:var(--cream-dim);text-align:center;}
 
+/* CONFETTI LAYER */
+.confetti-layer{position:fixed;inset:0;pointer-events:none;z-index:9999;}
+
 /* FOOTER */
-.hub-footer{position:relative;z-index:1;text-align:center;padding:18px 20px 36px;border-top:1px solid var(--border);margin-top:10px;}
+.hub-footer{position:relative;z-index:1;text-align:center;padding:20px 20px 40px;border-top:1px solid var(--border);margin-top:10px;}
 .fbrand{font-size:16px;font-weight:900;color:var(--gold-lt);margin-bottom:3px;}
 .farabic{font-family:'Scheherazade New',serif;font-size:15px;color:var(--gold);direction:rtl;margin-bottom:3px;opacity:.7;}
 .fnote{font-size:11px;color:var(--cream-dim);}
@@ -116,28 +162,23 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 <body>
 
 <div class="stars" id="starsBg"></div>
+<div class="confetti-layer" id="confettiLayer"></div>
 
 <!-- HEADER -->
 <header class="hub-header">
-  <svg class="hub-mo" viewBox="0 0 160 168" xmlns="http://www.w3.org/2000/svg">
-    <defs><radialGradient id="hf" cx="45%" cy="40%" r="55%"><stop offset="0%" stop-color="#D8A07A"/><stop offset="100%" stop-color="#C08060"/></radialGradient></defs>
-    <ellipse cx="80" cy="155" rx="40" ry="24" fill="#2C5A3E"/><ellipse cx="80" cy="138" rx="22" ry="12" fill="#3D7A52"/>
-    <ellipse cx="42" cy="150" rx="14" ry="10" fill="#C8906A" transform="rotate(-20,42,150)"/>
-    <ellipse cx="118" cy="150" rx="14" ry="10" fill="#C8906A" transform="rotate(20,118,150)"/>
-    <ellipse cx="80" cy="52" rx="50" ry="34" fill="#1E3A28"/><ellipse cx="80" cy="47" rx="46" ry="30" fill="#3D7A52"/>
-    <path d="M 38 52 Q 80 66 122 52" stroke="rgba(93,170,120,.4)" stroke-width="1.5" fill="none"/>
-    <text x="72" y="46" font-size="14" fill="#C89040" opacity=".9">✦</text>
-    <circle cx="32" cy="72" r="22" fill="#C08060"/><circle cx="32" cy="72" r="14" fill="#E0A080"/>
-    <circle cx="128" cy="72" r="22" fill="#C08060"/><circle cx="128" cy="72" r="14" fill="#E0A080"/>
-    <circle cx="80" cy="98" r="52" fill="url(#hf)"/>
-    <circle cx="62" cy="90" r="12" fill="white"/><circle cx="98" cy="90" r="12" fill="white"/>
-    <circle cx="64" cy="92" r="8" fill="#1A1A1A"/><circle cx="100" cy="92" r="8" fill="#1A1A1A"/>
-    <circle cx="66" cy="89" r="3.5" fill="white"/><circle cx="102" cy="89" r="3.5" fill="white"/>
-    <ellipse cx="80" cy="106" rx="9" ry="6.5" fill="#8B4A2A"/>
-    <path d="M 65 116 Q 80 130 95 116" stroke="#6A3820" stroke-width="3" fill="none" stroke-linecap="round"/>
-    <circle cx="50" cy="108" r="13" fill="#E07070" opacity=".22"/><circle cx="110" cy="108" r="13" fill="#E07070" opacity=".22"/>
-    <ellipse cx="140" cy="122" rx="14" ry="10" fill="#C8906A" transform="rotate(-40,140,122)"/>
-  </svg>
+  <div class="mo-wrap">
+    <div class="mo-glow"></div>
+    <div class="mo-ring">
+      <span>⭐</span><span>🌟</span><span>✨</span><span>💫</span>
+    </div>
+    <div class="mo-ring2">
+      <span>🌙</span><span>☪️</span><span>✦</span><span>🌙</span>
+    </div>
+    <!-- Place Logo_Baby_Mo_Transparant.png in same folder -->
+    <img class="hub-mo" src="Logo_Baby_Mo_Transparant.png" alt="Baby Mo" id="babyMo" draggable="false"/>
+  </div>
+  <div class="mo-shadow"></div>
+
   <div class="hub-title">🌙 BabyMo Game World</div>
   <div class="hub-sub">Belajar Islam Sambil Bermain — Learn Through Play</div>
   <div class="hub-arabic">اَللَّهُمَّ انْفَعْنَا بِمَا عَلَّمْتَنَا</div>
@@ -152,7 +193,7 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
     <span class="fbanner-icon">🆕</span>
     <div>
       <div class="fbanner-title">6 Game Sudah Siap Dimainkan!</div>
-      <div class="fbanner-sub">Kenalan Baby Mo · Doa Harian 🔊 · Dua Journey · Kata Islam · Dreamtime · Huruf Hijaiyah 🔊 </div>
+      <div class="fbanner-sub">Kenalan Baby Mo · Doa Harian 🔊 · Dua Journey · Kata Islam · Dreamtime · Huruf Hijaiyah 🔊</div>
     </div>
   </div>
 </div>
@@ -161,35 +202,31 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 
 <div class="games-grid">
 
-  <!-- 0. BABY MO PUZZLE — FEATURED WIDE (introduce the character first!) -->
+  <!-- 0. KENALAN BABY MO — wide -->
   <div class="game-card playable wide">
     <div class="ciw"><span class="ci">🧩</span><span class="cbadge bnew">✨ Baru!</span></div>
     <div class="cbody">
       <div class="ctitle">Kenalan dengan Baby Mo!</div>
       <div class="csub">Buka petak satu per satu — temukan siapa Baby Mo! Puzzle interaktif dengan sparkle &amp; kejutan. Tap tiles to reveal Baby Mo's character!</div>
-      <div class="ctags">
-        <span class="tag">🧩 Puzzle</span><span class="tag">✨ Sparkle</span><span class="tag">Perkenalan</span><span class="tag">2–6 tahun</span>
-      </div>
+      <div class="ctags"><span class="tag">🧩 Puzzle</span><span class="tag">✨ Sparkle</span><span class="tag">Perkenalan</span><span class="tag">2–6 tahun</span></div>
       <div class="cmeta"><span class="cage">⭐ Semua Usia</span><span class="cstars">🌟🌟🌟</span></div>
       <a href="./babymo-puzzle.html" class="pbtn">🧩 Main &amp; Temukan Baby Mo!</a>
     </div>
   </div>
-  
-  <!-- 1. DOA HARIAN — FEATURED WIDE -->
+
+  <!-- 1. DOA HARIAN — wide -->
   <div class="game-card playable wide">
     <div class="ciw"><span class="ci">🌙</span><span class="cbadge bhot">🔊 Ada Suara!</span></div>
     <div class="cbody">
       <div class="ctitle">Doa Harian — Interactive Dua Learning</div>
       <div class="csub">Belajar 6 doa sehari-hari bersama Baby Mo! Suara Arab asli, adegan animasi, dan kuis. Dari bangun tidur sampai tidur malam. Learn daily duas with real Arabic audio, scenes &amp; quiz!</div>
-      <div class="ctags">
-        <span class="tag">🔊 Suara Arab</span><span class="tag">6 Doa</span><span class="tag">Kuis</span><span class="tag">3–7 tahun</span>
-      </div>
+      <div class="ctags"><span class="tag">🔊 Suara Arab</span><span class="tag">6 Doa</span><span class="tag">Kuis</span><span class="tag">3–7 tahun</span></div>
       <div class="cmeta"><span class="cage">🌅 Pagi → 🌙 Malam</span><span class="cstars">🌟🌟🌟</span></div>
       <a href="./babymo-doa-harian.html" class="pbtn">🔊 Mainkan &amp; Dengar Doa!</a>
     </div>
   </div>
 
-  <!-- 2. DUA JOURNEY — MATCHING CARD -->
+  <!-- 2. DUA JOURNEY -->
   <div class="game-card playable">
     <div class="ciw"><span class="ci">🃏</span><span class="cbadge bnew">⭐ Populer</span></div>
     <div class="cbody">
@@ -201,7 +238,7 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
     </div>
   </div>
 
-  <!-- 3. KATA ISLAM — ARABIC SPELLING DRAG -->
+  <!-- 3. KATA ISLAM -->
   <div class="game-card playable">
     <div class="ciw"><span class="ci">🔤</span><span class="cbadge bnew">Baru!</span></div>
     <div class="cbody">
@@ -213,7 +250,7 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
     </div>
   </div>
 
-  <!-- 4. DREAMTIME — EXTERNAL REPO -->
+  <!-- 4. DREAMTIME -->
   <div class="game-card ext">
     <div class="ciw"><span class="ci">🛌</span><span class="cbadge blive">✅ Live</span></div>
     <div class="cbody">
@@ -225,7 +262,7 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
     </div>
   </div>
 
-  <!-- 5. HURUF HIJAIYAH — UPLOADED -->
+  <!-- 5. HURUF HIJAIYAH -->
   <div class="game-card ext">
     <div class="ciw">
       <span class="ci" style="font-family:'Scheherazade New',serif;font-size:44px;color:#C89040">ك</span>
@@ -233,14 +270,14 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
     </div>
     <div class="cbody">
       <div class="ctitle">Huruf Hijaiyah</div>
-      <div class="csub">Kenali 28 huruf Arab gengan suara interaktif dan kuis.</div>
+      <div class="csub">Kenali 28 huruf Arab dengan suara interaktif dan kuis.</div>
       <div class="ctags"><span class="tag">Alfabet Arab</span><span class="tag">Suara</span><span class="tag">3–6 tahun</span></div>
       <div class="cmeta"><span class="cage">⭐ Interactive</span><span class="cstars">🌟🌟🌟</span></div>
-      <a href="./babymo-hijaiyah.html" class="ebtn">📂 Main </a>
+      <a href="./babymo-hijaiyah.html" class="ebtn">📂 Main</a>
     </div>
   </div>
 
-    <!-- 6.1 PUZZLE BABY MO -->
+  <!-- 6. HELLO I AM MO -->
   <div class="game-card playable">
     <div class="ciw"><span class="ci">😊</span><span class="cbadge bnew">Baru!</span></div>
     <div class="cbody">
@@ -252,7 +289,7 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
     </div>
   </div>
 
-  <!-- 6. CARI BABY MO — COMING SOON -->
+  <!-- 7. CARI BABY MO — coming soon -->
   <div class="game-card coming">
     <div class="ciw"><span class="ci">🔍</span><span class="cbadge bsoon">Segera</span></div>
     <div class="cbody">
@@ -264,7 +301,7 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
     </div>
   </div>
 
-  <!-- 7. KATA ARAB MUDAH — COMING SOON -->
+  <!-- 8. KATA ARAB MUDAH — coming soon -->
   <div class="game-card coming">
     <div class="ciw"><span class="ci">📖</span><span class="cbadge bsoon">Segera</span></div>
     <div class="cbody">
@@ -276,7 +313,7 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
     </div>
   </div>
 
-  <!-- 8. DOA SITUASI — COMING SOON -->
+  <!-- 9. DOA SITUASI — coming soon -->
   <div class="game-card coming">
     <div class="ciw"><span class="ci">🎯</span><span class="cbadge bsoon">Segera</span></div>
     <div class="cbody">
@@ -300,14 +337,65 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 
 <script>
 (function(){
+  /* Background stars */
   const bg = document.getElementById('starsBg');
-  const cs = ['✦','·','✧','*','◆'];
-  for(let i = 0; i < 36; i++){
-    const s = document.createElement('i');
-    s.textContent = cs[i%cs.length];
-    s.style.cssText = `left:${Math.random()*98}%;top:${Math.random()*98}%;font-size:${5+Math.random()*7}px;--d:${2+Math.random()*3.5}s;--dl:${Math.random()*3}s;`;
+  const cs = ['✦','·','✧','*','◆','☪'];
+  for(let i=0;i<42;i++){
+    const s=document.createElement('i');
+    s.textContent=cs[i%cs.length];
+    s.style.cssText=`left:${Math.random()*98}%;top:${Math.random()*98}%;font-size:${4+Math.random()*7}px;--d:${2+Math.random()*3.5}s;--dl:${Math.random()*3}s;`;
     bg.appendChild(s);
   }
+
+  /* Confetti */
+  const layer=document.getElementById('confettiLayer');
+  const pal=['#6DB882','#2C5A3E','#C89040','#E8B060','#ffffff','#4A8860','#ffe033','#90C8F0'];
+  function burst(x,y,count=28){
+    for(let i=0;i<count;i++){
+      const p=document.createElement('div');
+      const sz=5+Math.random()*8,ang=Math.random()*Math.PI*2,dist=70+Math.random()*140;
+      p.style.cssText=`position:absolute;left:${x}px;top:${y}px;width:${sz}px;height:${sz}px;background:${pal[Math.floor(Math.random()*pal.length)]};border-radius:${Math.random()>.45?'50%':'3px'};pointer-events:none;`;
+      layer.appendChild(p);
+      p.animate([
+        {transform:'translate(0,0) rotate(0deg) scale(1)',opacity:1},
+        {transform:`translate(${Math.cos(ang)*dist}px,${Math.sin(ang)*dist}px) rotate(${360+Math.random()*400}deg) scale(.1)`,opacity:0}
+      ],{duration:700+Math.random()*650,delay:Math.random()*100,easing:'ease-out',fill:'forwards'});
+      setTimeout(()=>p.remove(),1500);
+    }
+  }
+
+  /* Speech bubble */
+  const msgs=["Assalamu'alaikum! 🌙","Yuk belajar bareng! 📖","Bismillah! ✨","Alhamdulillah! 🌟","Ayo main! 🎮","Subhanallah! 💚","Semangat belajar! ⭐","Masya Allah! 🌈"];
+  let mi=0;
+  const bub=document.createElement('div');
+  bub.style.cssText='position:fixed;z-index:9998;background:#162014;border:2px solid rgba(93,170,120,.45);border-radius:14px;padding:7px 15px;font-family:Nunito,sans-serif;font-size:13px;font-weight:800;color:#E8B060;pointer-events:none;box-shadow:0 4px 18px rgba(44,90,62,.45);transition:opacity .25s,transform .25s;opacity:0;transform:scale(.8) translateY(6px);white-space:nowrap;';
+  document.body.appendChild(bub);
+  function showBub(x,y,txt){
+    bub.textContent=txt;
+    bub.style.left=`${Math.min(x-60,window.innerWidth-210)}px`;
+    bub.style.top=`${y-52}px`;
+    bub.style.opacity='1';bub.style.transform='scale(1) translateY(0)';
+    clearTimeout(bub._t);
+    bub._t=setTimeout(()=>{bub.style.opacity='0';bub.style.transform='scale(.8) translateY(-6px)';},1900);
+  }
+
+  /* Baby Mo tap */
+  const mo=document.getElementById('babyMo');
+  mo.addEventListener('click',e=>{
+    const r=mo.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height/2;
+    burst(cx,cy);
+    showBub(cx,cy,msgs[mi%msgs.length]);mi++;
+    mo.style.filter='drop-shadow(0 0 54px rgba(255,224,80,1)) drop-shadow(0 6px 18px rgba(0,0,0,.5))';
+    setTimeout(()=>{mo.style.filter='';},750);
+  });
+
+  /* Card mini-burst */
+  document.querySelectorAll('.game-card.playable,.game-card.ext').forEach(c=>{
+    c.addEventListener('click',()=>{
+      const r=c.getBoundingClientRect();
+      burst(r.left+r.width/2,r.top+r.height/2,10);
+    });
+  });
 })();
 </script>
 </body>
