@@ -116,7 +116,6 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 .game-card.ext:active{transform:scale(.97);}
 .game-card.upload{border-color:rgba(200,144,64,.25);opacity:.88;}
 .game-card.upload::before{background:linear-gradient(90deg,transparent,var(--gold),transparent);}
-.game-card.coming{opacity:.58;cursor:default;}
 .ciw{display:flex;align-items:center;justify-content:center;padding:16px 12px 8px;font-size:38px;position:relative;}
 .wide .ciw .ci{font-size:44px;}
 .cbadge{position:absolute;top:9px;right:10px;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;border-radius:20px;}
@@ -124,7 +123,6 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 .bhot{background:rgba(200,88,64,.2);color:#E09078;border:1px solid rgba(200,88,64,.3);}
 .blive{background:rgba(72,120,200,.2);color:#90C8F0;border:1px solid rgba(72,120,200,.3);}
 .bupload{background:rgba(200,144,64,.2);color:var(--gold-lt);border:1px solid rgba(200,144,64,.3);}
-.bsoon{background:rgba(255,255,255,.06);color:var(--cream-dim);}
 .cbody{padding:0 12px 14px;flex:1;display:flex;flex-direction:column;}
 .wide .cbody{padding:0 14px 16px;}
 .ctitle{font-size:14px;font-weight:900;color:var(--cream);line-height:1.2;margin-bottom:3px;}
@@ -144,8 +142,6 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 .pbtn:active{transform:scale(.97);}
 .ebtn{display:block;width:100%;padding:10px;background:rgba(72,120,200,.12);border:1px solid rgba(72,120,200,.25);border-radius:10px;font-family:'Nunito',sans-serif;font-size:12px;font-weight:900;color:#90C8F0;cursor:pointer;text-align:center;text-decoration:none;transition:.15s;}
 .ebtn:active{transform:scale(.97);}
-.ubtn{display:block;width:100%;padding:10px;background:rgba(200,144,64,.10);border:1px solid rgba(200,144,64,.22);border-radius:10px;font-family:'Nunito',sans-serif;font-size:10px;font-weight:800;color:var(--gold-lt);text-align:center;}
-.sbtn{display:block;width:100%;padding:10px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:10px;font-family:'Nunito',sans-serif;font-size:11px;font-weight:700;color:var(--cream-dim);text-align:center;}
 
 /* CONFETTI LAYER */
 .confetti-layer{position:fixed;inset:0;pointer-events:none;z-index:9999;}
@@ -183,17 +179,17 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
   <div class="hub-sub">Belajar Islam Sambil Bermain — Learn Through Play</div>
   <div class="hub-arabic">اَللَّهُمَّ انْفَعْنَا بِمَا عَلَّمْتَنَا</div>
   <div class="stats-bar">
-    <div class="stat-chip"><div class="sdot dg"></div><span>6 Bisa Dimainkan</span></div>
-    <div class="stat-chip"><div class="sdot dc"></div><span>3 Segera Hadir</span></div>
+    <div class="stat-chip"><div class="sdot dg"></div><span>9 Bisa Dimainkan</span></div>
+    <div class="stat-chip"><div class="sdot da"></div><span>Semua Game Siap! 🎉</span></div>
   </div>
 </header>
 
 <div class="feature-banner">
   <div class="fbanner">
-    <span class="fbanner-icon">🆕</span>
+    <span class="fbanner-icon">🎉</span>
     <div>
-      <div class="fbanner-title">6 Game Sudah Siap Dimainkan!</div>
-      <div class="fbanner-sub">Kenalan Baby Mo · Doa Harian 🔊 · Dua Journey · Kata Islam · Dreamtime · Huruf Hijaiyah 🔊</div>
+      <div class="fbanner-title">Semua 9 Game Sudah Siap Dimainkan!</div>
+      <div class="fbanner-sub">Kenalan Baby Mo · Doa Harian 🔊 · Dua Journey · Kata Islam · Dreamtime · Huruf Hijaiyah · Cari Baby Mo · Memory Match · Forehand Beat 🎵</div>
     </div>
   </div>
 </div>
@@ -289,39 +285,39 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
     </div>
   </div>
 
-  <!-- 7. CARI BABY MO — coming soon -->
-  <div class="game-card coming">
-    <div class="ciw"><span class="ci">🔍</span><span class="cbadge bsoon">Segera</span></div>
+  <!-- 7. CARI BABY MO — now playable -->
+  <div class="game-card playable">
+    <div class="ciw"><span class="ci">🔍</span><span class="cbadge bnew">✨ Baru!</span></div>
     <div class="cbody">
       <div class="ctitle">Cari Baby Mo</div>
       <div class="csub">Temukan Baby Mo yang tersembunyi di gambar islami! Look &amp; Find game.</div>
       <div class="ctags"><span class="tag">Look &amp; Find</span><span class="tag">3–6 tahun</span></div>
       <div class="cmeta"><span class="cage">⭐ Pengamatan</span><span class="cstars">🌟🌟</span></div>
-      <div class="sbtn">🔒 Segera Hadir</div>
+      <a href="https://roisa.github.io/babymo-games/babymo-look-and-find.html" class="pbtn">🔍 Main!</a>
     </div>
   </div>
 
-  <!-- 8. KATA ARAB MUDAH — coming soon -->
-  <div class="game-card coming">
-    <div class="ciw"><span class="ci">📖</span><span class="cbadge bsoon">Segera</span></div>
+  <!-- 8. MEMORY MATCH (was Kata Arab Mudah) — now playable -->
+  <div class="game-card playable">
+    <div class="ciw"><span class="ci">🃏</span><span class="cbadge bnew">✨ Baru!</span></div>
     <div class="cbody">
-      <div class="ctitle">Kata Arab Mudah</div>
-      <div class="csub">Kata-kata Arab sederhana untuk si kecil 2–4 tahun. Tap &amp; flash!</div>
-      <div class="ctags"><span class="tag">Flash Card</span><span class="tag">2–4 tahun</span></div>
-      <div class="cmeta"><span class="cage">⭐ Super Mudah</span><span class="cstars">🌟</span></div>
-      <div class="sbtn">🔒 Segera Hadir</div>
+      <div class="ctitle">Memory Match</div>
+      <div class="csub">Cocokkan kartu-kartu islami! Latih daya ingat si kecil dengan pasangan gambar Baby Mo.</div>
+      <div class="ctags"><span class="tag">Memori</span><span class="tag">Cocokkan</span><span class="tag">2–5 tahun</span></div>
+      <div class="cmeta"><span class="cage">⭐ Fun &amp; Match</span><span class="cstars">🌟🌟</span></div>
+      <a href="https://roisa.github.io/babymo-games/babymo-memory-match.html" class="pbtn">🃏 Main!</a>
     </div>
   </div>
 
-  <!-- 9. DOA SITUASI — coming soon -->
-  <div class="game-card coming">
-    <div class="ciw"><span class="ci">🎯</span><span class="cbadge bsoon">Segera</span></div>
+  <!-- 9. FOREHAND BEAT (was Doa Situasi) — now playable -->
+  <div class="game-card playable">
+    <div class="ciw"><span class="ci">🎵</span><span class="cbadge bnew">✨ Baru!</span></div>
     <div class="cbody">
-      <div class="ctitle">Doa Situasi</div>
-      <div class="csub">Tap doa yang tepat untuk setiap situasi Baby Mo! Situational tap quiz.</div>
-      <div class="ctags"><span class="tag">Kuis</span><span class="tag">Situasi</span><span class="tag">4–8 tahun</span></div>
-      <div class="cmeta"><span class="cage">⭐⭐ Menengah</span><span class="cstars">🌟🌟</span></div>
-      <div class="sbtn">🔒 Segera Hadir</div>
+      <div class="ctitle">Forehand Beat</div>
+      <div class="csub">Ikuti irama Beat bersama Baby Mo! Ketuk tepat waktu dan raih skor tertinggi.</div>
+      <div class="ctags"><span class="tag">Ritme</span><span class="tag">Beat</span><span class="tag">4–8 tahun</span></div>
+      <div class="cmeta"><span class="cage">⭐⭐ Seru!</span><span class="cstars">🌟🌟🌟</span></div>
+      <a href="https://roisa.github.io/babymo-games/baby-mo-forehand-beat.html" class="pbtn">🎵 Main!</a>
     </div>
   </div>
 
