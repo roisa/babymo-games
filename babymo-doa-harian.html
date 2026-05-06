@@ -6,6 +6,8 @@
 <meta name="description" content="Doa Harian — Belajar doa sehari-hari bersama Baby Mo!">
 <title>🌙 Doa Harian · BabyMo</title>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Scheherazade+New:wght@400;700&display=swap" rel="stylesheet">
+<!-- ResponsiveVoice: Google-quality TTS, far better than Web Speech API for Arabic -->
+<script src="https://code.responsivevoice.org/responsivevoice.js?key=FREE"></script>
 <style>
 :root{
   --bg:#0B1C12;--bg2:#0F2016;
@@ -133,7 +135,7 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 .speed-btn{flex:1;padding:11px 8px;background:var(--card);border:1px solid var(--border);border-radius:12px;font-family:'Nunito',sans-serif;font-size:12px;font-weight:800;color:var(--cream-dim);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;transition:.15s;}
 .speed-btn:active{transform:scale(.97);}
 .speed-btn.active{border-color:var(--green-lt);color:var(--green-glow);background:rgba(93,170,120,.08);}
-.no-audio-note{font-size:11px;color:rgba(200,144,64,.6);text-align:center;margin-top:6px;}
+.no-audio-note{font-size:11px;color:rgba(200,144,64,.7);text-align:center;margin-top:6px;line-height:1.5;}
 
 .nav-row{width:100%;max-width:440px;display:flex;gap:10px;flex-shrink:0;}
 .nav-btn-sec{flex:1;padding:13px;background:var(--card);border:1px solid var(--border);border-radius:14px;font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;color:var(--cream-dim);cursor:pointer;text-align:center;transition:.15s;}
@@ -213,7 +215,6 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 .cst-n{font-size:28px;font-weight:900;color:var(--cream);}
 .cst-l{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--cream-dim);margin-top:2px;}
 
-/* ── RECAP — stacked layout so long Arabic never overflows ── */
 .c-recap{
   background:rgba(44,90,62,.1);
   border:1px solid rgba(93,170,120,.12);
@@ -248,7 +249,6 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 }
 .cr-meaning{font-size:11px;color:var(--cream-dim);line-height:1.4;}
 
-/* Buttons */
 .c-btns{display:flex;gap:10px;width:100%;max-width:400px;}
 .c-btn-sec{flex:1;padding:14px;background:var(--card);border:1px solid rgba(255,255,255,.08);border-radius:14px;font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;color:var(--cream);cursor:pointer;text-align:center;text-decoration:none;display:flex;align-items:center;justify-content:center;transition:.15s;}
 .c-btn-pri{flex:2;padding:14px;background:linear-gradient(135deg,var(--green),#3A7050);border:none;border-radius:14px;font-family:'Nunito',sans-serif;font-size:15px;font-weight:900;color:#fff;cursor:pointer;box-shadow:0 4px 18px rgba(44,90,62,.45);transition:.15s;}
@@ -489,48 +489,75 @@ const DUAS = [
 const QUIZ_Q = [0, 3, 4, 5];
 
 // ═══════════════════════════════════════
-// SPEECH & AUDIO
+// SPEECH & AUDIO — ResponsiveVoice (Google TTS) first, Web Speech API fallback
 // ═══════════════════════════════════════
-let voices = [], arabicVoice = null, isSpeaking = false;
-let currentSpeed = 'normal', audioCtx = null;
+// ResponsiveVoice uses Google's TTS under the hood — sounds natural on all devices.
+// Web Speech API is kept as silent fallback only (most Arabic voices on it sound poor).
+let isSpeaking = false, currentSpeed = 'normal', audioCtx = null;
 let currentQuizDuaIdx = 0;
 
+// Web Speech API fallback vars (only used if ResponsiveVoice not available)
+let wsVoices = [], wsArabicVoice = null;
+
 function initVoices(){
-  if(!window.speechSynthesis) return;
-  const load = () => {
-    voices = speechSynthesis.getVoices();
-    arabicVoice = voices.find(v => v.lang === 'ar-SA') ||
-                  voices.find(v => v.lang === 'ar-EG') ||
-                  voices.find(v => v.lang.startsWith('ar')) || null;
-  };
-  load();
-  if(speechSynthesis.onvoiceschanged !== undefined) speechSynthesis.onvoiceschanged = load;
+  if(window.speechSynthesis){
+    const load = () => {
+      wsVoices = speechSynthesis.getVoices();
+      wsArabicVoice = wsVoices.find(v => v.lang === 'ar-SA') ||
+                      wsVoices.find(v => v.lang === 'ar-EG') ||
+                      wsVoices.find(v => v.lang.startsWith('ar')) || null;
+    };
+    load();
+    if(speechSynthesis.onvoiceschanged !== undefined) speechSynthesis.onvoiceschanged = load;
+  }
 }
 
 function speakDua(text, rate){
-  if(!window.speechSynthesis){ showAudioNote('🔇 Browser ini tidak mendukung suara Arab.'); return; }
+  if(window.responsiveVoice){
+    // ResponsiveVoice: Google-quality Arabic — clear, natural, works on all devices
+    responsiveVoice.cancel();
+    isSpeaking = true; setSoundState('playing'); setQuizPlayState('playing');
+    responsiveVoice.speak(text, 'Arabic Male', {
+      rate:   rate !== undefined ? rate : (currentSpeed === 'slow' ? 0.75 : 0.9),
+      pitch:  1,
+      volume: 1,
+      onstart: () => { isSpeaking = true;  setSoundState('playing'); setQuizPlayState('playing'); },
+      onend:   () => { isSpeaking = false; setSoundState('idle');    setQuizPlayState('idle'); },
+      onerror: () => { isSpeaking = false; setSoundState('idle');    setQuizPlayState('idle'); speakDuaFallback(text, rate); }
+    });
+  } else {
+    speakDuaFallback(text, rate);
+  }
+}
+
+function speakDuaFallback(text, rate){
+  // Web Speech API fallback — only when ResponsiveVoice is unavailable
+  if(!window.speechSynthesis || !wsArabicVoice){
+    const note = document.getElementById('audioNote');
+    if(note) note.textContent = '🔇 Suara Arab belum tersedia. Baca teks di atas ya!';
+    return;
+  }
   speechSynthesis.cancel();
-  const utt = new SpeechSynthesisUtterance(text);
-  utt.lang = 'ar-SA';
-  utt.rate = rate || (currentSpeed === 'slow' ? 0.45 : 0.65);
-  utt.pitch = 1.05; utt.volume = 1.0;
-  if(arabicVoice) utt.voice = arabicVoice;
+  const utt  = new SpeechSynthesisUtterance(text);
+  utt.lang   = 'ar-SA';
+  utt.rate   = rate !== undefined ? rate : (currentSpeed === 'slow' ? 0.40 : 0.60);
+  utt.pitch  = 1.0;   // never modify pitch on Arabic TTS
+  utt.volume = 1.0;
+  utt.voice  = wsArabicVoice;
   utt.onstart = () => { isSpeaking = true;  setSoundState('playing'); setQuizPlayState('playing'); };
   utt.onend   = () => { isSpeaking = false; setSoundState('idle');    setQuizPlayState('idle'); };
-  utt.onerror = (e) => {
-    isSpeaking = false; setSoundState('idle'); setQuizPlayState('idle');
-    if(e.error !== 'interrupted') showAudioNote('🔇 Suara Arab tidak tersedia. Silakan baca teks di atas.');
-  };
+  utt.onerror = () => { isSpeaking = false; setSoundState('idle');    setQuizPlayState('idle'); };
   speechSynthesis.speak(utt);
 }
 
 function stopSpeech(){
+  if(window.responsiveVoice) responsiveVoice.cancel();
   if(window.speechSynthesis) speechSynthesis.cancel();
   isSpeaking = false; setSoundState('idle'); setQuizPlayState('idle');
 }
 
 function setSoundState(state){
-  const btn = document.getElementById('soundBtn');
+  const btn  = document.getElementById('soundBtn');
   const icon = document.getElementById('soundBtnIcon');
   const txt  = document.getElementById('soundBtnText');
   if(!btn) return;
@@ -570,9 +597,12 @@ function repeatMode(){
   document.getElementById('speedRepeat').classList.add('active');
   document.getElementById('speedNormal').classList.remove('active');
   document.getElementById('speedSlow').classList.remove('active');
-  speakDua(DUAS[currentDuaIdx].arabic, 0.65);
+  // First pass normal, second pass slow for memorisation
+  speakDua(DUAS[currentDuaIdx].arabic, window.responsiveVoice ? 0.9 : 0.60);
   clearTimeout(repeatTimer);
-  repeatTimer = setTimeout(() => { speakDua(DUAS[currentDuaIdx].arabic, 0.45); }, 4500);
+  repeatTimer = setTimeout(() => {
+    speakDua(DUAS[currentDuaIdx].arabic, window.responsiveVoice ? 0.7 : 0.40);
+  }, 5500);
 }
 
 function showAudioNote(msg){ const n = document.getElementById('audioNote'); if(n) n.textContent = msg; }
