@@ -38,7 +38,6 @@ body::before{
 #welcomeScreen{justify-content:flex-start;padding-top:24px;}
 .welcome-top{text-align:center;width:100%;padding-bottom:16px;}
 
-/* Logo — gentle float, no rings */
 .mascot-wrap{position:relative;width:140px;height:140px;margin:0 auto 14px;}
 .mascot-wrap img{
   width:140px;height:140px;object-fit:contain;display:block;
@@ -87,7 +86,6 @@ body::before{
 }
 .start-btn:active{transform:scale(.97);}
 
-/* Consistent hub back button */
 .hub-back-btn{
   display:block;width:100%;max-width:400px;
   margin-top:10px;padding:13px;
@@ -96,7 +94,7 @@ body::before{
   border-radius:14px;
   font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;
   color:var(--cream-dim);text-align:center;text-decoration:none;
-  transition:.15s;
+  transition:.15s;cursor:pointer;
 }
 .hub-back-btn:active{transform:scale(.97);}
 .hub-back-btn:hover{color:var(--green-glow);border-color:rgba(93,170,120,.25);}
@@ -158,20 +156,10 @@ body::before{
 
 /* CARD FRONT - Arabic */
 .cf-front{transform:rotateY(180deg);}
-.ca{
-  background:linear-gradient(150deg,#192E20,#1E3A28);
-  border:1.5px solid rgba(200,144,64,.18);
-}
+.ca{background:linear-gradient(150deg,#192E20,#1E3A28);border:1.5px solid rgba(200,144,64,.18);}
 .ca::after{content:'';position:absolute;inset:0;border-radius:15px;background:radial-gradient(ellipse at 50% 0%,rgba(200,144,64,.06),transparent 60%);}
-
-/* Emoji badge on Arabic card — helps kids match */
-.ca-emoji{
-  font-size:20px;
-  position:relative;z-index:1;
-  line-height:1;
-}
+.ca-emoji{font-size:20px;position:relative;z-index:1;line-height:1;}
 .grid-3 .ca-emoji{font-size:16px;}
-
 .ca-arabic{
   font-family:'Scheherazade New',serif;
   font-size:clamp(18px,5vw,26px);
@@ -179,60 +167,22 @@ body::before{
   text-align:center;direction:rtl;
   line-height:1.35;
   position:relative;z-index:1;
-  width:100%;
-  word-break:keep-all;
+  width:100%;word-break:keep-all;
 }
 .grid-3 .ca-arabic{font-size:clamp(15px,4vw,19px);}
-
-.ca-trans{
-  font-size:10px;font-weight:700;
-  color:var(--cream-dim);
-  position:relative;z-index:1;
-  letter-spacing:.3px;
-  text-align:center;
-}
+.ca-trans{font-size:10px;font-weight:700;color:var(--cream-dim);position:relative;z-index:1;letter-spacing:.3px;text-align:center;}
 .grid-3 .ca-trans{font-size:9px;}
 
 /* CARD FRONT - Meaning */
-.cm{
-  background:linear-gradient(150deg,#1C2E1C,#243824);
-  border:1.5px solid rgba(93,170,120,.18);
-}
+.cm{background:linear-gradient(150deg,#1C2E1C,#243824);border:1.5px solid rgba(93,170,120,.18);}
 .cm::after{content:'';position:absolute;inset:0;border-radius:15px;background:radial-gradient(ellipse at 50% 100%,rgba(93,170,120,.06),transparent 60%);}
-
-.cm-emoji{
-  font-size:38px;
-  position:relative;z-index:1;
-  line-height:1;
-  flex-shrink:0;
-}
+.cm-emoji{font-size:38px;position:relative;z-index:1;line-height:1;flex-shrink:0;}
 .grid-3 .cm-emoji{font-size:28px;}
-
-/* Indonesian meaning — primary */
-.cm-id{
-  font-size:12px;font-weight:900;
-  color:var(--cream);text-align:center;
-  line-height:1.25;position:relative;z-index:1;
-  width:100%;
-}
+.cm-id{font-size:12px;font-weight:900;color:var(--cream);text-align:center;line-height:1.25;position:relative;z-index:1;width:100%;}
 .grid-3 .cm-id{font-size:10px;}
-
-/* English meaning — secondary */
-.cm-en{
-  font-size:10px;font-weight:600;
-  color:var(--cream-dim);text-align:center;
-  line-height:1.2;position:relative;z-index:1;
-  font-style:italic;
-}
+.cm-en{font-size:10px;font-weight:600;color:var(--cream-dim);text-align:center;line-height:1.2;position:relative;z-index:1;font-style:italic;}
 .grid-3 .cm-en{display:none;}
-
-/* Use case — smallest, hidden on grid-3 */
-.cm-use{
-  font-size:9px;color:var(--green-glow);
-  text-align:center;font-weight:700;
-  position:relative;z-index:1;
-  line-height:1.2;
-}
+.cm-use{font-size:9px;color:var(--green-glow);text-align:center;font-weight:700;position:relative;z-index:1;line-height:1.2;}
 .grid-3 .cm-use{display:none;}
 
 /* Matched glow */
@@ -255,7 +205,6 @@ body::before{
 /* ════ COMPLETE SCREEN ════ */
 #completeScreen{padding-top:24px;justify-content:flex-start;}
 
-/* Complete screen logo */
 .comp-mascot-wrap{position:relative;width:110px;height:110px;margin:0 auto 14px;}
 .comp-mascot{
   width:110px;height:110px;object-fit:contain;display:block;
@@ -264,7 +213,12 @@ body::before{
 }
 @keyframes completeSway{from{transform:rotate(-10deg) scale(1);}to{transform:rotate(10deg) scale(1.06);}}
 
-.comp-card{background:var(--bg2);border:1px solid rgba(200,144,64,.18);border-radius:24px;padding:24px 20px 22px;text-align:center;width:100%;max-width:400px;position:relative;overflow:hidden;}
+.comp-card{
+  background:var(--bg2);border:1px solid rgba(200,144,64,.18);
+  border-radius:24px;padding:24px 20px 22px;
+  text-align:center;width:100%;max-width:400px;
+  position:relative;overflow:hidden;
+}
 .comp-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);}
 
 .stars-row{display:flex;justify-content:center;gap:10px;margin:14px 0;}
@@ -279,43 +233,76 @@ body::before{
 .cst-n{font-size:28px;font-weight:900;color:var(--cream);line-height:1;}
 .cst-l{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--cream-dim);margin-top:3px;}
 
-/* Recap — stacked layout so Arabic never overflows */
+/* ── RECAP — fixed layout ── */
 .dua-recap{
   background:rgba(44,90,62,.15);
   border:1px solid rgba(93,170,120,.15);
   border-radius:14px;
   padding:12px 14px;
-  margin-bottom:16px;text-align:left;
+  margin-bottom:16px;
+  text-align:left;
 }
-.dr-title{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--cream-dim);margin-bottom:10px;text-align:center;}
+.dr-title{
+  font-size:9px;font-weight:700;letter-spacing:2px;
+  text-transform:uppercase;color:var(--cream-dim);
+  margin-bottom:10px;text-align:center;
+}
 .dr-item{
-  display:flex;flex-direction:column;
-  gap:4px;
-  padding:9px 0;
+  padding:10px 0;
   border-bottom:1px solid rgba(255,255,255,.05);
 }
 .dr-item:last-child{border-bottom:none;}
-.dr-top{display:flex;align-items:center;gap:8px;}
-.dr-emoji{font-size:20px;flex-shrink:0;}
-.dr-trans{font-size:13px;font-weight:900;color:var(--cream);}
+
+/* Row 1: emoji + name LEFT, Arabic RIGHT — same line */
+.dr-row1{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  margin-bottom:5px;
+}
+.dr-left{display:flex;align-items:center;gap:7px;min-width:0;}
+.dr-emoji{font-size:18px;flex-shrink:0;}
+.dr-trans{font-size:13px;font-weight:900;color:var(--cream);white-space:nowrap;}
 .dr-arabic{
   font-family:'Scheherazade New',serif;
-  font-size:18px;color:var(--gold-lt);
-  direction:rtl;text-align:right;
-  line-height:1.6;width:100%;
-  word-break:break-word;
+  font-size:19px;color:var(--gold-lt);
+  direction:rtl;line-height:1.4;
+  text-align:right;
+  flex-shrink:0;
 }
-.dr-mean-row{display:flex;gap:6px;flex-wrap:wrap;align-items:baseline;}
+
+/* Row 2: meanings below, indented */
+.dr-row2{
+  display:flex;gap:5px;
+  flex-wrap:wrap;
+  align-items:baseline;
+  padding-left:26px;
+}
 .dr-mean-id{font-size:11px;color:var(--cream);font-weight:700;}
-.dr-mean-en{font-size:10px;color:var(--cream-dim);}
+.dr-mean-en{font-size:10px;color:var(--cream-dim);font-style:italic;}
 
-.btn-row{display:flex;gap:9px;}
-.btn-sec{flex:1;padding:14px 10px;background:var(--card-back);border:1.5px solid var(--border);border-radius:14px;font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;color:var(--cream);cursor:pointer;transition:.15s;}
-.btn-pri{flex:2;padding:14px 10px;background:linear-gradient(135deg,var(--green),#3A7050);border:none;border-radius:14px;font-family:'Nunito',sans-serif;font-size:14px;font-weight:900;color:#fff;cursor:pointer;box-shadow:0 4px 20px rgba(44,90,62,.45);transition:.15s;}
+/* ── COMPLETE SCREEN BUTTONS ── */
+.btn-row{display:flex;gap:9px;width:100%;max-width:400px;}
+.btn-row+.btn-row{margin-top:9px;}
+.btn-sec{
+  flex:1;padding:14px 10px;
+  background:var(--card-back);
+  border:1.5px solid var(--border);
+  border-radius:14px;
+  font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;
+  color:var(--cream);cursor:pointer;transition:.15s;text-align:center;
+}
+.btn-pri{
+  flex:1;padding:14px 10px;
+  background:linear-gradient(135deg,var(--green),#3A7050);
+  border:none;border-radius:14px;
+  font-family:'Nunito',sans-serif;font-size:15px;font-weight:900;
+  color:#fff;cursor:pointer;
+  box-shadow:0 4px 20px rgba(44,90,62,.45);
+  transition:.15s;text-align:center;
+}
 .btn-sec:active,.btn-pri:active{transform:scale(.97);}
-
-.btn-share{width:100%;max-width:400px;margin-top:10px;padding:13px;background:rgba(200,144,64,.1);border:1px solid rgba(200,144,64,.25);border-radius:14px;font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;color:var(--gold-lt);cursor:pointer;transition:.15s;}
-.btn-share:active{transform:scale(.97);}
 
 /* Particles */
 .particle{position:fixed;pointer-events:none;z-index:300;animation:pfall linear forwards;}
@@ -334,10 +321,9 @@ body::before{
   <div class="toast-text" id="toastText">Masya Allah!</div>
 </div>
 
-<!-- ════ WELCOME SCREEN ════ -->
+<!-- ════ WELCOME ════ -->
 <div class="screen active" id="welcomeScreen">
   <div class="welcome-top">
-    <!-- Real Baby Mo logo -->
     <div class="mascot-wrap">
       <img src="Logo_Baby_Mo_Transparant.png" alt="Baby Mo"/>
     </div>
@@ -388,7 +374,7 @@ body::before{
 <div class="screen" id="gameScreen">
   <div class="g-header">
     <button class="g-back" onclick="goHome()">← Hub</button>
-    <span class="g-level" id="gLevelBadge">Easy 🌱</span>
+    <span class="g-level" id="gLevelBadge">Mudah 🌱</span>
     <div class="g-stats">
       <div class="g-stat"><span>👣</span><span id="moveCount">0</span></div>
       <div class="g-stat"><span>⏱</span><span id="timerDisp">0:00</span></div>
@@ -417,7 +403,7 @@ body::before{
 <!-- ════ COMPLETE SCREEN ════ -->
 <div class="screen" id="completeScreen">
   <div class="comp-card">
-    <!-- Real Baby Mo logo on complete screen -->
+
     <div class="comp-mascot-wrap">
       <img class="comp-mascot" src="Logo_Baby_Mo_Transparant.png" alt="Baby Mo"/>
     </div>
@@ -442,73 +428,54 @@ body::before{
       <div id="duaList"></div>
     </div>
 
+    <!-- Primary action -->
     <div class="btn-row">
-      <button class="btn-sec" onclick="goHome()">🏠 Hub</button>
       <button class="btn-pri" onclick="playAgain()">🔄 Main Lagi!</button>
     </div>
-  </div>
 
-  <button class="btn-share" onclick="shareResult()">📤 Bagikan Hasil Belajarmu!</button>
+    <!-- Secondary actions -->
+    <div class="btn-row">
+      <button class="btn-sec" onclick="changeLevelFromComplete()">⚙️ Ganti Level</button>
+      <button class="btn-sec" onclick="goHome()">🏠 Ke Hub</button>
+    </div>
+
+  </div>
   <div style="height:30px"></div>
 </div>
 
 
 <script>
-// ════════════ DATA — bilingual ID + EN ════════════
+// ════════════ DATA ════════════
 const DUAS = [
   {
-    id:1,
-    arabic:"بِسْمِ اللَّهِ",
-    trans:"Bismillah",
-    meaningId:"Dengan nama Allah",
-    meaningEn:"In the name of Allah",
-    emoji:"🍽️",
-    use:"Sebelum makan"
+    id:1, arabic:"بِسْمِ اللَّهِ", trans:"Bismillah",
+    meaningId:"Dengan nama Allah", meaningEn:"In the name of Allah",
+    emoji:"🍽️", use:"Sebelum makan"
   },
   {
-    id:2,
-    arabic:"الْحَمْدُ لِلَّهِ",
-    trans:"Alhamdulillah",
-    meaningId:"Segala puji bagi Allah",
-    meaningEn:"All praise to Allah",
-    emoji:"🌟",
-    use:"Saat bersyukur"
+    id:2, arabic:"الْحَمْدُ لِلَّهِ", trans:"Alhamdulillah",
+    meaningId:"Segala puji bagi Allah", meaningEn:"All praise to Allah",
+    emoji:"🌟", use:"Saat bersyukur"
   },
   {
-    id:3,
-    arabic:"سُبْحَانَ اللَّهِ",
-    trans:"Subhanallah",
-    meaningId:"Maha suci Allah",
-    meaningEn:"Glory be to Allah",
-    emoji:"✨",
-    use:"Saat takjub"
+    id:3, arabic:"سُبْحَانَ اللَّهِ", trans:"Subhanallah",
+    meaningId:"Maha suci Allah", meaningEn:"Glory be to Allah",
+    emoji:"✨", use:"Saat takjub"
   },
   {
-    id:4,
-    arabic:"اللَّهُ أَكْبَرُ",
-    trans:"Allahu Akbar",
-    meaningId:"Allah Maha Besar",
-    meaningEn:"Allah is the Greatest",
-    emoji:"🕌",
-    use:"Saat adzan"
+    id:4, arabic:"اللَّهُ أَكْبَرُ", trans:"Allahu Akbar",
+    meaningId:"Allah Maha Besar", meaningEn:"Allah is the Greatest",
+    emoji:"🕌", use:"Saat adzan"
   },
   {
-    id:5,
-    arabic:"مَا شَاءَ اللَّهُ",
-    trans:"Masha Allah",
-    meaningId:"Atas kehendak Allah",
-    meaningEn:"As Allah has willed",
-    emoji:"💚",
-    use:"Mensyukuri nikmat"
+    id:5, arabic:"مَا شَاءَ اللَّهُ", trans:"Masha Allah",
+    meaningId:"Atas kehendak Allah", meaningEn:"As Allah has willed",
+    emoji:"💚", use:"Mensyukuri nikmat"
   },
   {
-    id:6,
-    arabic:"إِنْ شَاءَ اللَّهُ",
-    trans:"Insha Allah",
-    meaningId:"Jika Allah menghendaki",
-    meaningEn:"If Allah wills",
-    emoji:"🌙",
-    use:"Saat berencana"
+    id:6, arabic:"إِنْ شَاءَ اللَّهُ", trans:"Insha Allah",
+    meaningId:"Jika Allah menghendaki", meaningEn:"If Allah wills",
+    emoji:"🌙", use:"Saat berencana"
   }
 ];
 
@@ -553,11 +520,11 @@ function startGame(){
   activeDuas = cfg.ids.map(i => DUAS[i]);
   flipped=[]; matched=0; moves=0; secs=0; canFlip=true; msgIdx=0;
 
-  document.getElementById('moveCount').textContent = '0';
-  document.getElementById('timerDisp').textContent = '0:00';
-  document.getElementById('matchDisp').textContent = '0';
-  document.getElementById('totalDisp').textContent = cfg.pairs;
-  document.getElementById('progBar').style.width   = '0%';
+  document.getElementById('moveCount').textContent  = '0';
+  document.getElementById('timerDisp').textContent  = '0:00';
+  document.getElementById('matchDisp').textContent  = '0';
+  document.getElementById('totalDisp').textContent  = cfg.pairs;
+  document.getElementById('progBar').style.width    = '0%';
   document.getElementById('gLevelBadge').textContent = cfg.name;
   document.getElementById('scrollHint').style.display = level===2 ? 'block' : 'none';
 
@@ -583,7 +550,6 @@ function buildGrid(cfg){
     cards.push({dua:d, type:'arabic'});
     cards.push({dua:d, type:'meaning'});
   });
-  // Fisher-Yates shuffle
   for(let i=cards.length-1;i>0;i--){
     const j=Math.floor(Math.random()*(i+1));
     [cards[i],cards[j]]=[cards[j],cards[i]];
@@ -695,11 +661,11 @@ function showComplete(){
   const titles={1:"Terus berlatih! 🌱",2:"Alhamdulillah! ✨",3:"Masya Allah! 🌟"};
   const subs  ={1:"Latihan lagi ya, pasti bisa!",2:"Bagus sekali, Baby Mo!",3:"Sempurna! Juara doa! 🏆"};
 
-  document.getElementById('compTitle').textContent=titles[stars];
-  document.getElementById('compSub').textContent  =subs[stars];
-  document.getElementById('cMoves').textContent=moves;
-  document.getElementById('cTime').textContent =ts;
-  document.getElementById('cStars').textContent='⭐'.repeat(stars);
+  document.getElementById('compTitle').textContent = titles[stars];
+  document.getElementById('compSub').textContent   = subs[stars];
+  document.getElementById('cMoves').textContent    = moves;
+  document.getElementById('cTime').textContent     = ts;
+  document.getElementById('cStars').textContent    = '⭐'.repeat(stars);
 
   showScreen('completeScreen');
 
@@ -708,18 +674,20 @@ function showComplete(){
     if((i+1)<=stars) setTimeout(()=>document.getElementById(id).classList.add('lit'),400+i*350);
   });
 
-  // Recap — stacked layout
-  const list=document.getElementById('duaList');
-  list.innerHTML='';
+  // Recap — emoji+name left, Arabic right, meanings below
+  const list = document.getElementById('duaList');
+  list.innerHTML = '';
   activeDuas.forEach(d=>{
-    list.innerHTML+=`
+    list.innerHTML += `
       <div class="dr-item">
-        <div class="dr-top">
-          <span class="dr-emoji">${d.emoji}</span>
-          <span class="dr-trans">${d.trans}</span>
+        <div class="dr-row1">
+          <div class="dr-left">
+            <span class="dr-emoji">${d.emoji}</span>
+            <span class="dr-trans">${d.trans}</span>
+          </div>
+          <span class="dr-arabic">${d.arabic}</span>
         </div>
-        <div class="dr-arabic">${d.arabic}</div>
-        <div class="dr-mean-row">
+        <div class="dr-row2">
           <span class="dr-mean-id">${d.meaningId}</span>
           <span class="dr-mean-en">· ${d.meaningEn}</span>
         </div>
@@ -746,14 +714,6 @@ function spawnParticles(stars){
   }
 }
 
-// ════════════ SHARE ════════════
-function shareResult(){
-  const stars=document.getElementById('cStars').textContent;
-  const text=`🌙 Baby Mo's Dua Journey!\nAku dapat ${stars} di Level ${level}!\n\nMain di BabyMo.id — Belajar Islam untuk si kecil 🐻\n#BabyMo #BelajarIslam #DoaAnak`;
-  if(navigator.share){ navigator.share({title:"Baby Mo Dua Journey",text,url:"https://babymo.id"}).catch(()=>{}); }
-  else{ navigator.clipboard?.writeText(text).then(()=>showToast('📤','Disalin!')); }
-}
-
 // ════════════ NAV ════════════
 function showScreen(id){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
@@ -768,6 +728,11 @@ function goHome(){
 function playAgain(){
   ['s1','s2','s3'].forEach(id=>document.getElementById(id).classList.remove('lit'));
   startGame();
+}
+function changeLevelFromComplete(){
+  clearInterval(ticker);
+  ['s1','s2','s3'].forEach(id=>document.getElementById(id).classList.remove('lit'));
+  showScreen('welcomeScreen');
 }
 </script>
 </body>
