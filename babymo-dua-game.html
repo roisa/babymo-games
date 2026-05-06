@@ -217,7 +217,7 @@ body::before{
   background:var(--bg2);border:1px solid rgba(200,144,64,.18);
   border-radius:24px;padding:24px 20px 22px;
   text-align:center;width:100%;max-width:400px;
-  position:relative;overflow:hidden;
+  position:relative;overflow:visible;
 }
 .comp-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);}
 
@@ -428,18 +428,17 @@ body::before{
       <div id="duaList"></div>
     </div>
 
-    <!-- Primary action -->
-    <div class="btn-row">
-      <button class="btn-pri" onclick="playAgain()">🔄 Main Lagi!</button>
     </div>
 
-    <!-- Secondary actions -->
-    <div class="btn-row">
-      <button class="btn-sec" onclick="changeLevelFromComplete()">⚙️ Ganti Level</button>
-      <button class="btn-sec" onclick="goHome()">🏠 Ke Hub</button>
-    </div>
-
+  <!-- Buttons outside card so they are never clipped -->
+  <div class="btn-row" style="margin-top:12px;">
+    <button class="btn-pri" onclick="playAgain()">🔄 Main Lagi!</button>
   </div>
+  <div class="btn-row" style="margin-top:9px;">
+    <button class="btn-sec" onclick="changeLevelFromComplete()">⚙️ Ganti Level</button>
+    <button class="btn-sec" onclick="goHome()">🏠 Ke Hub</button>
+  </div>
+
   <div style="height:30px"></div>
 </div>
 
