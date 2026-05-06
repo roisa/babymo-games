@@ -29,27 +29,27 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(
 @keyframes zf{0%{opacity:.7;transform:translateY(0)}100%{opacity:0;transform:translateY(-40px)}}
 @keyframes bt{0%,100%{transform:scale(1)}50%{transform:scale(1.04)}}
 @keyframes rp{to{transform:scale(5);opacity:0}}
-@keyframes mof{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-12px) rotate(3deg)}}
+@keyframes mof{0%,100%{transform:translateY(0) rotate(-1.5deg)}50%{transform:translateY(-8px) rotate(1.5deg)}}
 @keyframes starFade{0%{opacity:.03}50%{opacity:.18}100%{opacity:.03}}
 @keyframes glowBtn{0%,100%{box-shadow:0 6px 28px rgba(44,90,62,.5)}50%{box-shadow:0 6px 40px rgba(44,90,62,.8),0 0 0 10px rgba(93,170,120,.08)}}
+@keyframes shadowBreathe{0%,100%{transform:scaleX(1);opacity:.5}50%{transform:scaleX(.78);opacity:.28}}
+@keyframes zzFloat{0%{opacity:.8;transform:translateY(0) scale(1)}100%{opacity:0;transform:translateY(-36px) scale(1.2)}}
+@keyframes bonkSway{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(4deg)}}
 
 .screen{position:fixed;inset:0;display:none;flex-direction:column;background:var(--bg);}
 .screen.on{display:flex;}
 
-/* Top progress bar */
 .topbar{display:flex;align-items:center;gap:12px;padding:16px 20px 4px;flex-shrink:0;position:relative;z-index:2;}
 .ptrack{flex:1;height:10px;background:rgba(255,255,255,.07);border-radius:99px;overflow:hidden;}
 .pfill{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--green),var(--green-glow));transition:width .6s;}
 .home-btn{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:7px 12px;color:var(--cream-dim);font-size:16px;cursor:pointer;font-family:inherit;transition:.15s;}
 .home-btn:active{opacity:.7;}
 
-/* Step heading */
 .shead{text-align:center;padding:10px 24px 0;flex-shrink:0;}
 .snum{font-size:10px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:var(--cream-dim);margin-bottom:5px;}
 .stitle{font-size:26px;font-weight:900;color:var(--cream);line-height:1.2;}
 .shint{font-size:14px;color:var(--cream-dim);margin-top:5px;line-height:1.4;}
 
-/* Main CTA button */
 .gbtn{
   background:linear-gradient(135deg,var(--green),#3A7050);
   border:none;border-radius:100px;
@@ -62,7 +62,6 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(
 }
 .gbtn:active{transform:scale(.97);}
 
-/* Pajama grid */
 .pjgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;width:100%;max-width:320px;}
 .pjitem{
   background:rgba(255,255,255,.05);
@@ -75,20 +74,20 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(
 }
 .pjitem:active{transform:scale(.97);}
 
-/* Dua lines */
-.dualine{
-  background:rgba(255,255,255,.05);
+/* Doa cards */
+.doa-card{
+  background:rgba(255,255,255,.04);
   border:2px solid var(--border);
-  border-radius:18px;padding:16px 18px;
-  cursor:pointer;position:relative;overflow:hidden;
-  transition:all .35s cubic-bezier(.34,1.56,.64,1);
-  touch-action:manipulation;margin-bottom:10px;
+  border-radius:18px;
+  padding:14px 16px;
+  transition:all .35s;
+  position:relative;
+  overflow:hidden;
 }
-.dualine.locked{opacity:.25;cursor:default;pointer-events:none;}
-.dualine.active{border-color:rgba(200,144,64,.6);background:rgba(200,144,64,.09);}
-.dualine.fin{border-color:rgba(109,184,130,.5);background:rgba(93,170,120,.08);}
+.doa-card.played{border-color:rgba(109,184,130,.4);background:rgba(93,170,120,.06);}
+.doa-card.combined{border-color:rgba(200,144,64,.25);background:rgba(200,144,64,.05);}
+.doa-card.combined.played{border-color:rgba(200,144,64,.55);background:rgba(200,144,64,.1);}
 
-/* Bed frame */
 .bedframe{
   background:#0F2016;border:2px solid #1E3A28;
   border-radius:26px;overflow:hidden;
@@ -107,6 +106,18 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(
 .donebanner{text-align:center;padding:12px 24px;flex-shrink:0;animation:su .5s ease;}
 .ripel{position:absolute;border-radius:50%;pointer-events:none;animation:rp .6s ease forwards;}
 #stars{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
+
+/* Logo mascot */
+.mo-logo{object-fit:contain;display:block;filter:drop-shadow(0 6px 18px rgba(0,0,0,.38));animation:mof 3.6s ease-in-out infinite;}
+.mo-shadow{border-radius:50%;background:rgba(44,90,62,.28);filter:blur(4px);animation:shadowBreathe 3.6s ease-in-out infinite;margin:0 auto;}
+
+/* Head crop for baca doa */
+.mo-head{
+  width:72px;height:72px;border-radius:50%;
+  object-fit:cover;object-position:top center;
+  border:2.5px solid rgba(93,170,120,.25);
+  flex-shrink:0;
+}
 </style>
 </head>
 <body>
@@ -117,94 +128,27 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(
 <div id="s-home" class="screen on" style="background:linear-gradient(165deg,var(--bg3),var(--bg) 45%,var(--bg2));">
   <div style="position:relative;z-index:2;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:36px 28px 44px;">
 
-    <!-- Top brand label -->
     <div style="text-align:center;">
       <div style="font-size:10px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:var(--cream-dim);">BabyMo.id</div>
     </div>
 
-    <!-- Baby Mo — Sleepy, holding moon pillow -->
-    <div style="text-align:center;animation:mof 3.5s ease-in-out infinite;">
-      <svg width="190" height="218" viewBox="0 0 190 218" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <radialGradient id="hfHome" cx="45%" cy="38%" r="55%">
-            <stop offset="0%" stop-color="#E0AA80"/>
-            <stop offset="100%" stop-color="#C08060"/>
-          </radialGradient>
-        </defs>
-        <!-- Ground shadow -->
-        <ellipse cx="95" cy="210" rx="66" ry="14" fill="#162814" opacity=".7"/>
-        <!-- Body / pajamas (dark forest green with tiny star pattern) -->
-        <ellipse cx="95" cy="192" rx="52" ry="22" fill="#2C5A3E"/>
-        <ellipse cx="95" cy="172" rx="48" ry="36" fill="#3D7A52"/>
-        <!-- Pajama star dots -->
-        <circle cx="76" cy="164" r="2" fill="#C89040" opacity=".25"/>
-        <circle cx="100" cy="172" r="2.5" fill="#C89040" opacity=".2"/>
-        <circle cx="88" cy="183" r="2" fill="#C89040" opacity=".22"/>
-        <circle cx="112" cy="165" r="1.8" fill="#C89040" opacity=".18"/>
-        <!-- Arms -->
-        <ellipse cx="42" cy="172" rx="17" ry="11" fill="#C8906A" transform="rotate(-25,42,172)"/>
-        <ellipse cx="148" cy="170" rx="17" ry="11" fill="#C8906A" transform="rotate(25,148,170)"/>
-        <!-- Moon pillow held in arms -->
-        <ellipse cx="95" cy="188" rx="36" ry="20" fill="#1A3A24"/>
-        <ellipse cx="95" cy="186" rx="33" ry="17" fill="#243A2C"/>
-        <text x="83" y="193" font-size="20" fill="#C89040" opacity=".35">🌙</text>
-        <!-- Bear ears — PROPER round tan ears, not green blobs -->
-        <circle cx="30" cy="82" r="28" fill="#A86848"/>
-        <circle cx="30" cy="82" r="18" fill="#D8A07A"/>
-        <circle cx="160" cy="82" r="28" fill="#A86848"/>
-        <circle cx="160" cy="82" r="18" fill="#D8A07A"/>
-        <!-- Kufi cap shadow -->
-        <ellipse cx="95" cy="56" rx="62" ry="40" fill="#142210"/>
-        <!-- Kufi cap -->
-        <ellipse cx="95" cy="50" rx="58" ry="36" fill="#2C5A3E"/>
-        <!-- Cap geometric lines -->
-        <path d="M 48 60 Q 95 75 142 60" stroke="rgba(93,170,120,.38)" stroke-width="1.8" fill="none"/>
-        <path d="M 54 48 Q 95 60 136 48" stroke="rgba(93,170,120,.22)" stroke-width="1.2" fill="none"/>
-        <!-- Moon on cap — bedtime edition! -->
-        <text x="62" y="46" font-size="18" fill="#E8B060" opacity=".8">🌙</text>
-        <!-- Star on cap -->
-        <text x="91" y="52" font-size="20" fill="#C89040" opacity=".95">✦</text>
-        <!-- HEAD -->
-        <circle cx="95" cy="112" r="62" fill="url(#hfHome)"/>
-        <!-- Head highlight -->
-        <ellipse cx="83" cy="96" rx="32" ry="24" fill="white" opacity=".05"/>
-        <!-- SLEEPY HALF-CLOSED EYES -->
-        <!-- Left eye white -->
-        <circle cx="72" cy="104" r="14" fill="white"/>
-        <!-- Left pupil (looking slightly down — sleepy) -->
-        <circle cx="73" cy="108" r="9.5" fill="#1A1A1A"/>
-        <!-- Sleepy eyelid covering top half -->
-        <path d="M 56 101 Q 72 91 89 101 Z" fill="#D8A07A" opacity=".97"/>
-        <path d="M 57 103 Q 72 94 88 103" fill="none" stroke="#8B5030" stroke-width="1.5" opacity=".4"/>
-        <!-- Left eye shine -->
-        <circle cx="75" cy="105" r="3.5" fill="white"/>
-        <!-- Right eye white -->
-        <circle cx="118" cy="104" r="14" fill="white"/>
-        <!-- Right pupil -->
-        <circle cx="119" cy="108" r="9.5" fill="#1A1A1A"/>
-        <!-- Sleepy eyelid right -->
-        <path d="M 102 101 Q 118 91 135 101 Z" fill="#D8A07A" opacity=".97"/>
-        <path d="M 103 103 Q 118 94 134 103" fill="none" stroke="#8B5030" stroke-width="1.5" opacity=".4"/>
-        <!-- Right eye shine -->
-        <circle cx="121" cy="105" r="3.5" fill="white"/>
-        <!-- Droopy eyebrows (sleepy) -->
-        <path d="M 60 93 Q 72 90 84 94" stroke="#7A4020" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-        <path d="M 106 94 Q 118 90 130 93" stroke="#7A4020" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-        <!-- Nose -->
-        <ellipse cx="95" cy="122" rx="10" ry="7" fill="#8B4A2A"/>
-        <ellipse cx="91" cy="120" rx="3.5" ry="2" fill="#B06040" opacity=".4"/>
-        <!-- Sleepy relaxed smile -->
-        <path d="M 78 134 Q 95 148 112 134" stroke="#6A3820" stroke-width="3.5" fill="none" stroke-linecap="round"/>
-        <!-- Blush circles -->
-        <circle cx="54" cy="122" r="16" fill="#E07070" opacity=".2"/>
-        <circle cx="136" cy="122" r="16" fill="#E07070" opacity=".2"/>
-        <!-- Floating Zzz (sleepy!) -->
-        <text x="155" y="92" font-size="12" fill="#C89040" opacity=".35" font-family="Nunito,sans-serif" font-weight="900">z</text>
-        <text x="164" y="70" font-size="18" fill="#C89040" opacity=".42" font-family="Nunito,sans-serif" font-weight="900">z</text>
-        <text x="170" y="46" font-size="24" fill="#C89040" opacity=".35" font-family="Nunito,sans-serif" font-weight="900">Z</text>
-      </svg>
-
-      <div style="font-size:36px;font-weight:900;color:var(--cream);line-height:1.15;margin-bottom:8px;">Waktunya<br>Tidur! 🌙</div>
+    <!-- Baby Mo logo + zzz animations -->
+    <div style="text-align:center;">
+      <div style="position:relative;display:inline-block;">
+        <img class="mo-logo" src="Logo_Baby_Mo_Transparant.png" alt="Baby Mo" style="width:170px;height:170px;"/>
+        <!-- Floating zzz -->
+        <div style="position:absolute;top:10px;right:-10px;pointer-events:none;">
+          <span style="display:block;font-size:13px;font-weight:900;color:rgba(200,144,64,.45);animation:zzFloat 2s 0s ease-in-out infinite;font-family:Nunito,sans-serif;">z</span>
+          <span style="display:block;font-size:20px;font-weight:900;color:rgba(200,144,64,.55);animation:zzFloat 2.5s .5s ease-in-out infinite;font-family:Nunito,sans-serif;">z</span>
+          <span style="display:block;font-size:28px;font-weight:900;color:rgba(200,144,64,.5);animation:zzFloat 3s 1s ease-in-out infinite;font-family:Nunito,sans-serif;">Z</span>
+        </div>
+        <!-- Sleepy stars floating -->
+        <div style="position:absolute;top:20px;left:-14px;pointer-events:none;">
+          <span style="display:block;font-size:16px;animation:zzFloat 2.8s .3s ease-in-out infinite;opacity:.5;">💤</span>
+        </div>
+      </div>
+      <div class="mo-shadow" style="width:90px;height:10px;margin-top:-4px;"></div>
+      <div style="font-size:36px;font-weight:900;color:var(--cream);line-height:1.15;margin-top:14px;margin-bottom:8px;">Waktunya<br>Tidur! 🌙</div>
       <div style="font-size:15px;color:var(--cream-dim);margin-bottom:32px;line-height:1.5;">4 langkah malam bersama Baby Mo ⭐</div>
     </div>
 
@@ -252,59 +196,16 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(
   <div id="sleepdim" style="position:absolute;inset:0;background:#000;opacity:0;z-index:2;pointer-events:none;"></div>
   <div id="sleepcontent" style="position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;opacity:0;transition:opacity 1.2s;padding:40px;">
 
-    <!-- Baby Mo sleeping SVG -->
-    <div style="animation:bt 4s ease-in-out infinite;">
-      <svg width="160" height="148" viewBox="0 0 160 148" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <radialGradient id="hfSleep" cx="45%" cy="38%" r="55%">
-            <stop offset="0%" stop-color="#D8A07A"/>
-            <stop offset="100%" stop-color="#B87858"/>
-          </radialGradient>
-        </defs>
-        <!-- Body -->
-        <ellipse cx="80" cy="136" rx="50" ry="16" fill="#2C5A3E"/>
-        <ellipse cx="80" cy="120" rx="46" ry="28" fill="#3D7A52"/>
-        <!-- Star on pajamas -->
-        <text x="66" y="122" font-size="10" fill="#C89040" opacity=".2">✦</text>
-        <text x="88" y="130" font-size="8" fill="#C89040" opacity=".18">★</text>
-        <!-- Arms resting -->
-        <ellipse cx="30" cy="118" rx="16" ry="10" fill="#C8906A" transform="rotate(-15,30,118)"/>
-        <ellipse cx="130" cy="116" rx="16" ry="10" fill="#C8906A" transform="rotate(15,130,116)"/>
-        <!-- Bear ears -->
-        <circle cx="24" cy="46" r="22" fill="#A86848"/>
-        <circle cx="24" cy="46" r="14" fill="#D8A07A"/>
-        <circle cx="136" cy="46" r="22" fill="#A86848"/>
-        <circle cx="136" cy="46" r="14" fill="#D8A07A"/>
-        <!-- Kufi cap with moon -->
-        <ellipse cx="80" cy="28" rx="52" ry="30" fill="#1E3A28"/>
-        <ellipse cx="80" cy="23" rx="48" ry="26" fill="#3D7A52"/>
-        <path d="M 42 30 Q 80 42 118 30" stroke="rgba(93,170,120,.35)" stroke-width="1.4" fill="none"/>
-        <text x="54" y="20" font-size="14" fill="#E8B060" opacity=".75">🌙</text>
-        <text x="76" y="26" font-size="16" fill="#C89040" opacity=".9">✦</text>
-        <!-- Head -->
-        <circle cx="80" cy="80" r="50" fill="url(#hfSleep)"/>
-        <!-- SLEEPING EYES — curved lines (closed) -->
-        <path d="M 55 74 Q 65 67 75 74" fill="none" stroke="#7A4020" stroke-width="3" stroke-linecap="round"/>
-        <path d="M 85 74 Q 95 67 105 74" fill="none" stroke="#7A4020" stroke-width="3" stroke-linecap="round"/>
-        <!-- Little lashes -->
-        <line x1="57" y1="73" x2="54" y2="69" stroke="#7A4020" stroke-width="1.5" stroke-linecap="round"/>
-        <line x1="65" y1="68" x2="65" y2="64" stroke="#7A4020" stroke-width="1.5" stroke-linecap="round"/>
-        <line x1="87" y1="73" x2="84" y2="69" stroke="#7A4020" stroke-width="1.5" stroke-linecap="round"/>
-        <line x1="95" y1="68" x2="95" y2="64" stroke="#7A4020" stroke-width="1.5" stroke-linecap="round"/>
-        <!-- Nose -->
-        <ellipse cx="80" cy="90" rx="8" ry="5.5" fill="#8B4A2A"/>
-        <!-- Peaceful smile -->
-        <path d="M 66 101 Q 80 114 94 101" stroke="#6A3820" stroke-width="3" fill="none" stroke-linecap="round"/>
-        <!-- Blush -->
-        <circle cx="50" cy="89" r="13" fill="#E07070" opacity=".25"/>
-        <circle cx="110" cy="89" r="13" fill="#E07070" opacity=".25"/>
-        <!-- Stars by face -->
-        <text x="4" y="58" font-size="11" fill="#C89040" opacity=".3">✦</text>
-        <text x="142" y="52" font-size="14" fill="#E8B060" opacity=".35">⭐</text>
-      </svg>
+    <!-- Real Baby Mo logo sleeping -->
+    <div style="position:relative;display:inline-block;animation:bt 4s ease-in-out infinite;">
+      <img src="Logo_Baby_Mo_Transparant.png" alt="Baby Mo" style="width:140px;height:140px;object-fit:contain;filter:drop-shadow(0 4px 18px rgba(44,90,62,.4));"/>
+      <div style="position:absolute;top:5px;right:-8px;pointer-events:none;">
+        <span style="display:block;font-size:12px;font-weight:900;color:rgba(200,144,64,.4);animation:zzFloat 1.8s 0s ease infinite;font-family:Nunito,sans-serif;">z</span>
+        <span style="display:block;font-size:19px;font-weight:900;color:rgba(200,144,64,.5);animation:zzFloat 2.3s .45s ease infinite;font-family:Nunito,sans-serif;">z</span>
+        <span style="display:block;font-size:28px;font-weight:900;color:rgba(200,144,64,.48);animation:zzFloat 2.8s .9s ease infinite;font-family:Nunito,sans-serif;">Z</span>
+      </div>
     </div>
 
-    <!-- Zzz floating -->
     <div style="display:flex;gap:10px;align-items:flex-end;">
       <div style="font-size:14px;font-weight:900;color:rgba(200,144,64,.35);animation:zf 1.6s 0s ease infinite;">z</div>
       <div style="font-size:22px;font-weight:900;color:rgba(200,144,64,.45);animation:zf 2s .45s ease infinite;">z</div>
@@ -316,20 +217,18 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(
     <div id="viz" style="display:flex;gap:5px;align-items:flex-end;height:32px;margin-top:6px;"></div>
   </div>
 </div>
-<!-- end screens -->
 
 
 <script>
-/* ── STARS (gold BabyMo style) ── */
+/* ── STARS ── */
 (function(){
   var c=document.getElementById('stars');
   var glyphs=['✦','·','✧','*','◆'];
   for(var i=0;i<50;i++){
     var s=document.createElement('div');
     var z=.5+Math.random()*2.2;
-    var g=glyphs[i%glyphs.length];
     s.style.cssText='position:absolute;color:#C89040;font-size:'+z*4+'px;left:'+Math.random()*100+'%;top:'+Math.random()*100+'%;opacity:'+(0.03+Math.random()*.12)+';animation:starFade '+(2+Math.random()*4)+'s '+(Math.random()*6)+'s infinite ease-in-out;pointer-events:none;';
-    s.textContent=g;
+    s.textContent=glyphs[i%glyphs.length];
     c.appendChild(s);
   }
 })();
@@ -337,67 +236,90 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(
 /* ── UTILS ── */
 function vib(p){try{navigator.vibrate&&navigator.vibrate(p||40);}catch(e){}}
 
-/* ── VOICE SYSTEM — Mom voice ── */
-var _vlist=[], _arV=null, _idV=null, _isSpeaking=false;
+/* ── WEB AUDIO CTX (shared) ── */
+var _audioCtx=null;
+function getACtx(){
+  if(!_audioCtx){try{_audioCtx=new(window.AudioContext||window.webkitAudioContext)();}catch(e){}}
+  return _audioCtx;
+}
+
+/* ── BRUSH BRISTLE SOUND ── */
+function playBrushSound(){
+  var ctx=getACtx();if(!ctx)return;
+  try{
+    var dur=0.09;
+    var bufSize=Math.floor(ctx.sampleRate*dur);
+    var buf=ctx.createBuffer(1,bufSize,ctx.sampleRate);
+    var data=buf.getChannelData(0);
+    for(var i=0;i<bufSize;i++) data[i]=(Math.random()*2-1);
+    var src=ctx.createBufferSource();src.buffer=buf;
+    var bpf=ctx.createBiquadFilter();bpf.type='bandpass';bpf.frequency.value=3200;bpf.Q.value=1.2;
+    var lpf=ctx.createBiquadFilter();lpf.type='lowpass';lpf.frequency.value=5500;
+    var gain=ctx.createGain();
+    gain.gain.setValueAtTime(0.28,ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+dur);
+    src.connect(bpf);bpf.connect(lpf);lpf.connect(gain);gain.connect(ctx.destination);
+    src.start(ctx.currentTime);src.stop(ctx.currentTime+dur);
+  }catch(e){}
+}
+
+/* ── VOICE SYSTEM — Female Indonesian preference ── */
+var _vlist=[], _arV=null, _idV=null;
 function _initVoices(){
   if(!window.speechSynthesis)return;
   function load(){
     _vlist=speechSynthesis.getVoices();
+    /* Arabic voice */
     _arV=_vlist.find(function(v){return v.lang==='ar-SA';})||
          _vlist.find(function(v){return v.lang==='ar-EG';})||
          _vlist.find(function(v){return v.lang.startsWith('ar');})||null;
-    _idV=_vlist.find(function(v){return v.lang==='id-ID';})||
-         _vlist.find(function(v){return v.lang.startsWith('id');})||null;
+    /* Female Indonesian voice — try by name first */
+    _idV=_vlist.find(function(v){return v.lang==='id-ID'&&(v.name.toLowerCase().includes('female')||v.name.includes('Damayanti')||v.name.includes('Google Bahasa Indonesia'));})
+        ||_vlist.find(function(v){return v.lang==='id-ID';})
+        ||_vlist.find(function(v){return v.lang.startsWith('id');})||null;
   }
   load();
   if(speechSynthesis.onvoiceschanged!==undefined) speechSynthesis.onvoiceschanged=load;
 }
 _initVoices();
 
-/* Indonesian warm "mom" voice */
-function speakMom(txt, cb){
+function speakMom(txt,cb){
   if(!window.speechSynthesis){if(cb)setTimeout(cb,0);return;}
-  var u=new SpeechSynthesisUtterance(txt);
-  u.lang='id-ID';
-  u.rate=0.80;    /* warm, unhurried */
-  u.pitch=1.28;   /* higher = softer, maternal */
-  u.volume=1.0;
-  if(_idV) u.voice=_idV;
-  u.onend=u.onerror=function(){if(cb)setTimeout(cb,260);};
-  speechSynthesis.cancel();
-  speechSynthesis.speak(u);
+  var attempts=0;
+  function trySpeak(){
+    var voices=speechSynthesis.getVoices();
+    _idV=voices.find(function(v){return v.lang==='id-ID'&&(v.name.toLowerCase().includes('female')||v.name.includes('Damayanti')||v.name.includes('Google Bahasa Indonesia'));})
+        ||voices.find(function(v){return v.lang==='id-ID';})
+        ||voices.find(function(v){return v.lang.startsWith('id');})||_idV;
+    var u=new SpeechSynthesisUtterance(txt);
+    u.lang='id-ID';
+    u.rate=0.80;
+    u.pitch=1.45; /* higher = warmer, feminine */
+    u.volume=1.0;
+    if(_idV){u.voice=_idV;u.voiceURI=_idV.voiceURI;}
+    u.onend=u.onerror=function(){if(cb)setTimeout(cb,260);};
+    speechSynthesis.cancel();
+    setTimeout(function(){speechSynthesis.speak(u);},120);
+  }
+  trySpeak();
 }
 
-/* Arabic — slow, clear, reverential */
-function speakAr(txt, cb){
+function speakAr(txt,cb){
   if(!window.speechSynthesis){if(cb)setTimeout(cb,0);return;}
   var u=new SpeechSynthesisUtterance(txt);
-  u.lang='ar-SA';
-  u.rate=0.40;
-  u.pitch=1.05;
-  u.volume=1.0;
-  if(_arV) u.voice=_arV;
+  u.lang='ar-SA';u.rate=0.40;u.pitch=1.05;u.volume=1.0;
+  if(_arV){u.voice=_arV;u.voiceURI=_arV.voiceURI;}
   u.onend=u.onerror=function(){if(cb)setTimeout(cb,0);};
   speechSynthesis.cancel();
-  speechSynthesis.speak(u);
+  setTimeout(function(){speechSynthesis.speak(u);},120);
 }
 
-/* Guided sequence: narration → pause → Arabic */
-function speakGuided(narr, ar, cb){
+function speakGuided(narr,ar,cb){
   speechSynthesis.cancel();
-  _isSpeaking=true;
-  speakMom(narr, function(){
-    setTimeout(function(){
-      speakAr(ar, function(){
-        _isSpeaking=false;
-        if(cb) cb();
-      });
-    }, 550);
+  speakMom(narr,function(){
+    setTimeout(function(){speakAr(ar,function(){if(cb)cb();});},550);
   });
 }
-
-/* Legacy alias — keeps brush/blanket working */
-function speak(txt){ speakAr(txt, null); }
 
 /* ── LULLABY ── */
 var LUL=(function(){
@@ -441,11 +363,10 @@ function show(id){
 }
 
 document.getElementById('btn-start').addEventListener('click',function(){vib(60);show('steps');runStep(0);});
-document.getElementById('btn-home').addEventListener('click',function(){vib(40);show('home');});
+document.getElementById('btn-home').addEventListener('click',function(){vib(40);speechSynthesis.cancel();show('home');});
 
 function setP(idx){document.getElementById('pfill').style.width=(idx/4*100)+'%';}
 
-/* ── RIPPLE ── */
 function addRipple(el,e,color){
   var r=document.createElement('div');r.className='ripel';
   var rect=el.getBoundingClientRect();
@@ -456,7 +377,6 @@ function addRipple(el,e,color){
   el.appendChild(r);setTimeout(function(){r.remove();},700);
 }
 
-/* ── STEP RUNNER ── */
 var BUILDERS=[buildBrush,buildPajamas,buildDoa,buildBlanket];
 function runStep(idx){
   setP(idx);
@@ -476,54 +396,22 @@ function runStep(idx){
 }
 
 /* ══════════════════════════════════════════
-   STEP 1 — GOSOK GIGI (Brush Teeth)
-   Baby Mo holding a toothbrush
+   STEP 1 — GOSOK GIGI + BRUSH SOUND
 ══════════════════════════════════════════ */
 function buildBrush(wrap,done){
   var NEED=7,count=0,bx=50,finished=false,pdown=false,refX=0,lastDir=null,moveX=0;
   var FACES=['😐','🙂','😊','😄','🤩','✨','😁'];
 
-  // Baby Mo brush SVG (small, 148×128)
-  var moSVG='<svg width="148" height="128" viewBox="0 0 148 128" xmlns="http://www.w3.org/2000/svg">'
-    +'<defs><radialGradient id="bf" cx="45%" cy="40%" r="55%"><stop offset="0%" stop-color="#D8A07A"/><stop offset="100%" stop-color="#C08060"/></radialGradient></defs>'
-    +'<ellipse cx="74" cy="120" rx="44" ry="14" fill="#2C5A3E"/>'
-    +'<ellipse cx="74" cy="106" rx="40" ry="26" fill="#3D7A52"/>'
-    +'<ellipse cx="26" cy="100" rx="14" ry="9" fill="#C8906A" transform="rotate(-22,26,100)"/>'
-    +'<ellipse cx="122" cy="98" rx="16" ry="10" fill="#C8906A" transform="rotate(22,122,98)"/>'
-    // Bear ears
-    +'<circle cx="20" cy="44" r="19" fill="#A86848"/><circle cx="20" cy="44" r="12" fill="#D8A07A"/>'
-    +'<circle cx="128" cy="44" r="19" fill="#A86848"/><circle cx="128" cy="44" r="12" fill="#D8A07A"/>'
-    // Kufi cap
-    +'<ellipse cx="74" cy="24" rx="50" ry="29" fill="#1E3A28"/>'
-    +'<ellipse cx="74" cy="19" rx="46" ry="25" fill="#3D7A52"/>'
-    +'<path d="M 38 26 Q 74 38 110 26" stroke="rgba(93,170,120,.38)" stroke-width="1.3" fill="none"/>'
-    +'<text x="67" y="22" font-size="13" fill="#C89040" opacity=".9">✦</text>'
-    // Head
-    +'<circle cx="74" cy="70" r="48" fill="url(#bf)"/>'
-    // Eyes (happy/neutral)
-    +'<circle cx="56" cy="62" r="11" fill="white"/>'
-    +'<circle cx="92" cy="62" r="11" fill="white"/>'
-    +'<circle cx="57" cy="63" r="7.5" fill="#1A1A1A" id="bEyeL"/>'
-    +'<circle cx="93" cy="63" r="7.5" fill="#1A1A1A" id="bEyeR"/>'
-    +'<circle cx="59" cy="61" r="2.8" fill="white"/>'
-    +'<circle cx="95" cy="61" r="2.8" fill="white"/>'
-    +'<ellipse cx="74" cy="78" rx="7.5" ry="5.5" fill="#8B4A2A"/>'
-    // Teeth (will be colored by JS)
-    +'<path d="M 54 90 Q 74 106 94 90" fill="#1C0808"/>'
-    +'<rect id="t0" x="57" y="85" width="11" height="13" rx="3.5" fill="#D8D0C8"/>'
-    +'<rect id="t1" x="69" y="83" width="12" height="15" rx="3.5" fill="#D8D0C8"/>'
-    +'<rect id="t2" x="83" y="85" width="11" height="13" rx="3.5" fill="#D8D0C8"/>'
-    // Blush
-    +'<circle cx="40" cy="74" r="11" fill="#E07070" opacity=".22"/>'
-    +'<circle cx="108" cy="74" r="11" fill="#E07070" opacity=".22"/>'
-    // Toothbrush held in right hand (rotate 22deg)
-    +'<rect x="100" y="62" width="13" height="34" rx="6" fill="#D8A07A" transform="rotate(22,106,79)"/>'
-    +'<rect x="112" y="52" width="6" height="26" rx="3" fill="#4A8860" transform="rotate(22,115,65)"/>'
-    +'<rect x="116" y="46" width="20" height="6" rx="3" fill="#6DB882" transform="rotate(22,126,49)"/>'
-    +'</svg>';
-
-  wrap.innerHTML='<div class="shead"><div class="snum">Langkah 1 dari 4</div><div class="stitle">🪥 Gosok Gigi</div><div class="shint">Geser kiri ← → kanan untuk menyikat!</div></div>'
-    +'<div style="display:flex;justify-content:center;padding:6px 0;flex-shrink:0;">'+moSVG+'</div>'
+  wrap.innerHTML=
+    '<div class="shead"><div class="snum">Langkah 1 dari 4</div><div class="stitle">🪥 Gosok Gigi</div><div class="shint">Geser kiri ← → kanan untuk menyikat!</div></div>'
+    /* Real Baby Mo logo */
+    +'<div style="display:flex;justify-content:center;padding:4px 0 2px;flex-shrink:0;position:relative;">'
+    +'<div style="position:relative;display:inline-block;">'
+    +'<img src="Logo_Baby_Mo_Transparant.png" alt="Baby Mo" style="width:118px;height:118px;object-fit:contain;filter:drop-shadow(0 4px 14px rgba(0,0,0,.35));animation:mof 3.6s ease-in-out infinite;"/>'
+    /* Toothbrush overlay — positioned near "mouth" area */
+    +'<div id="brushOverlay" style="position:absolute;bottom:18px;right:-10px;font-size:30px;transform:rotate(22deg);transition:transform .2s;filter:drop-shadow(0 2px 8px rgba(62,207,184,.5));">🪥</div>'
+    +'<div id="toothGlow" style="position:absolute;bottom:22px;left:50%;transform:translateX(-50%);width:38px;height:8px;background:rgba(62,207,184,0);border-radius:99px;transition:background .4s;"></div>'
+    +'</div></div>'
     +'<div style="padding:0 24px;flex-shrink:0;">'
     +'<div style="background:rgba(255,255,255,.07);border-radius:99px;height:8px;overflow:hidden;margin-bottom:5px;"><div id="bprog" style="height:100%;width:0%;border-radius:99px;background:linear-gradient(90deg,#3ECFB8,#7EE8DC);transition:width .3s;"></div></div>'
     +'<div style="display:flex;justify-content:space-between;font-size:11px;font-weight:800;color:var(--cream-dim);"><span>Mulai</span><span id="bcnt" style="color:#3ECFB8;">0/'+NEED+'</span><span>Bersih ✓</span></div>'
@@ -540,20 +428,22 @@ function buildBrush(wrap,done){
     +'</div></div>'
     +'<div id="bdone" style="display:none;" class="donebanner"><div style="font-size:40px;">✨😁✨</div><div style="font-size:22px;font-weight:900;color:#3ECFB8;">Gigi bersih &amp; putih!</div></div>';
 
-  function refreshTeeth(){
+  function refreshGlow(){
     var p=count/NEED;
-    var col='hsl('+(190-p*180)+','+(30+p*55)+'%,'+(44+p*36)+'%)';
-    ['t0','t1','t2'].forEach(function(id){var el=document.getElementById(id);if(el)el.setAttribute('fill',col);});
+    /* Toothbrush glow gets more teal as teeth get cleaner */
+    var glow=document.getElementById('toothGlow');
+    if(glow)glow.style.background='rgba(62,207,184,'+(p*0.5)+')';
   }
-  refreshTeeth();
 
   function addStroke(dir){
     if(dir===lastDir||finished)return;
-    lastDir=dir;count=Math.min(count+1,NEED);vib(32);
+    lastDir=dir;count=Math.min(count+1,NEED);
+    vib(32);
+    playBrushSound(); /* 🔊 bristle sound on each stroke */
     document.getElementById('bcnt').textContent=count+'/'+NEED;
     document.getElementById('bprog').style.width=(count/NEED*100)+'%';
     document.getElementById('breact').textContent=FACES[Math.min(count,6)];
-    refreshTeeth();
+    refreshGlow();
     if(count>=NEED&&!finished){
       finished=true;vib(100);
       var a=document.getElementById('barrows');if(a)a.style.display='none';
@@ -565,9 +455,12 @@ function buildBrush(wrap,done){
 
   function updateBrush(){
     var el=document.getElementById('bbrush');var fill=document.getElementById('bfill');
+    var bo=document.getElementById('brushOverlay');
     if(!el)return;
     el.style.left=bx+'%';
-    el.style.transform='translateX(-50%) translateY(-50%) rotate('+(bx>50?-26:26)+'deg)';
+    var rot=bx>50?-26:26;
+    el.style.transform='translateX(-50%) translateY(-50%) rotate('+rot+'deg)';
+    if(bo) bo.style.transform='rotate('+(rot+22)+'deg) scale('+(finished?0.8:1)+')';
     if(fill)fill.style.width=Math.max(0,bx-12)/76*100+'%';
   }
 
@@ -587,42 +480,35 @@ function buildBrush(wrap,done){
 }
 
 /* ══════════════════════════════════════════
-   STEP 2 — GANTI BAJU (Pajamas)
-   Baby Mo SVG with state that updates
+   STEP 2 — GANTI BAJU
+   Real logo + color overlay tint + boneka 🧸
 ══════════════════════════════════════════ */
 function buildPajamas(wrap,done){
   var items=[
-    {emoji:'👕',label:'Baju Tidur',   color:'#9070C8'},
-    {emoji:'🩲',label:'Celana Tidur', color:'#5878C8'},
-    {emoji:'🧸',label:'Boneka',       color:'#C89040'}
+    {emoji:'👕',label:'Baju Tidur',   color:'#9070C8', hue:270},
+    {emoji:'🩲',label:'Celana Tidur', color:'#5878C8', hue:220},
+    {emoji:'🧸',label:'Ambil Boneka', color:'#C89040', hue:40}
   ];
   var tapped=0;
+  var overlayColors=['','rgba(144,112,200,.28)','rgba(88,120,200,.22)'];
 
-  // Baby Mo in pajamas SVG (inline, small 100×100)
-  var moSmall='<svg id="pjmo" width="100" height="108" viewBox="0 0 100 108" xmlns="http://www.w3.org/2000/svg" style="transition:all .5s;">'
-    +'<defs><radialGradient id="pjf" cx="45%" cy="40%" r="55%"><stop offset="0%" stop-color="#D8A07A"/><stop offset="100%" stop-color="#C08060"/></radialGradient></defs>'
-    +'<ellipse cx="50" cy="100" rx="34" ry="12" fill="#2C5A3E"/>'
-    +'<ellipse cx="50" cy="88" rx="30" ry="22" fill="#3D7A52"/>'
-    +'<ellipse cx="18" cy="84" rx="11" ry="8" fill="#C8906A" transform="rotate(-20,18,84)"/>'
-    +'<ellipse cx="82" cy="83" rx="11" ry="8" fill="#C8906A" transform="rotate(20,82,83)"/>'
-    +'<circle cx="14" cy="32" r="14" fill="#A86848"/><circle cx="14" cy="32" r="9" fill="#D8A07A"/>'
-    +'<circle cx="86" cy="32" r="14" fill="#A86848"/><circle cx="86" cy="32" r="9" fill="#D8A07A"/>'
-    +'<ellipse cx="50" cy="16" rx="36" ry="20" fill="#1E3A28"/>'
-    +'<ellipse cx="50" cy="12" rx="33" ry="17" fill="#3D7A52"/>'
-    +'<text x="44" y="15" font-size="10" fill="#C89040" opacity=".9">✦</text>'
-    +'<circle cx="50" cy="52" r="36" fill="url(#pjf)"/>'
-    +'<circle cx="36" cy="46" r="8" fill="white"/><circle cx="64" cy="46" r="8" fill="white"/>'
-    +'<circle cx="37" cy="47" r="5.5" fill="#1A1A1A"/><circle cx="65" cy="47" r="5.5" fill="#1A1A1A"/>'
-    +'<circle cx="38" cy="45" r="2" fill="white"/><circle cx="66" cy="45" r="2" fill="white"/>'
-    +'<ellipse cx="50" cy="57" rx="5.5" ry="4" fill="#8B4A2A"/>'
-    +'<path d="M 40 66 Q 50 75 60 66" fill="none" stroke="#6A3820" stroke-width="2.2" stroke-linecap="round" id="pjmouth"/>'
-    +'<circle cx="30" cy="56" r="9" fill="#E07070" opacity=".22"/>'
-    +'<circle cx="70" cy="56" r="9" fill="#E07070" opacity=".22"/>'
-    +'</svg>';
-
-  wrap.innerHTML='<div class="shead"><div class="snum">Langkah 2 dari 4</div><div class="stitle">👕 Ganti Baju</div><div class="shint">Ketuk setiap baju untuk memakainya!</div></div>'
-    +'<div style="display:flex;justify-content:center;padding:6px 0;flex-shrink:0;">'+moSmall+'</div>'
-    +'<div style="flex:1;display:flex;align-items:center;justify-content:center;padding:6px 24px;">'
+  wrap.innerHTML=
+    '<div class="shead"><div class="snum">Langkah 2 dari 4</div><div class="stitle">👕 Ganti Baju</div><div class="shint">Ketuk setiap item untuk memakainya!</div></div>'
+    +'<div style="display:flex;justify-content:center;align-items:flex-end;gap:16px;padding:6px 0 2px;flex-shrink:0;">'
+      /* Boneka — appears after all tapped */
+      +'<div id="boneka" style="font-size:52px;opacity:.18;transition:all .6s cubic-bezier(.34,1.56,.64,1);transform:scale(.8);animation:bonkSway 3s ease-in-out infinite;">🧸</div>'
+      /* Baby Mo logo with overlay wrapper */
+      +'<div style="position:relative;display:inline-block;">'
+      +'<img id="pjmo" src="Logo_Baby_Mo_Transparant.png" alt="Baby Mo" style="width:108px;height:108px;object-fit:contain;filter:drop-shadow(0 4px 14px rgba(0,0,0,.35));animation:mof 3.6s ease-in-out infinite;transition:filter .5s;"/>'
+      /* Color overlay tint div */
+      +'<div id="pjOverlay" style="position:absolute;inset:0;border-radius:50%;background:transparent;mix-blend-mode:color;pointer-events:none;transition:background .6s;"></div>'
+      /* Star sparkle that appears on completion */
+      +'<div id="pjSparkle" style="position:absolute;top:-8px;right:-8px;font-size:22px;opacity:0;transition:opacity .4s;animation:pu 1.5s ease-in-out infinite;">⭐</div>'
+      +'</div>'
+      /* Moon — appears */
+      +'<div id="moonDeco" style="font-size:36px;opacity:.18;transition:all .6s cubic-bezier(.34,1.56,.64,1);transform:scale(.8);">🌙</div>'
+    +'</div>'
+    +'<div style="flex:1;display:flex;align-items:center;justify-content:center;padding:4px 24px;">'
     +'<div class="pjgrid" id="pjgrid"></div>'
     +'</div>'
     +'<div id="pjdone" style="display:none;" class="donebanner"><div style="font-size:40px;">🌙✨</div><div style="font-size:22px;font-weight:900;color:var(--purple);">Siap untuk tidur!</div></div>';
@@ -632,7 +518,8 @@ function buildPajamas(wrap,done){
     var el=document.createElement('div');
     el.className='pjitem';
     if(i===2)el.style.gridColumn='1/-1';
-    el.innerHTML='<div style="font-size:52px;line-height:1;margin-bottom:8px;transition:all .3s;">'+item.emoji+'</div>'
+    el.innerHTML=
+      '<div style="font-size:52px;line-height:1;margin-bottom:8px;transition:all .3s;">'+item.emoji+'</div>'
       +'<div style="font-size:13px;font-weight:800;color:var(--cream-dim);transition:color .3s;">'+item.label+'</div>';
 
     function tap(e){
@@ -641,18 +528,34 @@ function buildPajamas(wrap,done){
       addRipple(el,e,item.color+'44');
       el.style.borderColor=item.color;
       el.style.background=item.color+'18';
-      el.style.transform='scale(.96)';
-      el.querySelector('div').textContent='✅';
       el.querySelector('div').style.animation='pk .5s cubic-bezier(.34,1.56,.64,1)';
       el.querySelectorAll('div')[1].textContent='Sudah! ✓';
       el.querySelectorAll('div')[1].style.color=item.color;
-      // Update Baby Mo mouth to smile bigger each time
-      var m=document.getElementById('pjmouth');
-      if(m&&tapped===1) m.setAttribute('d','M 38 64 Q 50 76 62 64');
-      if(m&&tapped===2) m.setAttribute('d','M 36 63 Q 50 78 64 63');
-      if(tapped>=items.length){
+
+      /* Update overlay color on Baby Mo logo */
+      var overlay=document.getElementById('pjOverlay');
+      if(overlay&&i<2){
+        overlay.style.background=overlayColors[tapped]||'';
+      }
+
+      /* When baju + celana done — show boneka & moon bigger */
+      if(tapped===2){
         var mo=document.getElementById('pjmo');
-        if(mo)mo.style.filter='drop-shadow(0 0 18px rgba(200,144,64,.5))';
+        if(mo) mo.style.filter='drop-shadow(0 0 16px rgba(144,112,200,.55)) drop-shadow(0 4px 14px rgba(0,0,0,.35))';
+      }
+
+      /* When boneka tapped */
+      if(i===2){
+        var bnk=document.getElementById('boneka');
+        var moon=document.getElementById('moonDeco');
+        var spk=document.getElementById('pjSparkle');
+        if(bnk){bnk.style.opacity='1';bnk.style.transform='scale(1.1)';}
+        if(moon){moon.style.opacity='1';moon.style.transform='scale(1.1)';}
+        if(spk) spk.style.opacity='1';
+        el.querySelector('div').textContent='🥰';
+      }
+
+      if(tapped>=items.length){
         document.getElementById('pjdone').style.display='block';
         vib([70,35,70]);
         setTimeout(done,800);
@@ -666,278 +569,243 @@ function buildPajamas(wrap,done){
 }
 
 /* ══════════════════════════════════════════
-   STEP 3 — BACA DOA  (3-phase guided flow)
-   Phase 1 → Part 1 → Phase 2 → Part 2 → Phase 3 → Full Dua
+   STEP 3 — BACA DOA
+   One-page card layout matching screenshot
+   Head crop of Baby_Mo_Menyapa.png
+   Female Indonesian voice
 ══════════════════════════════════════════ */
 function buildDoa(wrap,done){
 
-  /* The dua: Bismika Allāhumma ahyā wa amūtu
-     Split into 2 learning parts, then recombined */
-  var PHASES=[
+  var DUA_PARTS=[
     {
-      narr: 'Yuk sayang… kita mulai pelan ya...',
-      speakN: 'Yuk sayang, kita mulai pelan ya',
-      arabic: 'بِسْمِكَ اللَّهُمَّ',
-      lat:    'Bismika Allāhumma',
-      mean:   'Dengan nama-Mu ya Allah',
-      speakA: 'بسمك اللهم',
-      btnTxt: 'Sudah! Lanjut yuk 🌙',
-      phase:  1
+      num:'1', numColor:'#4A8860',
+      arabic:'بِسْمِكَ اللَّهُمَّ',
+      lat:'Bismika Allāhumma',
+      mean:'Dengan nama-Mu ya Allah',
+      speakAr:'بسمك اللهم',
+      speakId:'Bismika Allāhumma'
     },
     {
-      narr: 'Bagus sekali! Sekarang lanjut ya sayang…',
-      speakN: 'Bagus sekali! Sekarang lanjut ya sayang',
-      arabic: 'أَحْيَا وَأَمُوتُ',
-      lat:    'aḥyā wa amūtu',
-      mean:   'aku hidup dan aku mati',
-      speakA: 'أحيا وأموت',
-      btnTxt: 'Sudah! Lanjut yuk 🌙',
-      phase:  2
-    },
-    {
-      narr: 'Sekarang kita gabung ya… pelan-pelan…',
-      speakN: 'Sekarang kita gabung ya, pelan pelan',
-      arabic: 'بِسْمِكَ اللَّهُمَّ أَحْيَا وَأَمُوتُ',
-      lat:    'Bismika Allāhumma aḥyā wa amūtu',
-      mean:   'Dengan nama-Mu ya Allah, aku hidup dan aku mati',
-      speakA: 'بسمك اللهم أحيا وأموت',
-      narr2:  'Pintar sekali! Ayo sekali lagi yuk…',
-      speakN2:'Pintar sekali! Ayo sekali lagi yuk',
-      btnTxt: 'Aamiin 🤲',
-      phase:  3
+      num:'2', numColor:'#8870C8',
+      arabic:'أَحْيَا وَأَمُوتُ',
+      lat:'ahyā wa amūtu',
+      mean:'aku hidup dan aku mati',
+      speakAr:'أحيا وأموت',
+      speakId:'ahya wa amut'
     }
   ];
+  var FULL={
+    arabic:'بِسْمِكَ اللَّهُمَّ أَحْيَا وَأَمُوتُ',
+    lat:'Bismika Allāhumma aḥyā wa amūtu',
+    mean:'Dengan nama-Mu ya Allah, aku hidup dan aku mati',
+    speakAr:'بسمك اللهم أحيا وأموت'
+  };
 
-  var phIdx=0;
-  var canGo=false;
+  var played=[false,false,false]; /* part1, part2, full */
+  var anyPlaying=false;
 
-  /* Baby Mo dua SVG (small, arms raised) */
-  var MO_DUA='<svg width="72" height="80" viewBox="0 0 100 108" xmlns="http://www.w3.org/2000/svg">'
-    +'<defs><radialGradient id="dg" cx="45%" cy="40%" r="55%"><stop offset="0%" stop-color="#D8A07A"/><stop offset="100%" stop-color="#C08060"/></radialGradient></defs>'
-    +'<ellipse cx="50" cy="100" rx="34" ry="12" fill="#2C5A3E"/>'
-    +'<ellipse cx="50" cy="88" rx="30" ry="22" fill="#3D7A52"/>'
-    +'<ellipse cx="14" cy="66" rx="13" ry="9" fill="#C8906A" transform="rotate(-55,14,66)"/>'
-    +'<ellipse cx="86" cy="66" rx="13" ry="9" fill="#C8906A" transform="rotate(55,86,66)"/>'
-    +'<circle cx="8" cy="56" r="8" fill="#D8A07A"/>'
-    +'<circle cx="92" cy="56" r="8" fill="#D8A07A"/>'
-    +'<circle cx="14" cy="32" r="14" fill="#A86848"/><circle cx="14" cy="32" r="9" fill="#D8A07A"/>'
-    +'<circle cx="86" cy="32" r="14" fill="#A86848"/><circle cx="86" cy="32" r="9" fill="#D8A07A"/>'
-    +'<ellipse cx="50" cy="16" rx="36" ry="20" fill="#1E3A28"/>'
-    +'<ellipse cx="50" cy="12" rx="33" ry="17" fill="#3D7A52"/>'
-    +'<path d="M 24 18 Q 50 26 76 18" stroke="rgba(93,170,120,.38)" stroke-width="1.2" fill="none"/>'
-    +'<text x="44" y="15" font-size="10" fill="#C89040" opacity=".9">✦</text>'
-    +'<circle cx="50" cy="52" r="36" fill="url(#dg)"/>'
-    +'<circle cx="36" cy="47" r="8" fill="white"/><circle cx="64" cy="47" r="8" fill="white"/>'
-    +'<circle cx="37" cy="49" r="5.5" fill="#1A1A1A"/><circle cx="65" cy="49" r="5.5" fill="#1A1A1A"/>'
-    +'<circle cx="38" cy="47" r="2" fill="white"/><circle cx="66" cy="47" r="2" fill="white"/>'
-    +'<path d="M 30 41 Q 36 38 42 41" stroke="#7A4020" stroke-width="1.8" fill="none" stroke-linecap="round"/>'
-    +'<path d="M 58 41 Q 64 38 70 41" stroke="#7A4020" stroke-width="1.8" fill="none" stroke-linecap="round"/>'
-    +'<ellipse cx="50" cy="57" rx="5.5" ry="4" fill="#8B4A2A"/>'
-    +'<path d="M 40 65 Q 50 73 60 65" fill="none" stroke="#6A3820" stroke-width="2" stroke-linecap="round"/>'
-    +'<circle cx="30" cy="56" r="9" fill="#E07070" opacity=".22"/>'
-    +'<circle cx="70" cy="56" r="9" fill="#E07070" opacity=".22"/>'
-    +'</svg>';
-
-  function dotBar(){
-    var h='<div style="display:flex;justify-content:center;gap:8px;padding:4px 0 2px;flex-shrink:0;">';
-    for(var k=0;k<3;k++){
-      var active=(k===phIdx), done2=(k<phIdx);
-      var bg=done2?'var(--green-glow)':active?(phIdx===2?'var(--gold)':'var(--green-glow)'):'rgba(255,255,255,.1)';
-      var w=active?'28px':'18px';
-      h+='<div style="height:5px;width:'+w+';border-radius:3px;background:'+bg+';transition:all .3s;"></div>';
+  function checkEnable(){
+    var btn=document.getElementById('doaLanjut');
+    if(!btn)return;
+    /* Enable after full dua has been played */
+    if(played[2]){
+      btn.disabled=false;
+      btn.style.opacity='1';
+      btn.style.animation='pu 2.2s ease-in-out infinite';
     }
-    return h+'</div>';
   }
 
-  function render(){
-    var p=PHASES[phIdx];
-    canGo=false;
-
-    wrap.innerHTML=
-      /* Step header */
-      '<div class="shead"><div class="snum">Langkah 3 dari 4</div>'
-      +'<div class="stitle">🤲 Baca Doa</div></div>'
-
-      /* Phase dots */
-      +dotBar()
-
-      /* Baby Mo + speech bubble — horizontal row */
-      +'<div style="display:flex;align-items:flex-start;gap:10px;padding:8px 20px 4px;flex-shrink:0;">'
-      +MO_DUA
-      +'<div id="bubble" style="flex:1;background:rgba(44,90,62,.18);border:1px solid rgba(93,170,120,.22);border-radius:0 18px 18px 18px;padding:11px 14px;margin-top:6px;position:relative;">'
-      +'<div style="position:absolute;left:-8px;top:14px;width:0;height:0;border-top:7px solid transparent;border-bottom:7px solid transparent;border-right:8px solid rgba(93,170,120,.22);"></div>'
-      +'<div id="bubbleTxt" style="font-size:14px;font-weight:700;color:var(--cream);line-height:1.55;">'+p.narr+'</div>'
-      +'</div></div>'
-
-      /* Dua badge */
-      +'<div style="text-align:center;padding:4px 0 6px;flex-shrink:0;">'
-      +'<span style="display:inline-block;background:rgba(200,144,64,.08);border:1px solid rgba(200,144,64,.2);border-radius:99px;padding:4px 16px;font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:rgba(232,176,96,.7);">🌙 Doa Sebelum Tidur</span>'
-      +'</div>'
-
-      /* Arabic card — NO absolute positioned overlay */
-      +'<div style="flex:1;display:flex;flex-direction:column;justify-content:center;padding:0 18px;">'
-      +'<div id="araCard" style="background:rgba(255,255,255,.04);border:2px solid rgba(255,255,255,.09);border-radius:20px;padding:18px 18px 14px;transition:border-color .4s;">'
-
-        /* Arabic text — big, right-aligned, no overlaps */
-        +'<div style="text-align:right;margin-bottom:10px;">'
-        +'<div id="araText" style="font-family:\'Scheherazade New\',serif;font-size:clamp(24px,7.5vw,34px);font-weight:700;color:var(--gold-lt);direction:rtl;line-height:1.85;">'+p.arabic+'</div>'
-        +'</div>'
-
-        /* Divider */
-        +'<div style="height:1px;background:rgba(255,255,255,.07);margin-bottom:10px;"></div>'
-
-        /* Latin + meaning at bottom — clean, no overlap */
-        +'<div style="text-align:left;">'
-        +'<div style="font-size:13px;font-weight:700;color:var(--cream);font-style:italic;margin-bottom:3px;">'+p.lat+'</div>'
-        +'<div style="font-size:12px;color:var(--cream-dim);line-height:1.5;">'+p.mean+'</div>'
-        +'</div>'
-
-        /* Sound wave bars — shown while speaking */
-        +'<div id="waveBar" style="display:none;justify-content:center;align-items:flex-end;height:22px;gap:3px;margin-top:10px;">'
-        +'<div style="width:4px;height:8px;border-radius:2px;background:rgba(200,144,64,.5);animation:wv .44s 0s ease-in-out infinite;transform-origin:bottom;"></div>'
-        +'<div style="width:4px;height:14px;border-radius:2px;background:rgba(200,144,64,.5);animation:wv .52s .08s ease-in-out infinite;transform-origin:bottom;"></div>'
-        +'<div style="width:4px;height:20px;border-radius:2px;background:rgba(200,144,64,.6);animation:wv .48s .16s ease-in-out infinite;transform-origin:bottom;"></div>'
-        +'<div style="width:4px;height:14px;border-radius:2px;background:rgba(200,144,64,.5);animation:wv .56s .06s ease-in-out infinite;transform-origin:bottom;"></div>'
-        +'<div style="width:4px;height:8px;border-radius:2px;background:rgba(200,144,64,.45);animation:wv .44s .12s ease-in-out infinite;transform-origin:bottom;"></div>'
-        +'</div>'
-
-      +'</div></div>'
-
-      /* Buttons */
-      +'<div style="padding:8px 18px 18px;flex-shrink:0;display:flex;flex-direction:column;gap:8px;">'
-
-        /* Replay — secondary */
-        +'<button id="replayBtn" style="background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:11px;font-family:inherit;font-size:14px;font-weight:800;color:var(--cream-dim);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;width:100%;transition:.15s;">🔊 Dengar lagi</button>'
-
-        /* Continue — primary, disabled until audio finishes */
-        +'<button id="lanjutBtn" disabled style="background:linear-gradient(135deg,var(--green),#3A7050);border:none;border-radius:14px;padding:15px;font-family:inherit;font-size:16px;font-weight:900;color:#fff;cursor:pointer;width:100%;box-shadow:0 4px 18px rgba(44,90,62,.4);opacity:.38;transition:opacity .35s,box-shadow .35s;">'+p.btnTxt+'</button>'
-
-      +'</div>';
-
-    /* Attach button events */
-    document.getElementById('replayBtn').addEventListener('click', playPhase);
-    document.getElementById('lanjutBtn').addEventListener('click', nextPhase);
-
-    /* Auto-play after a settling delay */
-    setTimeout(playPhase, 680);
+  function setPlayed(idx,cardId){
+    played[idx]=true;
+    var card=document.getElementById(cardId);
+    if(card){
+      card.classList.add('played');
+      var tick=card.querySelector('.card-tick');
+      if(tick) tick.style.display='flex';
+    }
+    checkEnable();
   }
 
-  function showWave(on){
-    var w=document.getElementById('waveBar');
-    if(w) w.style.display=on?'flex':'none';
-  }
-
-  function playPhase(){
-    var p=PHASES[phIdx];
-    var btn=document.getElementById('lanjutBtn');
-    if(btn){btn.disabled=true;btn.style.opacity='.38';}
-    showWave(true);
-    speakGuided(p.speakN, p.speakA, function(){
-      showWave(false);
-      /* If last phase, say encouragement then a second pass */
-      if(p.narr2){
-        var bbl=document.getElementById('bubbleTxt');
-        if(bbl) bbl.textContent=p.narr2;
-        setTimeout(function(){
-          showWave(true);
-          speakMom(p.speakN2, function(){
-            setTimeout(function(){
-              speakAr(p.speakA, function(){
-                showWave(false);
-                enableGo();
-              });
-            },400);
-          });
-        },500);
-      } else {
-        enableGo();
-        /* Update bubble to short praise */
-        var bbl=document.getElementById('bubbleTxt');
-        if(bbl) bbl.textContent = phIdx===0 ? 'Bagus! Tirukan ya sayang... 🌙' : 'Kamu bisa! Tirukan pelan-pelan... ✨';
-      }
-      /* Highlight card when audio done */
-      var card=document.getElementById('araCard');
-      if(card) card.style.borderColor='rgba(109,184,130,.35)';
+  function playPart(idx,cardId,speakId,speakAr,cb){
+    if(anyPlaying)return;
+    anyPlaying=true;
+    var btn=document.getElementById('snd-'+cardId);
+    if(btn){btn.textContent='⏸ Sedang diputar...';btn.style.opacity='.7';}
+    showWaveFor(cardId,true);
+    speakMom(speakId,function(){
+      setTimeout(function(){
+        speakAr(speakAr,function(){
+          anyPlaying=false;
+          showWaveFor(cardId,false);
+          if(btn){btn.textContent='🔊 Dengar lagi';btn.style.opacity='1';}
+          setPlayed(idx,cardId);
+          if(cb)cb();
+        });
+      },400);
     });
   }
 
-  function enableGo(){
-    canGo=true;
-    var btn=document.getElementById('lanjutBtn');
-    if(btn){
-      btn.disabled=false;
-      btn.style.opacity='1';
-      btn.style.boxShadow='0 4px 24px rgba(44,90,62,.6)';
-      btn.style.animation='pu 2.2s ease-in-out infinite';
-    }
-    vib(35);
+  function showWaveFor(cardId,show){
+    var w=document.getElementById('wave-'+cardId);
+    if(w) w.style.display=show?'flex':'none';
   }
 
-  function nextPhase(){
-    if(!canGo) return;
-    speechSynthesis.cancel();
-    phIdx++;
-    if(phIdx>=PHASES.length){
-      /* All phases done — celebrate */
-      wrap.innerHTML=
-        '<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 24px;text-align:center;">'
-        +'<div style="font-size:52px;margin-bottom:12px;animation:fl 2s ease-in-out infinite;">🤲</div>'
-        +'<div style="font-size:26px;font-weight:900;color:var(--gold-lt);margin-bottom:8px;">Aamiin ya Rabb...</div>'
-        +'<div style="font-family:\'Scheherazade New\',serif;font-size:22px;color:var(--gold);direction:rtl;margin-bottom:10px;">بِسْمِكَ اللَّهُمَّ أَحْيَا وَأَمُوتُ</div>'
-        +'<div style="font-size:14px;color:var(--cream-dim);line-height:1.6;">Bismika Allāhumma aḥyā wa amūtu<br><span style="font-size:12px;opacity:.7;">Dengan nama-Mu ya Allah, aku hidup dan aku mati</span></div>'
-        +'<div style="margin-top:16px;font-size:15px;font-weight:800;color:var(--green-glow);">Alhamdulillah, kamu sudah hafal doanya! 🌟</div>'
-        +'</div>';
-      vib([60,30,60,30,100]);
-      setTimeout(done,2200);
-    } else {
-      /* Fade to next phase */
-      wrap.style.opacity='0';
-      wrap.style.transform='translateY(-16px)';
-      wrap.style.transition='all .28s ease';
+  function cardHTML(id,numLabel,numColor,arabic,lat,mean,btnLabel){
+    return '<div id="'+id+'" class="doa-card" style="margin-bottom:10px;">'
+      +'<div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px;">'
+        /* Number badge */
+        +'<div style="width:28px;height:28px;border-radius:50%;background:'+numColor+';display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;color:#fff;flex-shrink:0;">'+numLabel+'</div>'
+        /* Sound button */
+        +'<button id="snd-'+id+'" style="flex:1;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:8px 10px;font-family:inherit;font-size:12px;font-weight:800;color:var(--cream-dim);cursor:pointer;transition:.15s;">'+btnLabel+'</button>'
+        /* Tick — hidden until played */
+        +'<div class="card-tick" style="display:none;width:28px;height:28px;border-radius:50%;background:rgba(109,184,130,.2);border:2px solid var(--green-glow);align-items:center;justify-content:center;font-size:14px;color:var(--green-glow);flex-shrink:0;">✓</div>'
+      +'</div>'
+      /* Arabic */
+      +'<div style="font-family:\'Scheherazade New\',serif;font-size:clamp(22px,6.5vw,30px);font-weight:700;color:var(--gold-lt);direction:rtl;text-align:right;line-height:1.7;margin-bottom:8px;">'+arabic+'</div>'
+      +'<div style="height:1px;background:rgba(255,255,255,.06);margin-bottom:8px;"></div>'
+      +'<div style="font-size:12px;font-weight:700;color:var(--green-glow);font-style:italic;margin-bottom:3px;">'+lat+'</div>'
+      +'<div style="font-size:11px;color:var(--cream-dim);">'+mean+'</div>'
+      /* Wave bars */
+      +'<div id="wave-'+id+'" style="display:none;justify-content:center;align-items:flex-end;height:18px;gap:3px;margin-top:8px;">'
+      +'<div style="width:3px;height:6px;border-radius:2px;background:rgba(200,144,64,.55);animation:wv .44s 0s ease-in-out infinite;transform-origin:bottom;"></div>'
+      +'<div style="width:3px;height:11px;border-radius:2px;background:rgba(200,144,64,.6);animation:wv .52s .08s ease-in-out infinite;transform-origin:bottom;"></div>'
+      +'<div style="width:3px;height:16px;border-radius:2px;background:rgba(200,144,64,.65);animation:wv .48s .16s ease-in-out infinite;transform-origin:bottom;"></div>'
+      +'<div style="width:3px;height:11px;border-radius:2px;background:rgba(200,144,64,.6);animation:wv .56s .06s ease-in-out infinite;transform-origin:bottom;"></div>'
+      +'<div style="width:3px;height:6px;border-radius:2px;background:rgba(200,144,64,.5);animation:wv .44s .12s ease-in-out infinite;transform-origin:bottom;"></div>'
+      +'</div>'
+      +'</div>';
+  }
+
+  wrap.innerHTML=
+    /* Fixed header */
+    '<div class="shead" style="padding-bottom:6px;"><div class="snum">Langkah 3 dari 4</div><div class="stitle">🤲 Baca Doa</div></div>'
+
+    /* Scrollable body */
+    +'<div style="flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:0 16px 16px;">'
+
+      /* Baby Mo head + narration */
+      +'<div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:12px;">'
+      +'<img src="Baby_Mo_Menyapa.png" alt="Baby Mo" class="mo-head"/>'
+      +'<div style="flex:1;background:rgba(44,90,62,.18);border:1px solid rgba(93,170,120,.22);border-radius:0 16px 16px 16px;padding:10px 13px;position:relative;margin-top:4px;">'
+      +'<div style="position:absolute;left:-8px;top:12px;width:0;height:0;border-top:6px solid transparent;border-bottom:6px solid transparent;border-right:8px solid rgba(93,170,120,.22);"></div>'
+      +'<div style="font-size:13px;font-weight:700;color:var(--cream);line-height:1.5;">Yuk belajar doa sebelum tidur ya sayang... Dengarkan, lalu tirukan pelan-pelan! 🌙</div>'
+      +'</div></div>'
+
+      /* Doa label badge */
+      +'<div style="text-align:center;margin-bottom:12px;">'
+      +'<span style="display:inline-block;background:rgba(200,144,64,.08);border:1px solid rgba(200,144,64,.2);border-radius:99px;padding:4px 16px;font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:rgba(232,176,96,.75);">🌙 DOA SEBELUM TIDUR</span>'
+      +'</div>'
+
+      /* Part 1 card */
+      +cardHTML('card1','1','#4A8860',DUA_PARTS[0].arabic,DUA_PARTS[0].lat,DUA_PARTS[0].mean,'🔊 Dengar & Tirukan')
+
+      /* Part 2 card */
+      +cardHTML('card2','2','#8870C8',DUA_PARTS[1].arabic,DUA_PARTS[1].lat,DUA_PARTS[1].mean,'🔊 Dengar & Tirukan')
+
+      /* Combined card */
+      +'<div id="cardFull" class="doa-card combined" style="margin-bottom:10px;position:relative;">'
+      +'<div style="position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:rgba(200,144,64,.12);border:1px solid rgba(200,144,64,.3);border-radius:99px;padding:3px 14px;font-size:9px;font-weight:800;letter-spacing:1.5px;color:var(--gold-lt);white-space:nowrap;">💛 GABUNGKAN KEDUANYA</div>'
+      +'<div style="height:8px;"></div>'
+      +'<div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px;">'
+        +'<div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold-lt));display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">★</div>'
+        +'<button id="snd-cardFull" style="flex:1;background:rgba(200,144,64,.1);border:1px solid rgba(200,144,64,.25);border-radius:10px;padding:8px 10px;font-family:inherit;font-size:12px;font-weight:800;color:var(--gold-lt);cursor:pointer;transition:.15s;">🔊 Dengar Doa Lengkap</button>'
+        +'<div class="card-tick" style="display:none;width:28px;height:28px;border-radius:50%;background:rgba(200,144,64,.15);border:2px solid var(--gold-lt);align-items:center;justify-content:center;font-size:14px;color:var(--gold-lt);flex-shrink:0;">✓</div>'
+      +'</div>'
+      +'<div style="font-family:\'Scheherazade New\',serif;font-size:clamp(20px,5.5vw,26px);font-weight:700;color:var(--gold-lt);direction:rtl;text-align:right;line-height:1.7;margin-bottom:8px;">'+FULL.arabic+'</div>'
+      +'<div style="height:1px;background:rgba(255,255,255,.06);margin-bottom:8px;"></div>'
+      +'<div style="font-size:12px;font-weight:700;color:var(--gold);font-style:italic;margin-bottom:3px;">'+FULL.lat+'</div>'
+      +'<div style="font-size:11px;color:var(--cream-dim);">'+FULL.mean+'</div>'
+      +'<div id="wave-cardFull" style="display:none;justify-content:center;align-items:flex-end;height:18px;gap:3px;margin-top:8px;">'
+      +'<div style="width:3px;height:6px;border-radius:2px;background:rgba(200,144,64,.55);animation:wv .44s 0s ease-in-out infinite;transform-origin:bottom;"></div>'
+      +'<div style="width:3px;height:11px;border-radius:2px;background:rgba(200,144,64,.6);animation:wv .52s .08s ease-in-out infinite;transform-origin:bottom;"></div>'
+      +'<div style="width:3px;height:16px;border-radius:2px;background:rgba(200,144,64,.65);animation:wv .48s .16s ease-in-out infinite;transform-origin:bottom;"></div>'
+      +'<div style="width:3px;height:11px;border-radius:2px;background:rgba(200,144,64,.6);animation:wv .56s .06s ease-in-out infinite;transform-origin:bottom;"></div>'
+      +'<div style="width:3px;height:6px;border-radius:2px;background:rgba(200,144,64,.5);animation:wv .44s .12s ease-in-out infinite;transform-origin:bottom;"></div>'
+      +'</div>'
+      /* Star deco */
+      +'<div style="position:absolute;bottom:10px;right:12px;font-size:28px;opacity:.35;animation:pu 2.5s ease-in-out infinite;">⭐</div>'
+      +'</div>'
+
+      /* Artinya section */
+      +'<div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:12px 14px;margin-bottom:10px;display:flex;align-items:flex-start;gap:10px;">'
+      +'<span style="font-size:20px;flex-shrink:0;">❤️</span>'
+      +'<div><div style="font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#E07070;margin-bottom:4px;">ARTINYA:</div>'
+      +'<div style="font-size:13px;color:var(--cream);line-height:1.55;">'+FULL.mean+'.</div></div>'
+      +'</div>'
+
+      /* Mom's tip */
+      +'<div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:12px 14px;margin-bottom:16px;display:flex;align-items:flex-start;gap:10px;">'
+      +'<span style="font-size:20px;flex-shrink:0;">🌙</span>'
+      +'<div><div style="font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:4px;">MOM\'S TIP</div>'
+      +'<div style="font-size:12px;color:var(--cream-dim);line-height:1.55;">Ajak si kecil ucapkan pelan-pelan setiap malam ya... Allah Maha Mendengar doa anak yang tulus. ❤️</div></div>'
+      +'</div>'
+
+      /* Lanjut button */
+      +'<button id="doaLanjut" disabled style="width:100%;background:linear-gradient(135deg,var(--green),#3A7050);border:none;border-radius:14px;padding:16px;font-family:inherit;font-size:17px;font-weight:900;color:#fff;cursor:pointer;box-shadow:0 4px 18px rgba(44,90,62,.4);opacity:.35;transition:opacity .35s;">Aamiin 🤲 — Lanjut Tidur</button>'
+
+    +'</div>'; /* end scrollable */
+
+  /* Wire up audio buttons */
+  document.getElementById('snd-card1').addEventListener('click',function(){
+    playPart(0,'card1','Bismika Allāhumma',DUA_PARTS[0].speakAr,null);
+  });
+  document.getElementById('snd-card2').addEventListener('click',function(){
+    playPart(1,'card2','ahya wa amut',DUA_PARTS[1].speakAr,null);
+  });
+  document.getElementById('snd-cardFull').addEventListener('click',function(){
+    if(anyPlaying)return;
+    anyPlaying=true;
+    var btn=document.getElementById('snd-cardFull');
+    if(btn){btn.textContent='⏸ Sedang diputar...';btn.style.opacity='.7';}
+    showWaveFor('cardFull',true);
+    speakMom('Bismika Allāhumma ahya wa amut',function(){
       setTimeout(function(){
-        wrap.style.transition='none';
-        wrap.style.opacity='0';
-        wrap.style.transform='translateY(18px)';
-        render();
-        requestAnimationFrame(function(){requestAnimationFrame(function(){
-          wrap.style.transition='all .4s cubic-bezier(.34,1.56,.64,1)';
-          wrap.style.opacity='1';
-          wrap.style.transform='translateY(0)';
-        });});
-      },280);
-    }
-  }
+        speakAr(FULL.speakAr,function(){
+          anyPlaying=false;showWaveFor('cardFull',false);
+          if(btn){btn.textContent='🔊 Dengar Doa Lengkap';btn.style.opacity='1';}
+          setPlayed(2,'cardFull');
+        });
+      },350);
+    });
+  });
 
-  /* First render */
-  render();
+  document.getElementById('doaLanjut').addEventListener('click',function(){
+    if(!played[2])return;
+    speechSynthesis.cancel();
+    /* Celebration before moving on */
+    wrap.innerHTML=
+      '<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 24px;text-align:center;">'
+      +'<div style="font-size:52px;margin-bottom:12px;animation:fl 2s ease-in-out infinite;">🤲</div>'
+      +'<div style="font-size:26px;font-weight:900;color:var(--gold-lt);margin-bottom:8px;">Aamiin ya Rabb...</div>'
+      +'<div style="font-family:\'Scheherazade New\',serif;font-size:22px;color:var(--gold);direction:rtl;margin-bottom:10px;">بِسْمِكَ اللَّهُمَّ أَحْيَا وَأَمُوتُ</div>'
+      +'<div style="font-size:14px;color:var(--cream-dim);line-height:1.6;">Bismika Allāhumma aḥyā wa amūtu<br><span style="font-size:12px;opacity:.7;">Dengan nama-Mu ya Allah, aku hidup dan aku mati</span></div>'
+      +'<div style="margin-top:16px;font-size:15px;font-weight:800;color:var(--green-glow);">Masya Allah, kamu sudah hafal doanya! 🌟</div>'
+      +'</div>';
+    vib([60,30,60,30,100]);
+    setTimeout(done,2200);
+  });
 }
 
 /* ══════════════════════════════════════════
-   STEP 4 — TARIK SELIMUT (Blanket)
-   Drag blanket over Baby Mo in bed
+   STEP 4 — TARIK SELIMUT
 ══════════════════════════════════════════ */
 function buildBlanket(wrap,done){
   var prog=0,pdown=false,startY=0,startProg=0,finished=false;
 
-  wrap.innerHTML='<div class="shead"><div class="snum">Langkah 4 dari 4</div><div class="stitle" id="blt">🌙 Tarik Selimut</div><div class="shint" id="blh">Seret selimut ke atas untuk tidur!</div></div>'
+  wrap.innerHTML=
+    '<div class="shead"><div class="snum">Langkah 4 dari 4</div><div class="stitle" id="blt">🌙 Tarik Selimut</div><div class="shint" id="blh">Seret selimut ke atas untuk tidur!</div></div>'
     +'<div id="dz" style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:10px 24px 16px;touch-action:none;cursor:grab;">'
     +'<div class="bedframe">'
-    // Bed headboard
     +'<div style="position:absolute;top:0;left:0;right:0;height:22px;background:linear-gradient(90deg,#1A3A28,#243A30);border-radius:24px 24px 0 0;"></div>'
-    // Bed base
     +'<div style="position:absolute;bottom:0;left:0;right:0;height:50%;background:rgba(0,10,5,.9);"></div>'
-    // Pillow + Baby Mo face area
     +'<div style="position:absolute;top:28px;left:14px;right:14px;height:70px;background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.08);border-radius:16px;display:flex;align-items:center;justify-content:center;overflow:visible;">'
-    // Baby Mo face (will be emoji based — changes as blanket covers)
     +'<div id="blf" style="font-size:52px;transition:all .6s;">👀</div>'
-    // Zzz that appears when sleeping
     +'<div id="zw" style="display:none;position:absolute;right:8px;top:-20px;">'
-    +'<span style="font-size:12px;color:rgba(200,144,64,.4);animation:zf 1.5s 0s ease infinite;display:inline-block;font-family:Nunito,sans-serif;font-weight:900;">z</span>'
-    +'<span style="font-size:18px;color:rgba(200,144,64,.5);animation:zf 1.9s .4s ease infinite;display:inline-block;font-family:Nunito,sans-serif;font-weight:900;">z</span>'
-    +'<span style="font-size:25px;color:rgba(200,144,64,.55);animation:zf 2.3s .8s ease infinite;display:inline-block;font-family:Nunito,sans-serif;font-weight:900;">Z</span>'
+    +'<span style="font-size:12px;font-weight:900;color:rgba(200,144,64,.4);animation:zf 1.5s 0s ease infinite;display:inline-block;font-family:Nunito,sans-serif;">z</span>'
+    +'<span style="font-size:18px;font-weight:900;color:rgba(200,144,64,.5);animation:zf 1.9s .4s ease infinite;display:inline-block;font-family:Nunito,sans-serif;">z</span>'
+    +'<span style="font-size:25px;font-weight:900;color:rgba(200,144,64,.55);animation:zf 2.3s .8s ease infinite;display:inline-block;font-family:Nunito,sans-serif;">Z</span>'
     +'</div>'
     +'</div>'
-    // Green blanket that slides up
     +'<div id="blo" class="blkout" style="top:88%;">'
     +'<div class="blkbody">'
     +'<div style="position:absolute;inset:0;background-image:repeating-linear-gradient(45deg,rgba(255,255,255,.025) 0,rgba(255,255,255,.025) 10px,transparent 10px,transparent 20px);"></div>'
@@ -946,15 +814,13 @@ function buildBlanket(wrap,done){
     +'<div class="blkfold"><div id="blg" class="blkgrip"></div></div>'
     +'</div>'
     +'</div>'
-    // Drag hint arrow
     +'<div id="bla" style="margin-top:18px;text-align:center;color:var(--green-glow);font-size:13px;font-weight:800;animation:fl 1.8s ease-in-out infinite;pointer-events:none;">'
     +'<div style="font-size:28px;">↑</div><div>Seret ke atas</div>'
     +'</div>'
     +'</div>';
 
   function upd(){
-    var f=document.getElementById('blf');
-    if(!f)return;
+    var f=document.getElementById('blf');if(!f)return;
     if(finished)f.textContent='😴';
     else if(prog>.75)f.textContent='🌙';
     else if(prog>.45)f.textContent='😌';
