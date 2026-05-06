@@ -96,7 +96,7 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 .dpd.active{background:var(--gold);transform:scale(1.3);}
 
 /* Letter card */
-.letter-card{width:100%;max-width:440px;background:var(--card);border:1.5px solid var(--border);border-radius:24px;padding:20px 20px 18px;text-align:center;margin-bottom:16px;flex-shrink:0;position:relative;overflow:hidden;}
+.letter-card{width:100%;max-width:440px;background:var(--card);border:1.5px solid var(--border);border-radius:24px;padding:16px 20px 18px;text-align:center;margin-bottom:16px;flex-shrink:0;position:relative;overflow:visible;}
 .letter-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--gold),transparent);}
 .lc-badge{display:inline-flex;align-items:center;gap:6px;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--cream-dim);margin-bottom:12px;}
 .lc-badge-dot{width:6px;height:6px;border-radius:50%;background:var(--gold-lt);}
@@ -104,10 +104,12 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 /* BIG Arabic letter */
 .lc-arabic{
   font-family:'Scheherazade New',serif;
-  font-size:clamp(100px,28vw,140px);
+  font-size:clamp(88px,24vw,120px);
   font-weight:700;
-  line-height:1;
-  margin-bottom:6px;
+  line-height:1.25;
+  margin-top:4px;
+  margin-bottom:2px;
+  display:block;
   animation:letterIn .4s cubic-bezier(.34,1.56,.64,1);
   filter:drop-shadow(0 4px 16px rgba(200,144,64,.3));
 }
@@ -265,30 +267,7 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 
 <!-- ════ WELCOME ════ -->
 <div class="screen active" id="sWelcome">
-  <svg class="w-mo" viewBox="0 0 160 168" xmlns="http://www.w3.org/2000/svg">
-    <defs><radialGradient id="wf" cx="45%" cy="40%" r="55%"><stop offset="0%" stop-color="#D8A07A"/><stop offset="100%" stop-color="#C08060"/></radialGradient></defs>
-    <ellipse cx="80" cy="155" rx="40" ry="24" fill="#2C5A3E"/><ellipse cx="80" cy="138" rx="22" ry="12" fill="#3D7A52"/>
-    <ellipse cx="42" cy="150" rx="14" ry="10" fill="#C8906A" transform="rotate(-20,42,150)"/>
-    <ellipse cx="118" cy="150" rx="14" ry="10" fill="#C8906A" transform="rotate(20,118,150)"/>
-    <ellipse cx="80" cy="52" rx="50" ry="34" fill="#1E3A28"/><ellipse cx="80" cy="47" rx="46" ry="30" fill="#3D7A52"/>
-    <path d="M 38 52 Q 80 66 122 52" stroke="rgba(93,170,120,.4)" stroke-width="1.5" fill="none"/>
-    <text x="72" y="46" font-size="14" fill="#C89040" opacity=".9">✦</text>
-    <circle cx="32" cy="72" r="22" fill="#C08060"/><circle cx="32" cy="72" r="14" fill="#E0A080"/>
-    <circle cx="128" cy="72" r="22" fill="#C08060"/><circle cx="128" cy="72" r="14" fill="#E0A080"/>
-    <circle cx="80" cy="98" r="52" fill="url(#wf)"/>
-    <circle cx="62" cy="90" r="12" fill="white"/><circle cx="98" cy="90" r="12" fill="white"/>
-    <circle cx="64" cy="92" r="8" fill="#1A1A1A"/><circle cx="100" cy="92" r="8" fill="#1A1A1A"/>
-    <circle cx="66" cy="89" r="3.5" fill="white"/><circle cx="102" cy="89" r="3.5" fill="white"/>
-    <path d="M 54 82 Q 62 77 70 82" stroke="#6A3820" stroke-width="2" fill="none" stroke-linecap="round"/>
-    <path d="M 90 82 Q 98 77 106 82" stroke="#6A3820" stroke-width="2" fill="none" stroke-linecap="round"/>
-    <ellipse cx="80" cy="106" rx="9" ry="6.5" fill="#8B4A2A"/>
-    <path d="M 65 116 Q 80 130 95 116" stroke="#6A3820" stroke-width="3" fill="none" stroke-linecap="round"/>
-    <circle cx="50" cy="108" r="13" fill="#E07070" opacity=".22"/><circle cx="110" cy="108" r="13" fill="#E07070" opacity=".22"/>
-    <!-- Book -->
-    <rect x="56" y="130" width="48" height="28" rx="4" fill="#C89040" opacity=".85"/>
-    <rect x="79" y="130" width="2" height="28" fill="#8A6028" opacity=".6"/>
-    <text x="95" y="150" font-size="13" fill="#1E3A28" text-anchor="middle" font-family="serif" direction="rtl">ب</text>
-  </svg>
+  <img class="w-mo" src="Logo_Baby_Mo_Transparant.png" alt="Baby Mo" draggable="false" style="object-fit:contain;"/>
   <div class="w-badge">🌙 BabyMo · Huruf Arab</div>
   <div class="w-title">Huruf Hijaiyah 🌟</div>
   <div class="w-arabic-title">اَلْحُرُوفُ الْهِجَائِيَّة</div>
@@ -366,19 +345,7 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
     <div class="q-arabic-big" id="qArabicBig" style="display:block"></div>
     <div class="q-name-big" id="qNameBig" style="display:none"></div>
     <button class="q-sound-hint" id="qSoundHint" onclick="speakQuizHint()">🔊 Dengar</button>
-    <!-- Baby Mo mini -->
-    <svg class="q-mo-wrap" id="qMoWrap" viewBox="0 0 80 90" xmlns="http://www.w3.org/2000/svg" style="display:none">
-      <defs><radialGradient id="qmf" cx="45%" cy="40%" r="55%"><stop offset="0%" stop-color="#D8A07A"/><stop offset="100%" stop-color="#C08060"/></radialGradient></defs>
-      <ellipse cx="40" cy="22" rx="28" ry="19" fill="#1E3A28"/><ellipse cx="40" cy="19" rx="25" ry="16" fill="#3D7A52"/>
-      <circle cx="14" cy="36" r="13" fill="#C08060"/><circle cx="14" cy="36" r="8" fill="#E0A080"/>
-      <circle cx="66" cy="36" r="13" fill="#C08060"/><circle cx="66" cy="36" r="8" fill="#E0A080"/>
-      <circle cx="40" cy="50" r="30" fill="url(#qmf)"/>
-      <circle cx="29" cy="44" r="7" fill="white"/><circle cx="51" cy="44" r="7" fill="white"/>
-      <circle cx="30" cy="46" r="4.5" fill="#1A1A1A" id="qEyeL"/><circle cx="52" cy="46" r="4.5" fill="#1A1A1A" id="qEyeR"/>
-      <circle cx="31" cy="44" r="2" fill="white"/><circle cx="53" cy="44" r="2" fill="white"/>
-      <path d="M 31 64 Q 40 72 49 64" stroke="#6A3820" stroke-width="2.5" fill="none" stroke-linecap="round" id="qMouth"/>
-      <circle cx="24" cy="56" r="8" fill="#E07070" opacity=".22"/><circle cx="56" cy="56" r="8" fill="#E07070" opacity=".22"/>
-    </svg>
+    <img class="q-mo-wrap" id="qMoWrap" src="Logo_Baby_Mo_Transparant.png" alt="Baby Mo" draggable="false" style="display:none;object-fit:contain;"/>
   </div>
 
   <div class="choices-grid name-grid" id="choicesGrid"></div>
@@ -392,25 +359,7 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 
 <!-- ════ RESULT ════ -->
 <div class="screen" id="sResult">
-  <svg class="res-mascot" viewBox="0 0 160 168" xmlns="http://www.w3.org/2000/svg">
-    <defs><radialGradient id="rf" cx="45%" cy="40%" r="55%"><stop offset="0%" stop-color="#D8A07A"/><stop offset="100%" stop-color="#C08060"/></radialGradient></defs>
-    <ellipse cx="80" cy="155" rx="40" ry="24" fill="#2C5A3E"/><ellipse cx="80" cy="138" rx="22" ry="12" fill="#3D7A52"/>
-    <ellipse cx="42" cy="150" rx="14" ry="10" fill="#C8906A" transform="rotate(-20,42,150)"/>
-    <ellipse cx="118" cy="150" rx="14" ry="10" fill="#C8906A" transform="rotate(20,118,150)"/>
-    <ellipse cx="80" cy="52" rx="50" ry="34" fill="#1E3A28"/><ellipse cx="80" cy="47" rx="46" ry="30" fill="#3D7A52"/>
-    <text x="72" y="46" font-size="14" fill="#C89040" opacity=".9">✦</text>
-    <circle cx="32" cy="72" r="22" fill="#C08060"/><circle cx="32" cy="72" r="14" fill="#E0A080"/>
-    <circle cx="128" cy="72" r="22" fill="#C08060"/><circle cx="128" cy="72" r="14" fill="#E0A080"/>
-    <circle cx="80" cy="98" r="52" fill="url(#rf)"/>
-    <circle cx="62" cy="90" r="12" fill="white"/><circle cx="98" cy="90" r="12" fill="white"/>
-    <circle cx="64" cy="92" r="8" fill="#1A1A1A"/><circle cx="100" cy="92" r="8" fill="#1A1A1A"/>
-    <circle cx="66" cy="89" r="3.5" fill="white"/><circle cx="102" cy="89" r="3.5" fill="white"/>
-    <ellipse cx="80" cy="106" rx="9" ry="6.5" fill="#8B4A2A"/>
-    <path d="M 60 113 Q 80 134 100 113" stroke="#6A3820" stroke-width="3.5" fill="none" stroke-linecap="round"/>
-    <circle cx="50" cy="108" r="13" fill="#E07070" opacity=".3"/><circle cx="110" cy="108" r="13" fill="#E07070" opacity=".3"/>
-    <text x="14" y="50" font-size="18" fill="#C89040" opacity=".9">⭐</text>
-    <text x="128" y="46" font-size="14" fill="#C89040" opacity=".8">⭐</text>
-  </svg>
+  <img class="res-mascot" src="Baby_Mo_Menyapa.png" alt="Baby Mo" draggable="false" style="object-fit:contain;"/>
   <div class="res-card">
     <div class="res-title" id="resTitle">Masya Allah! 🌟</div>
     <div class="res-sub" id="resSub">Pelajaran selesai!</div>
@@ -475,34 +424,34 @@ body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
 // DATA — ALL 28 HIJAIYAH LETTERS
 // ═══════════════════════════════════════════════
 const LETTERS = [
-  {id:'alif', ar:'اَ', name:'Alif',  lat:'A',   dots:'tanpa titik',   speak:'Alif',   dotsIcon:'○'},
-  {id:'ba',   ar:'بَ', name:'Ba',    lat:'BA',  dots:'1 titik bawah', speak:'Ba',     dotsIcon:'·'},
-  {id:'ta',   ar:'تَ', name:'Ta',    lat:'TA',  dots:'2 titik atas',  speak:'Ta',     dotsIcon:'··'},
-  {id:'tsa',  ar:'ثَ', name:'Tsa',   lat:'TSA', dots:'3 titik atas',  speak:'Tsa',    dotsIcon:'···'},
-  {id:'jim',  ar:'جَ', name:'Jim',   lat:'JIM', dots:'1 titik dalam', speak:'Jim',    dotsIcon:'·'},
-  {id:'ha',   ar:'حَ', name:'Ha',    lat:'HA',  dots:'tanpa titik',   speak:'Ha',     dotsIcon:'○'},
-  {id:'kha',  ar:'خَ', name:'Kha',   lat:'KHA', dots:'1 titik atas',  speak:'Kha',    dotsIcon:'·'},
-  {id:'dal',  ar:'دَ', name:'Dal',   lat:'DA',  dots:'tanpa titik',   speak:'Dal',    dotsIcon:'○'},
-  {id:'dzal', ar:'ذَ', name:'Dzal',  lat:'DZA', dots:'1 titik atas',  speak:'Dzal',   dotsIcon:'·'},
-  {id:'ra',   ar:'رَ', name:'Ra',    lat:'RA',  dots:'tanpa titik',   speak:'Ra',     dotsIcon:'○'},
-  {id:'zai',  ar:'زَ', name:'Zai',   lat:'ZA',  dots:'1 titik atas',  speak:'Zai',    dotsIcon:'·'},
-  {id:'sin',  ar:'سَ', name:'Sin',   lat:'SA',  dots:'tanpa titik',   speak:'Sin',    dotsIcon:'○'},
-  {id:'syin', ar:'شَ', name:'Syin',  lat:'SYA', dots:'3 titik atas',  speak:'Syin',   dotsIcon:'···'},
-  {id:'shad', ar:'صَ', name:'Shad',  lat:'SHA', dots:'tanpa titik',   speak:'Shad',   dotsIcon:'○'},
-  {id:'dhad', ar:'ضَ', name:'Dhad',  lat:'DHA', dots:'1 titik atas',  speak:'Dhad',   dotsIcon:'·'},
-  {id:'tha',  ar:'طَ', name:'Tha',   lat:'THA', dots:'tanpa titik',   speak:'Tha',    dotsIcon:'○'},
-  {id:'zha',  ar:'ظَ', name:'Zha',   lat:'ZHA', dots:'1 titik atas',  speak:'Zha',    dotsIcon:'·'},
-  {id:'ain',  ar:'عَ', name:"'Ain",  lat:'A\'', dots:'tanpa titik',   speak:'Ain',    dotsIcon:'○'},
-  {id:'ghain',ar:'غَ', name:'Ghain', lat:'GHA', dots:'1 titik atas',  speak:'Ghain',  dotsIcon:'·'},
-  {id:'fa',   ar:'فَ', name:'Fa',    lat:'FA',  dots:'1 titik atas',  speak:'Fa',     dotsIcon:'·'},
-  {id:'qaf',  ar:'قَ', name:'Qaf',   lat:'QA',  dots:'2 titik atas',  speak:'Qaf',    dotsIcon:'··'},
-  {id:'kaf',  ar:'كَ', name:'Kaf',   lat:'KA',  dots:'1 titik dalam', speak:'Kaf',    dotsIcon:'·'},
-  {id:'lam',  ar:'لَ', name:'Lam',   lat:'LA',  dots:'tanpa titik',   speak:'Lam',    dotsIcon:'○'},
-  {id:'mim',  ar:'مَ', name:'Mim',   lat:'MA',  dots:'1 titik dalam', speak:'Mim',    dotsIcon:'·'},
-  {id:'nun',  ar:'نَ', name:'Nun',   lat:'NA',  dots:'1 titik atas',  speak:'Nun',    dotsIcon:'·'},
-  {id:'waw',  ar:'وَ', name:'Waw',   lat:'WA',  dots:'tanpa titik',   speak:'Waw',    dotsIcon:'○'},
-  {id:'ha2',  ar:'هَ', name:"Ha'",   lat:'HA',  dots:'tanpa titik',   speak:'Haa',    dotsIcon:'○'},
-  {id:'ya',   ar:'يَ', name:'Ya',    lat:'YA',  dots:'2 titik bawah', speak:'Ya',     dotsIcon:'··'},
+  {id:'alif', ar:'اَ', name:'Alif',  lat:'A',   dots:'tanpa titik',   speak:'Alif',   arName:'أَلِف',   dotsIcon:'○'},
+  {id:'ba',   ar:'بَ', name:'Ba',    lat:'BA',  dots:'1 titik bawah', speak:'Ba',     arName:'بَاء',    dotsIcon:'·'},
+  {id:'ta',   ar:'تَ', name:'Ta',    lat:'TA',  dots:'2 titik atas',  speak:'Ta',     arName:'تَاء',    dotsIcon:'··'},
+  {id:'tsa',  ar:'ثَ', name:'Tsa',   lat:'TSA', dots:'3 titik atas',  speak:'Tsa',    arName:'ثَاء',    dotsIcon:'···'},
+  {id:'jim',  ar:'جَ', name:'Jim',   lat:'JIM', dots:'1 titik dalam', speak:'Jim',    arName:'جِيم',    dotsIcon:'·'},
+  {id:'ha',   ar:'حَ', name:'Ha',    lat:'HA',  dots:'tanpa titik',   speak:'Ha',     arName:'حَاء',    dotsIcon:'○'},
+  {id:'kha',  ar:'خَ', name:'Kha',   lat:'KHA', dots:'1 titik atas',  speak:'Kha',    arName:'خَاء',    dotsIcon:'·'},
+  {id:'dal',  ar:'دَ', name:'Dal',   lat:'DA',  dots:'tanpa titik',   speak:'Dal',    arName:'دَال',    dotsIcon:'○'},
+  {id:'dzal', ar:'ذَ', name:'Dzal',  lat:'DZA', dots:'1 titik atas',  speak:'Dzal',   arName:'ذَال',    dotsIcon:'·'},
+  {id:'ra',   ar:'رَ', name:'Ra',    lat:'RA',  dots:'tanpa titik',   speak:'Ra',     arName:'رَاء',    dotsIcon:'○'},
+  {id:'zai',  ar:'زَ', name:'Zai',   lat:'ZA',  dots:'1 titik atas',  speak:'Zai',    arName:'زَاي',    dotsIcon:'·'},
+  {id:'sin',  ar:'سَ', name:'Sin',   lat:'SA',  dots:'tanpa titik',   speak:'Sin',    arName:'سِين',    dotsIcon:'○'},
+  {id:'syin', ar:'شَ', name:'Syin',  lat:'SYA', dots:'3 titik atas',  speak:'Syin',   arName:'شِين',    dotsIcon:'···'},
+  {id:'shad', ar:'صَ', name:'Shad',  lat:'SHA', dots:'tanpa titik',   speak:'Shad',   arName:'صَاد',    dotsIcon:'○'},
+  {id:'dhad', ar:'ضَ', name:'Dhad',  lat:'DHA', dots:'1 titik atas',  speak:'Dhad',   arName:'ضَاد',    dotsIcon:'·'},
+  {id:'tha',  ar:'طَ', name:'Tha',   lat:'THA', dots:'tanpa titik',   speak:'Tha',    arName:'طَاء',    dotsIcon:'○'},
+  {id:'zha',  ar:'ظَ', name:'Zha',   lat:'ZHA', dots:'1 titik atas',  speak:'Zha',    arName:'ظَاء',    dotsIcon:'·'},
+  {id:'ain',  ar:'عَ', name:"'Ain",  lat:'A\'', dots:'tanpa titik',   speak:'Ain',    arName:'عَيْن',   dotsIcon:'○'},
+  {id:'ghain',ar:'غَ', name:'Ghain', lat:'GHA', dots:'1 titik atas',  speak:'Ghain',  arName:'غَيْن',   dotsIcon:'·'},
+  {id:'fa',   ar:'فَ', name:'Fa',    lat:'FA',  dots:'1 titik atas',  speak:'Fa',     arName:'فَاء',    dotsIcon:'·'},
+  {id:'qaf',  ar:'قَ', name:'Qaf',   lat:'QA',  dots:'2 titik atas',  speak:'Qaf',    arName:'قَاف',    dotsIcon:'··'},
+  {id:'kaf',  ar:'كَ', name:'Kaf',   lat:'KA',  dots:'1 titik dalam', speak:'Kaf',    arName:'كَاف',    dotsIcon:'·'},
+  {id:'lam',  ar:'لَ', name:'Lam',   lat:'LA',  dots:'tanpa titik',   speak:'Lam',    arName:'لَام',    dotsIcon:'○'},
+  {id:'mim',  ar:'مَ', name:'Mim',   lat:'MA',  dots:'1 titik dalam', speak:'Mim',    arName:'مِيم',    dotsIcon:'·'},
+  {id:'nun',  ar:'نَ', name:'Nun',   lat:'NA',  dots:'1 titik atas',  speak:'Nun',    arName:'نُون',    dotsIcon:'·'},
+  {id:'waw',  ar:'وَ', name:'Waw',   lat:'WA',  dots:'tanpa titik',   speak:'Waw',    arName:'وَاو',    dotsIcon:'○'},
+  {id:'ha2',  ar:'هَ', name:"Ha'",   lat:'HA',  dots:'tanpa titik',   speak:'Haa',    arName:'هَاء',    dotsIcon:'○'},
+  {id:'ya',   ar:'يَ', name:'Ya',    lat:'YA',  dots:'2 titik bawah', speak:'Ya',     arName:'يَاء',    dotsIcon:'··'},
 ];
 
 // COLORS — cycling through BabyMo palette
@@ -605,7 +554,10 @@ function speakCurrentLetter(){
   if(!curLesson) return;
   const lt = lessonLetters[cardIdx];
   if(!lt) return;
-  speak(lt.speak, arabicVoice ? 'ar-SA' : 'id-ID');
+  // Use Arabic script letter name (arName) for Arabic TTS — this gives natural, correct pronunciation.
+  // Fall back to English romanization for non-Arabic voices.
+  const text = arabicVoice ? lt.arName : lt.speak;
+  speak(text, arabicVoice ? 'ar-SA' : 'id-ID');
   playTone(523,.08,'sine',.2);
 }
 
@@ -836,7 +788,7 @@ function loadCard(idx){
 
   // Auto-speak after short delay
   clearTimeout(speakTimer);
-  speakTimer = setTimeout(()=>speak(lt.speak, arabicVoice?'ar-SA':'id-ID'), 700);
+  speakTimer = setTimeout(()=>speak(arabicVoice ? lt.arName : lt.speak, arabicVoice?'ar-SA':'id-ID'), 700);
 }
 
 function prevCard(){
@@ -864,10 +816,10 @@ function makeQuestions(letterIds){
     const wrongs=shuffle(LETTERS.filter(l=>l.id!==lt.id)).slice(0,3);
     // Type A: see Arabic → pick name (4 name choices)
     qs.push({type:'name', arabic:lt.ar, nameDisplay:'', correct:lt.name,
-      choices:shuffle([lt.name,...wrongs.map(l=>l.name)]), lt, speakText:lt.speak});
+      choices:shuffle([lt.name,...wrongs.map(l=>l.name)]), lt, speakText: lt.arName || lt.speak});
     // Type B: see name → pick Arabic (4 Arabic choices)
     qs.push({type:'letter', arabic:'', nameDisplay:lt.name, correct:lt.ar,
-      choices:shuffle([lt.ar,...wrongs.map(l=>l.ar)]), lt, speakText:lt.speak});
+      choices:shuffle([lt.ar,...wrongs.map(l=>l.ar)]), lt, speakText: lt.arName || lt.speak});
   });
   return shuffle(qs).slice(0, Math.min(10, qs.length));
 }
