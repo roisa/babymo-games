@@ -74,7 +74,6 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(
 }
 .pjitem:active{transform:scale(.97);}
 
-/* Doa cards */
 .doa-card{
   background:rgba(255,255,255,.04);
   border:2px solid var(--border);
@@ -107,11 +106,8 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(
 .ripel{position:absolute;border-radius:50%;pointer-events:none;animation:rp .6s ease forwards;}
 #stars{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
 
-/* Logo mascot */
 .mo-logo{object-fit:contain;display:block;filter:drop-shadow(0 6px 18px rgba(0,0,0,.38));animation:mof 3.6s ease-in-out infinite;}
 .mo-shadow{border-radius:50%;background:rgba(44,90,62,.28);filter:blur(4px);animation:shadowBreathe 3.6s ease-in-out infinite;margin:0 auto;}
-
-/* Head crop for baca doa */
 .mo-head{
   width:72px;height:72px;border-radius:50%;
   object-fit:cover;object-position:top center;
@@ -132,17 +128,14 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(
       <div style="font-size:10px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:var(--cream-dim);">BabyMo.id</div>
     </div>
 
-    <!-- Baby Mo logo + zzz animations -->
     <div style="text-align:center;">
       <div style="position:relative;display:inline-block;">
         <img class="mo-logo" src="Logo_Baby_Mo_Transparant.png" alt="Baby Mo" style="width:170px;height:170px;"/>
-        <!-- Floating zzz -->
         <div style="position:absolute;top:10px;right:-10px;pointer-events:none;">
           <span style="display:block;font-size:13px;font-weight:900;color:rgba(200,144,64,.45);animation:zzFloat 2s 0s ease-in-out infinite;font-family:Nunito,sans-serif;">z</span>
           <span style="display:block;font-size:20px;font-weight:900;color:rgba(200,144,64,.55);animation:zzFloat 2.5s .5s ease-in-out infinite;font-family:Nunito,sans-serif;">z</span>
           <span style="display:block;font-size:28px;font-weight:900;color:rgba(200,144,64,.5);animation:zzFloat 3s 1s ease-in-out infinite;font-family:Nunito,sans-serif;">Z</span>
         </div>
-        <!-- Sleepy stars floating -->
         <div style="position:absolute;top:20px;left:-14px;pointer-events:none;">
           <span style="display:block;font-size:16px;animation:zzFloat 2.8s .3s ease-in-out infinite;opacity:.5;">💤</span>
         </div>
@@ -152,7 +145,6 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(
       <div style="font-size:15px;color:var(--cream-dim);margin-bottom:32px;line-height:1.5;">4 langkah malam bersama Baby Mo ⭐</div>
     </div>
 
-    <!-- Steps preview -->
     <div style="text-align:center;">
       <div style="display:flex;justify-content:center;gap:20px;margin-bottom:28px;">
         <div style="text-align:center;opacity:.45;">
@@ -196,7 +188,6 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(
   <div id="sleepdim" style="position:absolute;inset:0;background:#000;opacity:0;z-index:2;pointer-events:none;"></div>
   <div id="sleepcontent" style="position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;opacity:0;transition:opacity 1.2s;padding:40px;">
 
-    <!-- Real Baby Mo logo sleeping -->
     <div style="position:relative;display:inline-block;animation:bt 4s ease-in-out infinite;">
       <img src="Logo_Baby_Mo_Transparant.png" alt="Baby Mo" style="width:140px;height:140px;object-fit:contain;filter:drop-shadow(0 4px 18px rgba(44,90,62,.4));"/>
       <div style="position:absolute;top:5px;right:-8px;pointer-events:none;">
@@ -236,14 +227,14 @@ html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(
 /* ── UTILS ── */
 function vib(p){try{navigator.vibrate&&navigator.vibrate(p||40);}catch(e){}}
 
-/* ── WEB AUDIO CTX (shared) ── */
+/* ── WEB AUDIO ── */
 var _audioCtx=null;
 function getACtx(){
   if(!_audioCtx){try{_audioCtx=new(window.AudioContext||window.webkitAudioContext)();}catch(e){}}
   return _audioCtx;
 }
 
-/* ── BRUSH BRISTLE SOUND ── */
+/* Brush bristle sound */
 function playBrushSound(){
   var ctx=getACtx();if(!ctx)return;
   try{
@@ -269,11 +260,9 @@ function _initVoices(){
   if(!window.speechSynthesis)return;
   function load(){
     _vlist=speechSynthesis.getVoices();
-    /* Arabic voice */
     _arV=_vlist.find(function(v){return v.lang==='ar-SA';})||
          _vlist.find(function(v){return v.lang==='ar-EG';})||
          _vlist.find(function(v){return v.lang.startsWith('ar');})||null;
-    /* Female Indonesian voice — try by name first */
     _idV=_vlist.find(function(v){return v.lang==='id-ID'&&(v.name.toLowerCase().includes('female')||v.name.includes('Damayanti')||v.name.includes('Google Bahasa Indonesia'));})
         ||_vlist.find(function(v){return v.lang==='id-ID';})
         ||_vlist.find(function(v){return v.lang.startsWith('id');})||null;
@@ -285,23 +274,16 @@ _initVoices();
 
 function speakMom(txt,cb){
   if(!window.speechSynthesis){if(cb)setTimeout(cb,0);return;}
-  var attempts=0;
-  function trySpeak(){
-    var voices=speechSynthesis.getVoices();
-    _idV=voices.find(function(v){return v.lang==='id-ID'&&(v.name.toLowerCase().includes('female')||v.name.includes('Damayanti')||v.name.includes('Google Bahasa Indonesia'));})
-        ||voices.find(function(v){return v.lang==='id-ID';})
-        ||voices.find(function(v){return v.lang.startsWith('id');})||_idV;
-    var u=new SpeechSynthesisUtterance(txt);
-    u.lang='id-ID';
-    u.rate=0.80;
-    u.pitch=1.45; /* higher = warmer, feminine */
-    u.volume=1.0;
-    if(_idV){u.voice=_idV;u.voiceURI=_idV.voiceURI;}
-    u.onend=u.onerror=function(){if(cb)setTimeout(cb,260);};
-    speechSynthesis.cancel();
-    setTimeout(function(){speechSynthesis.speak(u);},120);
-  }
-  trySpeak();
+  var voices=speechSynthesis.getVoices();
+  _idV=voices.find(function(v){return v.lang==='id-ID'&&(v.name.toLowerCase().includes('female')||v.name.includes('Damayanti')||v.name.includes('Google Bahasa Indonesia'));})
+      ||voices.find(function(v){return v.lang==='id-ID';})
+      ||voices.find(function(v){return v.lang.startsWith('id');})||_idV;
+  var u=new SpeechSynthesisUtterance(txt);
+  u.lang='id-ID';u.rate=0.80;u.pitch=1.45;u.volume=1.0;
+  if(_idV){u.voice=_idV;u.voiceURI=_idV.voiceURI;}
+  u.onend=u.onerror=function(){if(cb)setTimeout(cb,260);};
+  speechSynthesis.cancel();
+  setTimeout(function(){speechSynthesis.speak(u);},120);
 }
 
 function speakAr(txt,cb){
@@ -312,13 +294,6 @@ function speakAr(txt,cb){
   u.onend=u.onerror=function(){if(cb)setTimeout(cb,0);};
   speechSynthesis.cancel();
   setTimeout(function(){speechSynthesis.speak(u);},120);
-}
-
-function speakGuided(narr,ar,cb){
-  speechSynthesis.cancel();
-  speakMom(narr,function(){
-    setTimeout(function(){speakAr(ar,function(){if(cb)cb();});},550);
-  });
 }
 
 /* ── LULLABY ── */
@@ -404,11 +379,9 @@ function buildBrush(wrap,done){
 
   wrap.innerHTML=
     '<div class="shead"><div class="snum">Langkah 1 dari 4</div><div class="stitle">🪥 Gosok Gigi</div><div class="shint">Geser kiri ← → kanan untuk menyikat!</div></div>'
-    /* Real Baby Mo logo */
     +'<div style="display:flex;justify-content:center;padding:4px 0 2px;flex-shrink:0;position:relative;">'
     +'<div style="position:relative;display:inline-block;">'
     +'<img src="Logo_Baby_Mo_Transparant.png" alt="Baby Mo" style="width:118px;height:118px;object-fit:contain;filter:drop-shadow(0 4px 14px rgba(0,0,0,.35));animation:mof 3.6s ease-in-out infinite;"/>'
-    /* Toothbrush overlay — positioned near "mouth" area */
     +'<div id="brushOverlay" style="position:absolute;bottom:18px;right:-10px;font-size:30px;transform:rotate(22deg);transition:transform .2s;filter:drop-shadow(0 2px 8px rgba(62,207,184,.5));">🪥</div>'
     +'<div id="toothGlow" style="position:absolute;bottom:22px;left:50%;transform:translateX(-50%);width:38px;height:8px;background:rgba(62,207,184,0);border-radius:99px;transition:background .4s;"></div>'
     +'</div></div>'
@@ -430,7 +403,6 @@ function buildBrush(wrap,done){
 
   function refreshGlow(){
     var p=count/NEED;
-    /* Toothbrush glow gets more teal as teeth get cleaner */
     var glow=document.getElementById('toothGlow');
     if(glow)glow.style.background='rgba(62,207,184,'+(p*0.5)+')';
   }
@@ -439,7 +411,7 @@ function buildBrush(wrap,done){
     if(dir===lastDir||finished)return;
     lastDir=dir;count=Math.min(count+1,NEED);
     vib(32);
-    playBrushSound(); /* 🔊 bristle sound on each stroke */
+    playBrushSound();
     document.getElementById('bcnt').textContent=count+'/'+NEED;
     document.getElementById('bprog').style.width=(count/NEED*100)+'%';
     document.getElementById('breact').textContent=FACES[Math.min(count,6)];
@@ -481,13 +453,12 @@ function buildBrush(wrap,done){
 
 /* ══════════════════════════════════════════
    STEP 2 — GANTI BAJU
-   Real logo + color overlay tint + boneka 🧸
 ══════════════════════════════════════════ */
 function buildPajamas(wrap,done){
   var items=[
-    {emoji:'👕',label:'Baju Tidur',   color:'#9070C8', hue:270},
-    {emoji:'🩲',label:'Celana Tidur', color:'#5878C8', hue:220},
-    {emoji:'🧸',label:'Ambil Boneka', color:'#C89040', hue:40}
+    {emoji:'👕',label:'Baju Tidur',   color:'#9070C8'},
+    {emoji:'🩲',label:'Celana Tidur', color:'#5878C8'},
+    {emoji:'🧸',label:'Ambil Boneka', color:'#C89040'}
   ];
   var tapped=0;
   var overlayColors=['','rgba(144,112,200,.28)','rgba(88,120,200,.22)'];
@@ -495,18 +466,13 @@ function buildPajamas(wrap,done){
   wrap.innerHTML=
     '<div class="shead"><div class="snum">Langkah 2 dari 4</div><div class="stitle">👕 Ganti Baju</div><div class="shint">Ketuk setiap item untuk memakainya!</div></div>'
     +'<div style="display:flex;justify-content:center;align-items:flex-end;gap:16px;padding:6px 0 2px;flex-shrink:0;">'
-      /* Boneka — appears after all tapped */
-      +'<div id="boneka" style="font-size:52px;opacity:.18;transition:all .6s cubic-bezier(.34,1.56,.64,1);transform:scale(.8);animation:bonkSway 3s ease-in-out infinite;">🧸</div>'
-      /* Baby Mo logo with overlay wrapper */
-      +'<div style="position:relative;display:inline-block;">'
-      +'<img id="pjmo" src="Logo_Baby_Mo_Transparant.png" alt="Baby Mo" style="width:108px;height:108px;object-fit:contain;filter:drop-shadow(0 4px 14px rgba(0,0,0,.35));animation:mof 3.6s ease-in-out infinite;transition:filter .5s;"/>'
-      /* Color overlay tint div */
-      +'<div id="pjOverlay" style="position:absolute;inset:0;border-radius:50%;background:transparent;mix-blend-mode:color;pointer-events:none;transition:background .6s;"></div>'
-      /* Star sparkle that appears on completion */
-      +'<div id="pjSparkle" style="position:absolute;top:-8px;right:-8px;font-size:22px;opacity:0;transition:opacity .4s;animation:pu 1.5s ease-in-out infinite;">⭐</div>'
-      +'</div>'
-      /* Moon — appears */
-      +'<div id="moonDeco" style="font-size:36px;opacity:.18;transition:all .6s cubic-bezier(.34,1.56,.64,1);transform:scale(.8);">🌙</div>'
+    +'<div id="boneka" style="font-size:52px;opacity:.18;transition:all .6s cubic-bezier(.34,1.56,.64,1);transform:scale(.8);animation:bonkSway 3s ease-in-out infinite;">🧸</div>'
+    +'<div style="position:relative;display:inline-block;">'
+    +'<img id="pjmo" src="Logo_Baby_Mo_Transparant.png" alt="Baby Mo" style="width:108px;height:108px;object-fit:contain;filter:drop-shadow(0 4px 14px rgba(0,0,0,.35));animation:mof 3.6s ease-in-out infinite;transition:filter .5s;"/>'
+    +'<div id="pjOverlay" style="position:absolute;inset:0;border-radius:50%;background:transparent;mix-blend-mode:color;pointer-events:none;transition:background .6s;"></div>'
+    +'<div id="pjSparkle" style="position:absolute;top:-8px;right:-8px;font-size:22px;opacity:0;transition:opacity .4s;animation:pu 1.5s ease-in-out infinite;">⭐</div>'
+    +'</div>'
+    +'<div id="moonDeco" style="font-size:36px;opacity:.18;transition:all .6s cubic-bezier(.34,1.56,.64,1);transform:scale(.8);">🌙</div>'
     +'</div>'
     +'<div style="flex:1;display:flex;align-items:center;justify-content:center;padding:4px 24px;">'
     +'<div class="pjgrid" id="pjgrid"></div>'
@@ -531,20 +497,12 @@ function buildPajamas(wrap,done){
       el.querySelector('div').style.animation='pk .5s cubic-bezier(.34,1.56,.64,1)';
       el.querySelectorAll('div')[1].textContent='Sudah! ✓';
       el.querySelectorAll('div')[1].style.color=item.color;
-
-      /* Update overlay color on Baby Mo logo */
       var overlay=document.getElementById('pjOverlay');
-      if(overlay&&i<2){
-        overlay.style.background=overlayColors[tapped]||'';
-      }
-
-      /* When baju + celana done — show boneka & moon bigger */
+      if(overlay&&i<2) overlay.style.background=overlayColors[tapped]||'';
       if(tapped===2){
         var mo=document.getElementById('pjmo');
         if(mo) mo.style.filter='drop-shadow(0 0 16px rgba(144,112,200,.55)) drop-shadow(0 4px 14px rgba(0,0,0,.35))';
       }
-
-      /* When boneka tapped */
       if(i===2){
         var bnk=document.getElementById('boneka');
         var moon=document.getElementById('moonDeco');
@@ -554,7 +512,6 @@ function buildPajamas(wrap,done){
         if(spk) spk.style.opacity='1';
         el.querySelector('div').textContent='🥰';
       }
-
       if(tapped>=items.length){
         document.getElementById('pjdone').style.display='block';
         vib([70,35,70]);
@@ -570,9 +527,9 @@ function buildPajamas(wrap,done){
 
 /* ══════════════════════════════════════════
    STEP 3 — BACA DOA
-   One-page card layout matching screenshot
-   Head crop of Baby_Mo_Menyapa.png
-   Female Indonesian voice
+   FIX: renamed params to avoid shadowing speakAr()
+   FIX: safety timeout so anyPlaying never gets stuck
+   FIX: combined card badge flows inside scroll
 ══════════════════════════════════════════ */
 function buildDoa(wrap,done){
 
@@ -582,32 +539,32 @@ function buildDoa(wrap,done){
       arabic:'بِسْمِكَ اللَّهُمَّ',
       lat:'Bismika Allāhumma',
       mean:'Dengan nama-Mu ya Allah',
-      speakAr:'بسمك اللهم',
-      speakId:'Bismika Allāhumma'
+      speakArTxt:'بسمك اللهم',
+      speakIdTxt:'Bismika Allāhumma'
     },
     {
       num:'2', numColor:'#8870C8',
       arabic:'أَحْيَا وَأَمُوتُ',
       lat:'ahyā wa amūtu',
       mean:'aku hidup dan aku mati',
-      speakAr:'أحيا وأموت',
-      speakId:'ahya wa amut'
+      speakArTxt:'أحيا وأموت',
+      speakIdTxt:'ahya wa amut'
     }
   ];
   var FULL={
     arabic:'بِسْمِكَ اللَّهُمَّ أَحْيَا وَأَمُوتُ',
     lat:'Bismika Allāhumma aḥyā wa amūtu',
     mean:'Dengan nama-Mu ya Allah, aku hidup dan aku mati',
-    speakAr:'بسمك اللهم أحيا وأموت'
+    speakArTxt:'بسمك اللهم أحيا وأموت',
+    speakIdTxt:'Bismika Allāhumma ahya wa amut'
   };
 
-  var played=[false,false,false]; /* part1, part2, full */
+  var played=[false,false,false];
   var anyPlaying=false;
 
   function checkEnable(){
     var btn=document.getElementById('doaLanjut');
     if(!btn)return;
-    /* Enable after full dua has been played */
     if(played[2]){
       btn.disabled=false;
       btn.style.opacity='1';
@@ -626,15 +583,33 @@ function buildDoa(wrap,done){
     checkEnable();
   }
 
-  function playPart(idx,cardId,speakId,speakAr,cb){
+  function showWaveFor(cardId,show){
+    var w=document.getElementById('wave-'+cardId);
+    if(w) w.style.display=show?'flex':'none';
+  }
+
+  /* ── KEY FIX: parameters renamed to speakIdTxt / speakArTxt
+     so they don't shadow the global speakAr() function ── */
+  function playPart(idx,cardId,speakIdTxt,speakArTxt,cb){
     if(anyPlaying)return;
     anyPlaying=true;
     var btn=document.getElementById('snd-'+cardId);
     if(btn){btn.textContent='⏸ Sedang diputar...';btn.style.opacity='.7';}
     showWaveFor(cardId,true);
-    speakMom(speakId,function(){
+
+    /* Safety timeout — resets if audio silently fails on Android */
+    var safetyTimer=setTimeout(function(){
+      anyPlaying=false;
+      showWaveFor(cardId,false);
+      if(btn){btn.textContent='🔊 Dengar lagi';btn.style.opacity='1';}
+      setPlayed(idx,cardId);
+      if(cb)cb();
+    },12000);
+
+    speakMom(speakIdTxt,function(){
       setTimeout(function(){
-        speakAr(speakAr,function(){
+        speakAr(speakArTxt,function(){
+          clearTimeout(safetyTimer);
           anyPlaying=false;
           showWaveFor(cardId,false);
           if(btn){btn.textContent='🔊 Dengar lagi';btn.style.opacity='1';}
@@ -645,27 +620,17 @@ function buildDoa(wrap,done){
     });
   }
 
-  function showWaveFor(cardId,show){
-    var w=document.getElementById('wave-'+cardId);
-    if(w) w.style.display=show?'flex':'none';
-  }
-
   function cardHTML(id,numLabel,numColor,arabic,lat,mean,btnLabel){
     return '<div id="'+id+'" class="doa-card" style="margin-bottom:10px;">'
       +'<div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px;">'
-        /* Number badge */
-        +'<div style="width:28px;height:28px;border-radius:50%;background:'+numColor+';display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;color:#fff;flex-shrink:0;">'+numLabel+'</div>'
-        /* Sound button */
-        +'<button id="snd-'+id+'" style="flex:1;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:8px 10px;font-family:inherit;font-size:12px;font-weight:800;color:var(--cream-dim);cursor:pointer;transition:.15s;">'+btnLabel+'</button>'
-        /* Tick — hidden until played */
-        +'<div class="card-tick" style="display:none;width:28px;height:28px;border-radius:50%;background:rgba(109,184,130,.2);border:2px solid var(--green-glow);align-items:center;justify-content:center;font-size:14px;color:var(--green-glow);flex-shrink:0;">✓</div>'
+      +'<div style="width:28px;height:28px;border-radius:50%;background:'+numColor+';display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;color:#fff;flex-shrink:0;">'+numLabel+'</div>'
+      +'<button id="snd-'+id+'" style="flex:1;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:8px 10px;font-family:inherit;font-size:12px;font-weight:800;color:var(--cream-dim);cursor:pointer;transition:.15s;">'+btnLabel+'</button>'
+      +'<div class="card-tick" style="display:none;width:28px;height:28px;border-radius:50%;background:rgba(109,184,130,.2);border:2px solid var(--green-glow);align-items:center;justify-content:center;font-size:14px;color:var(--green-glow);flex-shrink:0;">✓</div>'
       +'</div>'
-      /* Arabic */
       +'<div style="font-family:\'Scheherazade New\',serif;font-size:clamp(22px,6.5vw,30px);font-weight:700;color:var(--gold-lt);direction:rtl;text-align:right;line-height:1.7;margin-bottom:8px;">'+arabic+'</div>'
       +'<div style="height:1px;background:rgba(255,255,255,.06);margin-bottom:8px;"></div>'
       +'<div style="font-size:12px;font-weight:700;color:var(--green-glow);font-style:italic;margin-bottom:3px;">'+lat+'</div>'
       +'<div style="font-size:11px;color:var(--cream-dim);">'+mean+'</div>'
-      /* Wave bars */
       +'<div id="wave-'+id+'" style="display:none;justify-content:center;align-items:flex-end;height:18px;gap:3px;margin-top:8px;">'
       +'<div style="width:3px;height:6px;border-radius:2px;background:rgba(200,144,64,.55);animation:wv .44s 0s ease-in-out infinite;transform-origin:bottom;"></div>'
       +'<div style="width:3px;height:11px;border-radius:2px;background:rgba(200,144,64,.6);animation:wv .52s .08s ease-in-out infinite;transform-origin:bottom;"></div>'
@@ -677,13 +642,11 @@ function buildDoa(wrap,done){
   }
 
   wrap.innerHTML=
-    /* Fixed header */
     '<div class="shead" style="padding-bottom:6px;"><div class="snum">Langkah 3 dari 4</div><div class="stitle">🤲 Baca Doa</div></div>'
 
-    /* Scrollable body */
     +'<div style="flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:0 16px 16px;">'
 
-      /* Baby Mo head + narration */
+      /* Baby Mo head crop + speech bubble */
       +'<div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:12px;">'
       +'<img src="Baby_Mo_Menyapa.png" alt="Baby Mo" class="mo-head"/>'
       +'<div style="flex:1;background:rgba(44,90,62,.18);border:1px solid rgba(93,170,120,.22);border-radius:0 16px 16px 16px;padding:10px 13px;position:relative;margin-top:4px;">'
@@ -691,7 +654,7 @@ function buildDoa(wrap,done){
       +'<div style="font-size:13px;font-weight:700;color:var(--cream);line-height:1.5;">Yuk belajar doa sebelum tidur ya sayang... Dengarkan, lalu tirukan pelan-pelan! 🌙</div>'
       +'</div></div>'
 
-      /* Doa label badge */
+      /* Badge */
       +'<div style="text-align:center;margin-bottom:12px;">'
       +'<span style="display:inline-block;background:rgba(200,144,64,.08);border:1px solid rgba(200,144,64,.2);border-radius:99px;padding:4px 16px;font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:rgba(232,176,96,.75);">🌙 DOA SEBELUM TIDUR</span>'
       +'</div>'
@@ -702,14 +665,15 @@ function buildDoa(wrap,done){
       /* Part 2 card */
       +cardHTML('card2','2','#8870C8',DUA_PARTS[1].arabic,DUA_PARTS[1].lat,DUA_PARTS[1].mean,'🔊 Dengar & Tirukan')
 
-      /* Combined card */
-      +'<div id="cardFull" class="doa-card combined" style="margin-bottom:10px;position:relative;">'
-      +'<div style="position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:rgba(200,144,64,.12);border:1px solid rgba(200,144,64,.3);border-radius:99px;padding:3px 14px;font-size:9px;font-weight:800;letter-spacing:1.5px;color:var(--gold-lt);white-space:nowrap;">💛 GABUNGKAN KEDUANYA</div>'
-      +'<div style="height:8px;"></div>'
+      /* Combined card — FIX: badge is in normal flow, not absolute */
+      +'<div id="cardFull" class="doa-card combined" style="margin-bottom:10px;">'
+      +'<div style="display:flex;justify-content:center;margin-bottom:10px;">'
+      +'<div style="background:rgba(200,144,64,.12);border:1px solid rgba(200,144,64,.3);border-radius:99px;padding:4px 14px;font-size:9px;font-weight:800;letter-spacing:1.5px;color:var(--gold-lt);white-space:nowrap;">💛 GABUNGKAN KEDUANYA</div>'
+      +'</div>'
       +'<div style="display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px;">'
-        +'<div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold-lt));display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">★</div>'
-        +'<button id="snd-cardFull" style="flex:1;background:rgba(200,144,64,.1);border:1px solid rgba(200,144,64,.25);border-radius:10px;padding:8px 10px;font-family:inherit;font-size:12px;font-weight:800;color:var(--gold-lt);cursor:pointer;transition:.15s;">🔊 Dengar Doa Lengkap</button>'
-        +'<div class="card-tick" style="display:none;width:28px;height:28px;border-radius:50%;background:rgba(200,144,64,.15);border:2px solid var(--gold-lt);align-items:center;justify-content:center;font-size:14px;color:var(--gold-lt);flex-shrink:0;">✓</div>'
+      +'<div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--gold-lt));display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;">★</div>'
+      +'<button id="snd-cardFull" style="flex:1;background:rgba(200,144,64,.1);border:1px solid rgba(200,144,64,.25);border-radius:10px;padding:8px 10px;font-family:inherit;font-size:12px;font-weight:800;color:var(--gold-lt);cursor:pointer;transition:.15s;">🔊 Dengar Doa Lengkap</button>'
+      +'<div class="card-tick" style="display:none;width:28px;height:28px;border-radius:50%;background:rgba(200,144,64,.15);border:2px solid var(--gold-lt);align-items:center;justify-content:center;font-size:14px;color:var(--gold-lt);flex-shrink:0;">✓</div>'
       +'</div>'
       +'<div style="font-family:\'Scheherazade New\',serif;font-size:clamp(20px,5.5vw,26px);font-weight:700;color:var(--gold-lt);direction:rtl;text-align:right;line-height:1.7;margin-bottom:8px;">'+FULL.arabic+'</div>'
       +'<div style="height:1px;background:rgba(255,255,255,.06);margin-bottom:8px;"></div>'
@@ -722,18 +686,17 @@ function buildDoa(wrap,done){
       +'<div style="width:3px;height:11px;border-radius:2px;background:rgba(200,144,64,.6);animation:wv .56s .06s ease-in-out infinite;transform-origin:bottom;"></div>'
       +'<div style="width:3px;height:6px;border-radius:2px;background:rgba(200,144,64,.5);animation:wv .44s .12s ease-in-out infinite;transform-origin:bottom;"></div>'
       +'</div>'
-      /* Star deco */
-      +'<div style="position:absolute;bottom:10px;right:12px;font-size:28px;opacity:.35;animation:pu 2.5s ease-in-out infinite;">⭐</div>'
+      +'<div style="text-align:right;margin-top:6px;font-size:24px;opacity:.3;animation:pu 2.5s ease-in-out infinite;">⭐</div>'
       +'</div>'
 
-      /* Artinya section */
+      /* Artinya */
       +'<div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:12px 14px;margin-bottom:10px;display:flex;align-items:flex-start;gap:10px;">'
       +'<span style="font-size:20px;flex-shrink:0;">❤️</span>'
       +'<div><div style="font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#E07070;margin-bottom:4px;">ARTINYA:</div>'
       +'<div style="font-size:13px;color:var(--cream);line-height:1.55;">'+FULL.mean+'.</div></div>'
       +'</div>'
 
-      /* Mom's tip */
+      /* Mom tip */
       +'<div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:12px 14px;margin-bottom:16px;display:flex;align-items:flex-start;gap:10px;">'
       +'<span style="font-size:20px;flex-shrink:0;">🌙</span>'
       +'<div><div style="font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:4px;">MOM\'S TIP</div>'
@@ -743,24 +706,39 @@ function buildDoa(wrap,done){
       /* Lanjut button */
       +'<button id="doaLanjut" disabled style="width:100%;background:linear-gradient(135deg,var(--green),#3A7050);border:none;border-radius:14px;padding:16px;font-family:inherit;font-size:17px;font-weight:900;color:#fff;cursor:pointer;box-shadow:0 4px 18px rgba(44,90,62,.4);opacity:.35;transition:opacity .35s;">Aamiin 🤲 — Lanjut Tidur</button>'
 
-    +'</div>'; /* end scrollable */
+    +'</div>';
 
-  /* Wire up audio buttons */
+  /* Wire part 1 button */
   document.getElementById('snd-card1').addEventListener('click',function(){
-    playPart(0,'card1','Bismika Allāhumma',DUA_PARTS[0].speakAr,null);
+    playPart(0,'card1',DUA_PARTS[0].speakIdTxt,DUA_PARTS[0].speakArTxt,null);
   });
+
+  /* Wire part 2 button */
   document.getElementById('snd-card2').addEventListener('click',function(){
-    playPart(1,'card2','ahya wa amut',DUA_PARTS[1].speakAr,null);
+    playPart(1,'card2',DUA_PARTS[1].speakIdTxt,DUA_PARTS[1].speakArTxt,null);
   });
+
+  /* Wire full dua button — FIX: local var for Arabic text, no shadowing */
   document.getElementById('snd-cardFull').addEventListener('click',function(){
     if(anyPlaying)return;
     anyPlaying=true;
     var btn=document.getElementById('snd-cardFull');
     if(btn){btn.textContent='⏸ Sedang diputar...';btn.style.opacity='.7';}
     showWaveFor('cardFull',true);
-    speakMom('Bismika Allāhumma ahya wa amut',function(){
+
+    var fullArTxt=FULL.speakArTxt; /* local copy — no shadowing */
+    var fullIdTxt=FULL.speakIdTxt;
+
+    var safetyTimer=setTimeout(function(){
+      anyPlaying=false;showWaveFor('cardFull',false);
+      if(btn){btn.textContent='🔊 Dengar Doa Lengkap';btn.style.opacity='1';}
+      setPlayed(2,'cardFull');
+    },14000);
+
+    speakMom(fullIdTxt,function(){
       setTimeout(function(){
-        speakAr(FULL.speakAr,function(){
+        speakAr(fullArTxt,function(){
+          clearTimeout(safetyTimer);
           anyPlaying=false;showWaveFor('cardFull',false);
           if(btn){btn.textContent='🔊 Dengar Doa Lengkap';btn.style.opacity='1';}
           setPlayed(2,'cardFull');
@@ -769,10 +747,10 @@ function buildDoa(wrap,done){
     });
   });
 
+  /* Lanjut button */
   document.getElementById('doaLanjut').addEventListener('click',function(){
     if(!played[2])return;
     speechSynthesis.cancel();
-    /* Celebration before moving on */
     wrap.innerHTML=
       '<div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 24px;text-align:center;">'
       +'<div style="font-size:52px;margin-bottom:12px;animation:fl 2s ease-in-out infinite;">🤲</div>'
